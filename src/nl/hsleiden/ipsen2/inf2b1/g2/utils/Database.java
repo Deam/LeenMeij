@@ -29,12 +29,12 @@ public class Database {
 		// If we could load the PostgreSQL JDBC Driver successfully we can try
 		// and store it in a connection object.
 		try {
-			String url = "jdbc:mysql://localhost/leenmeij";
+			String url = "jdbc:mysql://77.172.20.28/leenmeij";
 			
 			// Set the properties, set username and password.
 			Properties p = new Properties();
-			p.setProperty("user", "Admin");
-			p.setProperty("password", "Retard123");
+			p.setProperty("user", "LeenMeij");
+			p.setProperty("password", "leenmeij123");
 
 			// Store the connection in the connection object.
 			setConnection(DriverManager.getConnection(url, p));
