@@ -16,7 +16,7 @@ public class FinancialOverview extends JFrame {
 	private JPanel contentPane;
 
 	public FinancialOverview() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 650, 456);
 		
 		contentPane = new JPanel();
@@ -29,7 +29,7 @@ public class FinancialOverview extends JFrame {
 		
 		setContentPane(contentPane);
 		
-		setVisible(true);
+		//etVisible(true);
 	}
 
 }
