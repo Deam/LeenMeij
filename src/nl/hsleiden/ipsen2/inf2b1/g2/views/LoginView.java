@@ -16,8 +16,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.User;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /**
  * This class logs the user in to the system, check the password hashes and shows
