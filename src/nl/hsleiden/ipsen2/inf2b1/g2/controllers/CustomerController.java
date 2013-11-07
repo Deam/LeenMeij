@@ -172,7 +172,7 @@ public class CustomerController implements ActionListener, MouseListener {
 
         // Show the add screen
         public void showAddCustomer() {
-                addCustomerView = new AddCustomer();
+                addCustomerView = new AddCustomer(this);
                 addCustomerView.setVisible(true);
         }
         
@@ -227,6 +227,21 @@ public class CustomerController implements ActionListener, MouseListener {
                                         "CustomerID " + customer.getCustomerNumber()
                                                         + " is met succes aangepast.");
                         editCustomerView.dispose();
+                }
+                else if(e.getSource() == addCustomerView.addButton)
+                {
+    				Customer c = new Customer();
+    				c.setFirstName(addCustomerView.getVoornaam());
+    				c.setLastName(addCustomerView.getAchternaam());
+    				c.setAdress(addCustomerView.getAdres());
+    				c.setZipcode(addCustomerView.getPostcode());
+    				c.setCity(addCustomerView.getWoonplaats());
+    				c.setPhoneNumber(addCustomerView.getTelefoon());
+    				c.setLicenseNumber(addCustomerView.getRijbewijs());
+    				if (c.Insert(c) == true)
+    				{
+    					addCustomerView.dispose();
+    				}
                 }
         }
 

@@ -130,7 +130,7 @@ public class RentalController implements ActionListener, MouseListener {
                 }
                 
                 else if (e.getSource() == rentalView.addCustomerButton) {
-                        addCustomer = new AddCustomer();
+                        addCustomer = new AddCustomer(this);
                         addCustomer.setVisible(true);
                 }
                 
