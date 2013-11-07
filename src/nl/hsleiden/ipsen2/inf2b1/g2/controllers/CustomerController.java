@@ -47,98 +47,25 @@ public class CustomerController implements ActionListener, MouseListener {
                 this.editCustomerView = new EditCustomer(cId, this);
         }
         
-        public CustomerController(AdminView adminview)
-        {
-        	this.editCustomerView = new EditCustomer(cId, this);
-        	this.adminview = adminview;
-        }
-        
         public JTable CustomerTableLimited() {
-                // Create a new table
-                table = new JTable();
+            // Create a new table
+            table = new JTable();
 
-                // Create a menuitem and add actionlistner
-                editCustomerItem = new JMenuItem("Bewerken");
-                editCustomerItem.addActionListener(this);
+            // Create a menuitem and add actionlistner
+            editCustomerItem = new JMenuItem("Bewerken");
+            editCustomerItem.addActionListener(this);
 
-                deleteCustomerItem = new JMenuItem("Verwijderen");
-                deleteCustomerItem.addActionListener(this);
+            deleteCustomerItem = new JMenuItem("Verwijderen");
+            deleteCustomerItem.addActionListener(this);
 
-                // Add the items to the popupmenu
-                popupMenu = new JPopupMenu();
-                popupMenu.add(editCustomerItem);
-                popupMenu.add(deleteCustomerItem);
+            // Add the items to the popupmenu
+            popupMenu = new JPopupMenu();
+            popupMenu.add(editCustomerItem);
+            popupMenu.add(deleteCustomerItem);
 
-                // Create the lists for filling
-                Vector<Vector<String>> customerList = new Vector<Vector<String>>();
-                Vector<String> columnNames = new Vector<>();
-
-                // Make all the columnname
-                columnNames.add("Klantnr");
-                columnNames.add("Voornaam");
-                columnNames.add("Achternaam");
-                columnNames.add("Adres");
-                columnNames.add("Postcode");
-                columnNames.add("Woonplaats");
-                columnNames.add("Telefoonnummer");
-                columnNames.add("Rijbewijsnummer");
-
-                // Fill the table with the customer information
-                Customer customer = new Customer();
-                for (Customer c : customer.getLimited()) {
-                        // Add the customer data
-                        Vector<String> data = new Vector<>();
-                        data.add(Integer.toString(c.getCustomerNumber()));
-                        data.add(c.getFirstName());
-                        data.add(c.getLastName());
-                        data.add(c.getAdress());
-                        data.add(c.getZipcode());
-                        data.add(c.getCity());
-                        data.add(c.getPhoneNumber());
-                        data.add(c.getLicenseNumber());
-
-                        // Set the customer information to the list
-                        customerList.add(data);
-                }
-                
-                // Set the lists to the table
-                table = new JTable(new DefaultTableModel(customerList, columnNames));
-                // Add a mouse listner for the popupmenu
-                table.addMouseListener(this);
-
-                // Return the table
-                return table;
-        }
-
-        // Create the customer table
-        public JTable CustomerTable() {
-                // Create a new table
-                table = new JTable();
-
-                // Create a menuitem and add actionlistner
-                editCustomerItem = new JMenuItem("Bewerken");
-                editCustomerItem.addActionListener(this);
-
-                deleteCustomerItem = new JMenuItem("Verwijderen");
-                deleteCustomerItem.addActionListener(this);
-
-                // Add the items to the popupmenu
-                popupMenu = new JPopupMenu();
-                popupMenu.add(editCustomerItem);
-                popupMenu.add(deleteCustomerItem);
-                
-                // Set the lists to the table
-                table = new JTable(new DefaultTableModel(customerList(), columnNames()));
-                // Add a mouse listner for the popupmenu
-                table.addMouseListener(this);
-
-                // Return the table
-                return table;
-        }
-        
-        private Vector<String> columnNames()
-        {
-        	Vector<String> columnNames = new Vector<>();
+            // Create the lists for filling
+            Vector<Vector<String>> customerList = new Vector<Vector<String>>();
+            Vector<String> columnNames = new Vector<>();
 
             // Make all the columnname
             columnNames.add("Klantnr");
@@ -149,17 +76,10 @@ public class CustomerController implements ActionListener, MouseListener {
             columnNames.add("Woonplaats");
             columnNames.add("Telefoonnummer");
             columnNames.add("Rijbewijsnummer");
-            
-            return columnNames;
-        }
-        
-        private Vector<Vector<String>> customerList()
-        {
-        	Vector<Vector<String>> customerList = new Vector<Vector<String>>();
-        	
-        	// Fill the table with the customer information
+
+            // Fill the table with the customer information
             Customer customer = new Customer();
-            for (Customer c : customer.getAll()) {
+            for (Customer c : customer.getLimited()) {
                     // Add the customer data
                     Vector<String> data = new Vector<>();
                     data.add(Integer.toString(c.getCustomerNumber()));
@@ -174,69 +94,134 @@ public class CustomerController implements ActionListener, MouseListener {
                     // Set the customer information to the list
                     customerList.add(data);
             }
-            return customerList;
-        }
-        
-        private void refreshTableData()
-        {
-			DefaultTableModel model = (DefaultTableModel) adminview.customerTable.getModel();
-			adminview.customerTable.setModel(new DefaultTableModel(customerList(), columnNames()));
-			model.fireTableDataChanged();
-        }
-        
-        // Show the customer view
-        public void showCustomerView(){
-                customerView = new CustomerView(this);
-                customerView.setVisible(true);
-        }
-        
-        public void showCustomerOverview(){
-                customerOverview = new CustomerOverview();
-                customerOverview.setVisible(true);
-        }
+            
+            // Set the lists to the table
+            table = new JTable(new DefaultTableModel(customerList, columnNames));
+            // Add a mouse listner for the popupmenu
+            table.addMouseListener(this);
 
-        // Show the add screen
-        public void showAddCustomer() {
-                addCustomerView = new AddCustomer(this);
-                addCustomerView.setVisible(true);
-        }
+            // Return the table
+            return table;
+    }
+
+    // Create the customer table
+    public JTable CustomerTable() {
+            // Create a new table
+            table = new JTable();
+
+            // Create a menuitem and add actionlistner
+            editCustomerItem = new JMenuItem("Bewerken");
+            editCustomerItem.addActionListener(this);
+
+            deleteCustomerItem = new JMenuItem("Verwijderen");
+            deleteCustomerItem.addActionListener(this);
+
+            // Add the items to the popupmenu
+            popupMenu = new JPopupMenu();
+            popupMenu.add(editCustomerItem);
+            popupMenu.add(deleteCustomerItem);
+            
+            // Set the lists to the table
+            table = new JTable(new DefaultTableModel(customerList(), columnNames()));
+            // Add a mouse listner for the popupmenu
+            table.addMouseListener(this);
+
+            // Return the table
+            return table;
+    }
+    
+    private Vector<String> columnNames()
+    {
+    	Vector<String> columnNames = new Vector<>();
+
+        // Make all the columnname
+        columnNames.add("Klantnr");
+        columnNames.add("Voornaam");
+        columnNames.add("Achternaam");
+        columnNames.add("Adres");
+        columnNames.add("Postcode");
+        columnNames.add("Woonplaats");
+        columnNames.add("Telefoonnummer");
+        columnNames.add("Rijbewijsnummer");
         
-        // Show the edit screen
-        public void showEditCustomer(int cId, ActionListener al) {
-                editCustomerView = new EditCustomer(cId, al);
-                editCustomerView.setVisible(true);
-        }
+        return columnNames;
+    }
+    
+    private Vector<Vector<String>> customerList()
+    {
+    	Vector<Vector<String>> customerList = new Vector<Vector<String>>();
+    	
+    	// Fill the table with the customer information
+        Customer customer = new Customer();
+        for (Customer c : customer.getAll()) {
+                // Add the customer data
+                Vector<String> data = new Vector<>();
+                data.add(Integer.toString(c.getCustomerNumber()));
+                data.add(c.getFirstName());
+                data.add(c.getLastName());
+                data.add(c.getAdress());
+                data.add(c.getZipcode());
+                data.add(c.getCity());
+                data.add(c.getPhoneNumber());
+                data.add(c.getLicenseNumber());
 
-        // Show the delete option
-        public void showDeleteCustomer(int cId) {
-                Customer customer = new Customer();
-                customer = customer.getById(cId);
-
-                // Make the dialog
-                int dialog = JOptionPane.showConfirmDialog(null,
-                                "Weet je zeker dat je deze klant wilt verwijderen?",
-                                "Weet je het zeker?", JOptionPane.WARNING_MESSAGE,
-                                JOptionPane.YES_NO_OPTION);
-                
-                // Get the 
-                if (dialog == JOptionPane.YES_OPTION) {
-
-                        customer.Delete(cId);
-                        refreshTableData();
-                }
+                // Set the customer information to the list
+                customerList.add(data);
         }
-        
-        private void addCustomer()
-        {
-        	Customer customer = new Customer();
-        	{
-        		if (customer.Insert(addCustomerView.getModel()) == true)
-        		{
-        			addCustomerView.dispose();
-        			refreshTableData();
-        		}
-        	}
-        }
+        return customerList;
+    }
+    
+    // Show the customer view
+    public void showCustomerView(){
+            customerView = new CustomerView(this);
+            customerView.setVisible(true);
+    }
+    
+    public void showCustomerOverview(){
+            customerOverview = new CustomerOverview();
+            customerOverview.setVisible(true);
+    }
+
+    // Show the add screen
+    public void showAddCustomer() {
+            addCustomerView = new AddCustomer(this);
+            addCustomerView.setVisible(true);
+    }
+    
+    // Show the edit screen
+    public void showEditCustomer(int cId) {
+            editCustomerView = new EditCustomer(cId, this);
+            editCustomerView.setVisible(true);
+    }
+
+    // Show the delete option
+    public void showDeleteCustomer(int cId) {
+            Customer customer = new Customer();
+            customer = customer.getById(cId);
+
+            // Make the dialog
+            int dialog = JOptionPane.showConfirmDialog(null,
+                            "Weet je zeker dat je deze klant wilt verwijderen?",
+                            "Weet je het zeker?", JOptionPane.WARNING_MESSAGE,
+                            JOptionPane.YES_NO_OPTION);
+            
+            // Get the 
+            if (dialog == JOptionPane.YES_OPTION) {
+
+                    customer.Delete(cId);
+            }
+    }
+    
+    public void addCustomer()
+    {
+    	Customer customer = new Customer();
+    	{
+    		if (customer.Insert(addCustomerView.getModel()) == true)
+    		{
+    			addCustomerView.dispose();
+    		}
+    	}
+    }
         
         private void editCustomer()
         {
@@ -248,18 +233,13 @@ public class CustomerController implements ActionListener, MouseListener {
                             "CustomerID " + customer.getCustomerNumber()
                                             + " is met succes aangepast.");
             editCustomerView.dispose();
-            refreshTableData();
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {  
-            if (addCustomerView != null && e.getSource() == addCustomerView.addButton)
-            {
-            	addCustomer();
-            }
         		// Show the editCustomer screen
-            else if (editCustomerItem != null && e.getSource() == editCustomerItem) {
-                        showEditCustomer(id, this);
+            if (editCustomerItem != null && e.getSource() == editCustomerItem) {
+                        showEditCustomer(id);
             }
 
                 // Show the delete option
@@ -274,6 +254,10 @@ public class CustomerController implements ActionListener, MouseListener {
                 // Edit customer view:
             else if (editCustomerView != null && e.getSource() == editCustomerView.editButton) {
             	editCustomer();
+            }
+            else if (addCustomerView != null & e.getSource() == addCustomerView.addButton)
+            {
+            	showAddCustomer();
             }
         }
 

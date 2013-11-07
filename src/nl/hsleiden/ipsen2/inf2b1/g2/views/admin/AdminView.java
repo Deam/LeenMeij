@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JSeparator;
 
+import nl.hsleiden.ipsen2.inf2b1.g2.controllers.AdminController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.CustomerController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
@@ -40,7 +41,7 @@ public class AdminView extends JFrame  {
 	public JMenuItem customerItem, rentalItem, garageItem;
 	
 	
-	public AdminView(ActionListener al)  {
+	public AdminView(ActionListener al, AdminController controller)  {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		GraphicsDevice gDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -131,8 +132,7 @@ public class AdminView extends JFrame  {
 		customerOverviewPanel.setLayout(new BorderLayout(0, 0));
 		customerOverviewPanel.setBorder(BorderFactory.createTitledBorder("Laatste 50 klanten"));
 		
-		CustomerController controller = new CustomerController();
-		customerOverviewPanel.add(new JScrollPane(customerTable = controller.CustomerTable()), BorderLayout.CENTER);
+		customerOverviewPanel.add(new JScrollPane(customerTable = controller.CustomerTableLimited()), BorderLayout.CENTER);
 		
 		//
 		vehicleOverviewPanel = new JPanel();
