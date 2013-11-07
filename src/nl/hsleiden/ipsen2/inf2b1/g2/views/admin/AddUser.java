@@ -15,6 +15,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.UserController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.User;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class AddUser extends JFrame {
@@ -31,19 +32,26 @@ public class AddUser extends JFrame {
 		setTitle("Gebruiker toevoegen");
 		
 		JLabel lblGebruikersnaam = new JLabel("Gebruikersnaam:");
+		lblGebruikersnaam.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblWachtwoord = new JLabel("Wachtwoord:");
+		lblWachtwoord.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblGebruikersrol = new JLabel("Gebruikersrol:");
+		lblGebruikersrol.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		comboBox = new JComboBox<String>(UserController.userRoles());
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		usernameField = new JTextField();
+		usernameField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		addButton = new JButton("Toevoegen");
+		addButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		addButton.addActionListener(al);
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

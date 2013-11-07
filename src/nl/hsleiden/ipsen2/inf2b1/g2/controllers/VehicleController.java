@@ -23,7 +23,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.vehicle.VehicleOverview;
  * This class handles anything that has to do with vehicles
  * 
  * @author Deam 
- * 
+ * @wbp.parser.entryPoint
  */
 
 public class VehicleController implements ActionListener, MouseListener {

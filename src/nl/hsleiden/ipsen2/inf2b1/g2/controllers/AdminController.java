@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
+import java.awt.Font;
 
 /**
  * This class handles anything that has to do with vehicles
@@ -25,6 +26,17 @@ public class AdminController implements ActionListener {
 
 	public AdminController() {
 		adminview = new AdminView(this);
+		adminview.userOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.addUser.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.vehicleOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.addVehicle.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.customerOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.addCustomer.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.closeAdmin.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.customerItem.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.rentalItem.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.garageItem.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview.financialOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		cController = new CustomerController();
 		vController = new VehicleController();
 		userController = new UserController();

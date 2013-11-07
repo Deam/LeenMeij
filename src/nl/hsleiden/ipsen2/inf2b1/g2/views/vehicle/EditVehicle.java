@@ -15,6 +15,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 import com.toedter.components.JSpinField;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class EditVehicle extends JFrame {
@@ -40,55 +41,74 @@ public class EditVehicle extends JFrame {
 		vehicleId = vID;
 
 		JLabel categoryLabel = new JLabel("Voertuig category");
+		categoryLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel brandLabel = new JLabel("Voertuig merk");
+		brandLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel modelLabel = new JLabel("Voertuig model");
+		modelLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel colorLabel = new JLabel("Voertuig kleur");
+		colorLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel milageLabel = new JLabel("Kilometerstand");
+		milageLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel licenseLabel = new JLabel("Kenteken");
+		licenseLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel lblSchade = new JLabel("Opties");
+		lblSchade.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel commentLabel = new JLabel("Opmerkingen");
+		commentLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		Vehicle v = new Vehicle();
 		v = v.getById(vID);
 		
 		categoryBox = new JComboBox<String>(VehicleController.categoryItems());
+		categoryBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	
 		categoryBox.setSelectedItem(v.getVehicleCategory());
 
 		brandField = new JTextField();
+		brandField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		brandField.setText(v.getVehicleBrand());
 		brandField.setColumns(10);
 
 		modelField = new JTextField();
+		modelField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		modelField.setText(v.getVehicleModel());
 		modelField.setColumns(10);
 
 		colorField = new JTextField();
+		colorField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		colorField.setText(v.getVehicleColor());
 		colorField.setColumns(10);
 
 		lisenceField = new JTextField();
+		lisenceField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lisenceField.setText(v.getLicensePlate());
 		lisenceField.setColumns(10);
 		
 		milageField = new JSpinField();
+		milageField.getSpinner().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		milageField.setValue(v.getVehicleMilage());
 
 		optionsField = new JTextPane();
+		optionsField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		optionsField.setText(v.getVehicleOptions());
 
 		commentField = new JTextField();
+		commentField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		commentField.setText(v.getVehicleComment());
 		commentField.setColumns(10);
 		
 		urlField = new JTextField();
+		urlField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		urlField.setText(v.getImageURL());
 		urlField.setColumns(10);
 
 		editButton = new JButton("Aanpassen");
+		editButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		editButton.addActionListener(al);
 		
 		lblAfbeeldingUrl = new JLabel("Afbeelding url");
+		lblAfbeeldingUrl.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(

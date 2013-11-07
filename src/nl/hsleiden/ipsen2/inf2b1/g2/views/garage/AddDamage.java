@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class AddDamage extends JFrame{
@@ -36,20 +37,27 @@ public class AddDamage extends JFrame{
 		JPanel vehiclePanel = new JPanel();
 		
 		JLabel lblGeselecteerdeVoertuit = new JLabel("Geselecteerde voertuig");
+		lblGeselecteerdeVoertuit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblOpschrijving = new JLabel("Omschrijving");
+		lblOpschrijving.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		descriptionArea = new JTextArea();
+		descriptionArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		descriptionArea.setLineWrap(true);
 		
 		dateChooser = new JDateChooser();
+		dateChooser.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblInvoerDatum = new JLabel("Invoer datum");
+		lblInvoerDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		addButton = new JButton("Invoeren");
+		addButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		addButton.addActionListener(al);
 		
 		readyCheckbox = new JCheckBox("Voertuig gereed voor verhuur");
+		readyCheckbox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -92,17 +100,23 @@ public class AddDamage extends JFrame{
 		);
 		
 		JLabel lblMerk = new JLabel("Merk:");
+		lblMerk.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel lblModel = new JLabel("Model:");
+		lblModel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel lblKenteken = new JLabel("Kenteken:");
+		lblKenteken.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		Vehicle vehicle = new Vehicle();
 		vehicle = vehicle.getById(vehicleID);
 		
 		JLabel brandLabel = new JLabel(vehicle.getVehicleBrand());
+		brandLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		brandLabel.setText(vehicle.getVehicleBrand());
 		JLabel modelLabel = new JLabel(vehicle.getVehicleModel());
+		modelLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		modelLabel.setText(vehicle.getVehicleModel());
 		JLabel lisenceLabel = new JLabel(vehicle.getLicensePlate());
+		lisenceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lisenceLabel.setText(vehicle.getLicensePlate());
 		
 		GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);

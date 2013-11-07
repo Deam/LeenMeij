@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
 import javax.swing.JButton;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class CustomerView extends JFrame{
@@ -40,10 +41,12 @@ public class CustomerView extends JFrame{
                 optionsPanel.add(insurancePanel);
 
                 standardInsuranceBox = new JCheckBox("Standaard verzekering");
+                standardInsuranceBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 standardInsuranceBox.addActionListener(al);
                 insurancePanel.add(standardInsuranceBox);
 
                 allriskInsuranceBox = new JCheckBox("Allrisk verzekering");
+                allriskInsuranceBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 allriskInsuranceBox.addActionListener(al);
                 insurancePanel.add(allriskInsuranceBox);
 
@@ -52,28 +55,35 @@ public class CustomerView extends JFrame{
                 optionsPanel.add(extraPanel);
 
                 helmBox = new JCheckBox("Helm");
+                helmBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 helmBox.addActionListener(al);
                 extraPanel.add(helmBox);
 
                 navigationBox = new JCheckBox("Navigatiesysteem");
+                navigationBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 navigationBox.addActionListener(al);
                 extraPanel.add(navigationBox);
 
                 dangerBox = new JCheckBox("Gevarendriehoek");
+                dangerBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 dangerBox.addActionListener(al);
                 extraPanel.add(dangerBox);
 
                 helpBox = new JCheckBox("Pechonderweg hulp");
+                helpBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 helpBox.addActionListener(al);
                 extraPanel.add(helpBox);
 
                 estimateLabel = new JLabel("Geschatte prijs*: ");
+                estimateLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 optionsPanel.add(estimateLabel);
 
                 priceLabel = new JLabel("New label");
+                priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 optionsPanel.add(priceLabel);
                 
                 closeButton = new JButton("Sluiten");
+                closeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 closeButton.addActionListener(al);
                 optionsPanel.add(closeButton);
 

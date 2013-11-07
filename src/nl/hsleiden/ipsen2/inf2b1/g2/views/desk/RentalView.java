@@ -27,6 +27,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class RentalView extends JFrame {
@@ -131,6 +132,7 @@ public class RentalView extends JFrame {
                                                                 146, GroupLayout.PREFERRED_SIZE).addGap(0)));
 
                 makeRentalAgreement = new JButton("Cree\u00EBr huurovereenkomst");
+                makeRentalAgreement.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 makeRentalAgreement.addActionListener(al);
 
                 JPanel insurancePanel = new JPanel();
@@ -140,8 +142,10 @@ public class RentalView extends JFrame {
                 JPanel essentialPanel = new JPanel();
 
                 JLabel lblNewLabel = new JLabel("");
+                lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 
                 closeButton = new JButton("Sluiten");
+                closeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 closeButton.addActionListener(al);
 
                 GroupLayout gl_optionsPanel = new GroupLayout(optionsPanel);
@@ -184,16 +188,22 @@ public class RentalView extends JFrame {
                 );
 
                 JLabel lblUitgifteDatum = new JLabel("Uitgifte datum");
+                lblUitgifteDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
                 rentalDate = new JDateChooser();
+                rentalDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 
                 JLabel lblVerwachteInnameDatum = new JLabel("Verwachte inname datum");
+                lblVerwachteInnameDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
                 expectedReceiveDate = new JDateChooser();
+                expectedReceiveDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 
                 JLabel lblAanbetaling = new JLabel("Aanbetaling \u20AC");
+                lblAanbetaling.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
                 paymentBox = new JSpinField();
+                paymentBox.getSpinner().setFont(new Font("Tahoma", Font.PLAIN, 14));
                 GroupLayout gl_essentialPanel = new GroupLayout(essentialPanel);
                 gl_essentialPanel
                                 .setHorizontalGroup(gl_essentialPanel
@@ -314,28 +324,45 @@ public class RentalView extends JFrame {
 
                 // Labels for showing purpose only
                 JLabel custnrlbl = new JLabel("Klantnummer:");
+                custnrlbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel fnLabel = new JLabel("Voornaam:");
+                fnLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lnLabel = new JLabel("Achternaam: ");
+                lnLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel adLabel = new JLabel("Adres: ");
+                adLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel pcLabel = new JLabel("Postcode:");
+                pcLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel wpLabel = new JLabel("Woonplaats:");
+                wpLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel telLabel = new JLabel("Telefoonnummer:");
+                telLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lcLabel = new JLabel("Rijbewijsnummer:");
+                lcLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
                 // Labels for information filling
                 cnumberLabel = new JLabel("Klantnummer");
+                cnumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 firstnameLabel = new JLabel("Voornaam");
+                firstnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 lastnameLabel = new JLabel("Achternaam");
+                lastnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 adresLabel = new JLabel("Adres");
+                adresLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 zipcodeLabel = new JLabel("Postcode");
+                zipcodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 cityLabel = new JLabel("Woonplaats");
+                cityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 telephoneLabel = new JLabel("Telefoonnummer");
+                telephoneLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 licenseLabel = new JLabel("Rijbewijsnummer");
+                licenseLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 
 
                 // Add customer button and actionPerformed
                 addCustomerButton = new JButton("Klant toevoegen");
+                addCustomerButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 addCustomerButton.addActionListener(al);
 
                 GroupLayout gl_customerInfoPanel = new GroupLayout(customerInfoPanel);
@@ -523,7 +550,7 @@ public class RentalView extends JFrame {
                                                 .createSequentialGroup()
                                                 .addContainerGap()
                                                 .addComponent(sliderController.showImageSlider(),
-                                                                GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
+                                                               GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
                                                 .addContainerGap()));
                 gl_vehiclePanel.setVerticalGroup(gl_vehiclePanel.createParallelGroup(
                                 Alignment.TRAILING).addGroup(

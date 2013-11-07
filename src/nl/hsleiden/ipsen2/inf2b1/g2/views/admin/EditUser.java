@@ -14,6 +14,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.UserController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.User;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class EditUser extends JFrame {
@@ -32,22 +33,29 @@ public class EditUser extends JFrame {
 		u = u.getById(id);
 		
 		JLabel lblGebruikersnaam = new JLabel("Gebruikersnaam:");
+		lblGebruikersnaam.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblWachtwoord = new JLabel("Wachtwoord:");
+		lblWachtwoord.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblGebruikersrol = new JLabel("Gebruikersrol:");
+		lblGebruikersrol.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		comboBox = new JComboBox<String>(UserController.userRoles());
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBox.setSelectedItem(u.getRole());
 		
 		usernameField = new JTextField();
+		usernameField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		usernameField.setText(u.getUsername());
 		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		passwordField.setText(u.getPassword().toString());
 		
 		editButton = new JButton("Bewerken");
+		editButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		editButton.addActionListener(al);
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

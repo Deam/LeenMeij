@@ -14,6 +14,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class DeleteCustomer extends JFrame {
@@ -31,15 +32,17 @@ public class DeleteCustomer extends JFrame {
 		setBounds(100, 100, 450, 300);
 		
 		JPanel contentPane = new JPanel();
-		add(contentPane);
+		getContentPane().add(contentPane);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		setVisible(true);
 		
 		JLabel messageLabel = new JLabel("Weet u zeker dat u " + customer.getFirstName() + " " + customer.getLastName() + " wilt verwijderen?");
+		messageLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		deleteButton = new JButton("Verwijderen");
+		deleteButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.ImageSlider;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.ImageUtil;
+import java.awt.Font;
 
 public class ImageSliderController implements ActionListener, ListSelectionListener{
 
@@ -26,6 +27,15 @@ public class ImageSliderController implements ActionListener, ListSelectionListe
 	public ImageSliderController(){
 		try {
 			imageSlider = new ImageSlider(this);
+			imageSlider.optionsArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			imageSlider.textArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			imageSlider.lisenceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			imageSlider.milageLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			imageSlider.colorLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			imageSlider.modelLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			imageSlider.brandLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			imageSlider.categoryBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			imageSlider.iconList.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
