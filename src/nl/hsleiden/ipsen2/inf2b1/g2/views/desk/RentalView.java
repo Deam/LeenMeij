@@ -494,7 +494,8 @@ public class RentalView extends JFrame {
                 customerInfoPanel.setLayout(gl_customerInfoPanel);
                 customerPanel.setLayout(gl_customerPanel);
 
-                //sliderController = new ImageSliderController();
+                // TODO comment out for designer
+                sliderController = new ImageSliderController();
 
                 GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
                 gl_vehiclePanel.setHorizontalGroup(gl_vehiclePanel.createParallelGroup(
