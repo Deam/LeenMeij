@@ -79,7 +79,32 @@ public class AdminController implements ActionListener, MouseListener {
 		popupMenu.add(deleteCustomerItem);
 
 		// Set the lists to the table
-		table = new JTable(new DefaultTableModel(customerList(), columnNames()));
+		table = new JTable(new DefaultTableModel(customerListLimited(), columnNames()));
+		// Add a mouse listner for the popupmenu
+		table.addMouseListener(this);
+
+		// Return the table
+		return table;
+	}
+	
+	public JTable CustomerTable() {
+		// Create a new table
+		table = new JTable();
+
+		// Create a menuitem and add actionlistner
+		editCustomerItem = new JMenuItem("Bewerken");
+		editCustomerItem.addActionListener(this);
+
+		deleteCustomerItem = new JMenuItem("Verwijderen");
+		deleteCustomerItem.addActionListener(this);
+
+		// Add the items to the popupmenu
+		popupMenu = new JPopupMenu();
+		popupMenu.add(editCustomerItem);
+		popupMenu.add(deleteCustomerItem);
+
+		// Set the lists to the table
+		table = new JTable(new DefaultTableModel(customerListAll(), columnNames()));
 		// Add a mouse listner for the popupmenu
 		table.addMouseListener(this);
 
@@ -104,13 +129,37 @@ public class AdminController implements ActionListener, MouseListener {
 		return columnNames;
 	}
 
-	private Vector<Vector<String>> customerList()
+	private Vector<Vector<String>> customerListLimited()
 	{
 		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
 
 		// Fill the table with the customer information
 		Customer customer = new Customer();
 		for (Customer c : customer.getLimited()) {
+			// Add the customer data
+			Vector<String> data = new Vector<>();
+			data.add(Integer.toString(c.getCustomerNumber()));
+			data.add(c.getFirstName());
+			data.add(c.getLastName());
+			data.add(c.getAdress());
+			data.add(c.getZipcode());
+			data.add(c.getCity());
+			data.add(c.getPhoneNumber());
+			data.add(c.getLicenseNumber());
+
+			// Set the customer information to the list
+			customerList.add(data);
+		}
+		return customerList;
+	}
+	
+	private Vector<Vector<String>> customerListAll()
+	{
+		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
+
+		// Fill the table with the customer information
+		Customer customer = new Customer();
+		for (Customer c : customer.getAll()) {
 			// Add the customer data
 			Vector<String> data = new Vector<>();
 			data.add(Integer.toString(c.getCustomerNumber()));
@@ -185,9 +234,15 @@ public class AdminController implements ActionListener, MouseListener {
 	// Updates the tableData for Customers
 	private void updateCustomerTableData()
 	{
-		DefaultTableModel model = (DefaultTableModel)adminview.customerTable.getModel();
-		adminview.customerTable.setModel(new DefaultTableModel(customerList(), columnNames()));
-		model.fireTableDataChanged();
+		DefaultTableModel modelLim = (DefaultTableModel)adminview.customerTable.getModel();
+		adminview.customerTable.setModel(new DefaultTableModel(customerListLimited(), columnNames()));
+		modelLim.fireTableDataChanged();
+		if (customerOverview != null)
+		{
+			DefaultTableModel modelAll = (DefaultTableModel)customerOverview.customerTable.getModel();
+			customerOverview.customerTable.setModel(new DefaultTableModel(customerListAll(), columnNames()));
+			modelAll.fireTableDataChanged();
+		}
 	}
 
 	public void addCustomer()
