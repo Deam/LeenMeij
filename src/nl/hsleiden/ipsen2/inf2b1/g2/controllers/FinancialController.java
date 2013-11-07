@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Financial;
+import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.FinancialOverview;
 
 public class FinancialController implements ActionListener, MouseListener {
 
@@ -21,8 +22,13 @@ public class FinancialController implements ActionListener, MouseListener {
 	private JTable table;
 	private JPopupMenu popupMenu;
 
+	private FinancialOverview financialOverview;
 	public FinancialController() {
 
+	}
+	public void showFinancialOverview(){
+		financialOverview = new FinancialOverview();
+		financialOverview.setVisible(true);
 	}
 
 	public JTable FinancialTable() {

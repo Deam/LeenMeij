@@ -3,8 +3,6 @@ package nl.hsleiden.ipsen2.inf2b1.g2.controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
 
 /**
@@ -22,6 +20,7 @@ public class AdminController implements ActionListener {
 	private UserController userController;
 	private RentalController rentalController;
 	private DamageController damageController;
+	private FinancialController financialController;
 
 	public AdminController() {
 		adminview = new AdminView(this);
@@ -30,6 +29,7 @@ public class AdminController implements ActionListener {
 		userController = new UserController();
 		rentalController = new RentalController();
 		damageController = new DamageController();
+		financialController = new FinancialController();
 	}
 
 	public void showAdminView() {
@@ -83,8 +83,9 @@ public class AdminController implements ActionListener {
 		}
 		
 		else if(e.getSource() == adminview.financialOverview){
-			JOptionPane.showMessageDialog(null,
-					"Er kunnen op dit moment geen gegevens worden opgehaald", "Error", JOptionPane.ERROR_MESSAGE);
+			financialController.showFinancialOverview();
+			//JOptionPane.showMessageDialog(null,
+				//	"Er kunnen op dit moment geen gegevens worden opgehaald", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
