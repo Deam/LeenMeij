@@ -1,22 +1,21 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.vehicle;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
+
 import com.toedter.components.JSpinField;
 
 @SuppressWarnings("serial")
@@ -38,7 +37,7 @@ public class AddVehicle extends JFrame {
 	public AddVehicle(ActionListener al) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 425, 456);
+		setBounds(100, 100, 455, 486);
 
 		JLabel categoryLabel = new JLabel("Voertuig category");
 		JLabel brandLabel = new JLabel("Voertuig merk");

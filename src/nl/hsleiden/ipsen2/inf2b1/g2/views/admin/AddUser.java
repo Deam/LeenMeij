@@ -27,7 +27,7 @@ public class AddUser extends JFrame {
 	public AddUser(ActionListener al) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 360, 189);
+		setBounds(100, 100, 390, 209);
 		setTitle("Gebruiker toevoegen");
 		
 		JLabel lblGebruikersnaam = new JLabel("Gebruikersnaam:");
