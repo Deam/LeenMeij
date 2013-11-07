@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -26,7 +27,7 @@ public class AddUser extends JFrame {
 	public AddUser(ActionListener al) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 360, 189);
+		setBounds(100, 100, 390, 209);
 		setTitle("Gebruiker toevoegen");
 		
 		JLabel lblGebruikersnaam = new JLabel("Gebruikersnaam:");
@@ -92,6 +93,9 @@ public class AddUser extends JFrame {
 		u.setUsername(usernameField.getText());
 		u.setPassword(passwordField.getPassword());
 		u.setRole(comboBox.getSelectedItem().toString());
+		
+		JOptionPane.showMessageDialog(null, usernameField.getText() + " is succesvol aangemaakt");
+		dispose();
 		
 		return u;
 	}

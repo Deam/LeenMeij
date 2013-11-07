@@ -17,7 +17,7 @@ public class FinancialOverview extends JFrame {
 
 	public FinancialOverview() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 650, 456);
+		setBounds(100, 100, 950, 656);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

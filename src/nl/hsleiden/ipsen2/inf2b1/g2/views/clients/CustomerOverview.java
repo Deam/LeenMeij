@@ -19,13 +19,13 @@ public class CustomerOverview extends JFrame {
 	 */
 	public CustomerOverview() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 950, 656);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		contentPane.setBorder(BorderFactory.createTitledBorder("Verhuurde voertuigen"));
+		contentPane.setBorder(BorderFactory.createTitledBorder("Alle Klanten"));
 		CustomerController customerController = new CustomerController();
 		contentPane.add(new JScrollPane(customerController.CustomerTable()), BorderLayout.CENTER);
 		
