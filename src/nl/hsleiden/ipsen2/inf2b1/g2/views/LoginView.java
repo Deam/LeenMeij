@@ -32,6 +32,7 @@ public class LoginView extends JFrame{
 	public JButton cancelButton;
 	public JButton loginButton;
 	private JTextField usernameField;
+	
 
 	public LoginView(ActionListener al) {
 		// Set frame properties
@@ -39,7 +40,7 @@ public class LoginView extends JFrame{
 		setBounds(100, 100, 374, 373);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
-
+			
 		// Create contentPane
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,7 +49,7 @@ public class LoginView extends JFrame{
 		// Create user controls.
 		passwordField = new JPasswordField();
 		JLabel passwordLabel = new JLabel("Wachtwoord:");
-
+		
 		usernameField = new JTextField();
 		JLabel usernameLabel = new JLabel("Gebruikersnaam:");
 
