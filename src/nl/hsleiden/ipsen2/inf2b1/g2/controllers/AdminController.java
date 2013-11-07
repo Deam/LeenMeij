@@ -25,7 +25,7 @@ public class AdminController implements ActionListener {
 
 	public AdminController() {
 		adminview = new AdminView(this);
-		cController = new CustomerController();
+		cController = new CustomerController(adminview);
 		vController = new VehicleController();
 		userController = new UserController();
 		rentalController = new RentalController();

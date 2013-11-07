@@ -132,7 +132,7 @@ public class AdminView extends JFrame  {
 		customerOverviewPanel.setBorder(BorderFactory.createTitledBorder("Laatste 50 klanten"));
 		
 		CustomerController controller = new CustomerController();
-		customerOverviewPanel.add(new JScrollPane(controller.CustomerTable()), BorderLayout.CENTER);
+		customerOverviewPanel.add(new JScrollPane(table = controller.CustomerTable()), BorderLayout.CENTER);
 		
 		//
 		vehicleOverviewPanel = new JPanel();
