@@ -151,6 +151,17 @@ public class VehicleController implements ActionListener, MouseListener {
 			showDeleteVehicle(id);
 		}
 		
+		else if (e.getSource() == editVehicleView.editButton){
+			Vehicle vehicle = editVehicleView.getModel();
+			vehicle.Update(vehicle, vehicle.getVehicleID());
+			
+			// Show message dialog when it is completed
+			JOptionPane.showMessageDialog(null,
+					vehicle.getVehicleBrand() +" " + vehicle.getVehicleModel() + " " + vehicle.getVehicleID()
+					+ " is met succes aangepast.");
+			editVehicleView.dispose();
+		}
+		
 		else if (e.getSource() == addVehicleView.addButton) {
 			Vehicle vehicle = addVehicleView.getModel();
 			vehicle.Insert(vehicle);
@@ -158,20 +169,7 @@ public class VehicleController implements ActionListener, MouseListener {
 			JOptionPane.showMessageDialog(null, vehicle.getVehicleBrand() + " "
 					+ vehicle.getVehicleModel() + " is succesvol aangemaakt");
 			addVehicleView.dispose();
-		}
-		
-		else if (e.getSource() == editVehicleView.editButton){
-			Vehicle vehicle = editVehicleView.getModel();
-			vehicle.Update(vehicle, vehicle.getVehicleID());
-			
-			// Show message dialog when it is completed
-			JOptionPane.showMessageDialog(null,
-					"CustomerID " + vehicle.getVehicleID()
-					+ " is met succes aangepast.");
-			editVehicleView.dispose();
-		}
-		
-	
+		}	
 	}
 
 

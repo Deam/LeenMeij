@@ -85,50 +85,27 @@ public class RentalView extends JFrame {
                 optionsPanel.setBorder(BorderFactory
                                 .createTitledBorder("Overige opties"));
                 GroupLayout gl_contentPane = new GroupLayout(contentPane);
-                gl_contentPane
-                                .setHorizontalGroup(gl_contentPane
-                                                .createParallelGroup(Alignment.TRAILING)
-                                                .addGroup(
-                                                                gl_contentPane
-                                                                                .createSequentialGroup()
-                                                                                .addContainerGap()
-                                                                                .addGroup(
-                                                                                                gl_contentPane
-                                                                                                                .createParallelGroup(
-                                                                                                                                Alignment.TRAILING)
-                                                                                                                .addComponent(
-                                                                                                                                customerPanel,
-                                                                                                                                Alignment.LEADING,
-                                                                                                                                GroupLayout.DEFAULT_SIZE,
-                                                                                                                                892,
-                                                                                                                                Short.MAX_VALUE)
-                                                                                                                .addComponent(
-                                                                                                                                vehiclePanel,
-                                                                                                                                Alignment.LEADING,
-                                                                                                                                GroupLayout.DEFAULT_SIZE,
-                                                                                                                                892,
-                                                                                                                                Short.MAX_VALUE)
-                                                                                                                .addComponent(
-                                                                                                                                optionsPanel,
-                                                                                                                                Alignment.LEADING,
-                                                                                                                                GroupLayout.DEFAULT_SIZE,
-                                                                                                                                892,
-                                                                                                                                Short.MAX_VALUE))
-                                                                                .addContainerGap()));
-                gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
-                                Alignment.LEADING).addGroup(
-                                gl_contentPane
-                                                .createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(customerPanel,
-                                                                GroupLayout.PREFERRED_SIZE, 246,
-                                                                GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE,
-                                                                301, Short.MAX_VALUE)
-                                                .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
-                                                                146, GroupLayout.PREFERRED_SIZE).addGap(0)));
+                gl_contentPane.setHorizontalGroup(
+                	gl_contentPane.createParallelGroup(Alignment.TRAILING)
+                		.addGroup(gl_contentPane.createSequentialGroup()
+                			.addContainerGap()
+                			.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+                				.addComponent(vehiclePanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE)
+                				.addComponent(optionsPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE)
+                				.addComponent(customerPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE))
+                			.addContainerGap())
+                );
+                gl_contentPane.setVerticalGroup(
+                	gl_contentPane.createParallelGroup(Alignment.LEADING)
+                		.addGroup(gl_contentPane.createSequentialGroup()
+                			.addContainerGap()
+                			.addComponent(customerPanel, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+                			.addPreferredGap(ComponentPlacement.RELATED)
+                			.addComponent(vehiclePanel, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                			.addPreferredGap(ComponentPlacement.RELATED)
+                			.addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+                			.addContainerGap())
+                );
 
                 makeRentalAgreement = new JButton("Cree\u00EBr huurovereenkomst");
                 makeRentalAgreement.addActionListener(al);
@@ -146,41 +123,45 @@ public class RentalView extends JFrame {
 
                 GroupLayout gl_optionsPanel = new GroupLayout(optionsPanel);
                 gl_optionsPanel.setHorizontalGroup(
-                        gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
-                                .addGroup(gl_optionsPanel.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(insurancePanel, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(ComponentPlacement.UNRELATED)
-                                        .addComponent(extrasPanel, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(ComponentPlacement.RELATED)
-                                        .addComponent(essentialPanel, GroupLayout.PREFERRED_SIZE, 326, GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
-                                                .addGroup(gl_optionsPanel.createSequentialGroup()
-                                                        .addPreferredGap(ComponentPlacement.RELATED, 895, Short.MAX_VALUE)
-                                                        .addComponent(closeButton)
-                                                        .addGap(18)
-                                                        .addComponent(makeRentalAgreement)
-                                                        .addContainerGap())
-                                                .addGroup(gl_optionsPanel.createSequentialGroup()
-                                                        .addGap(63)
-                                                        .addComponent(lblNewLabel)
-                                                        .addContainerGap())))
+                	gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
+                		.addGroup(gl_optionsPanel.createSequentialGroup()
+                			.addContainerGap()
+                			.addGroup(gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
+                				.addGroup(gl_optionsPanel.createSequentialGroup()
+                					.addComponent(insurancePanel, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE)
+                					.addGap(218)
+                					.addComponent(essentialPanel, GroupLayout.PREFERRED_SIZE, 326, GroupLayout.PREFERRED_SIZE))
+                				.addComponent(extrasPanel, GroupLayout.PREFERRED_SIZE, 825, GroupLayout.PREFERRED_SIZE))
+                			.addPreferredGap(ComponentPlacement.RELATED)
+                			.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
+                				.addGroup(gl_optionsPanel.createSequentialGroup()
+                					.addPreferredGap(ComponentPlacement.RELATED, 728, Short.MAX_VALUE)
+                					.addComponent(closeButton)
+                					.addGap(18)
+                					.addComponent(makeRentalAgreement)
+                					.addContainerGap())
+                				.addGroup(gl_optionsPanel.createSequentialGroup()
+                					.addGap(63)
+                					.addComponent(lblNewLabel)
+                					.addContainerGap())))
                 );
                 gl_optionsPanel.setVerticalGroup(
-                        gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
-                                .addGroup(gl_optionsPanel.createSequentialGroup()
-                                        .addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
-                                                .addComponent(extrasPanel, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                                                .addComponent(insurancePanel, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                                                .addGroup(gl_optionsPanel.createSequentialGroup()
-                                                        .addGap(46)
-                                                        .addComponent(lblNewLabel)
-                                                        .addGap(34)
-                                                        .addGroup(gl_optionsPanel.createParallelGroup(Alignment.BASELINE)
-                                                                .addComponent(makeRentalAgreement)
-                                                                .addComponent(closeButton)))
-                                                .addComponent(essentialPanel, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
-                                        .addContainerGap())
+                	gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
+                		.addGroup(gl_optionsPanel.createSequentialGroup()
+                			.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
+                				.addGroup(gl_optionsPanel.createSequentialGroup()
+                					.addGap(46)
+                					.addComponent(lblNewLabel)
+                					.addGap(34)
+                					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.BASELINE)
+                						.addComponent(makeRentalAgreement)
+                						.addComponent(closeButton))
+                					.addPreferredGap(ComponentPlacement.RELATED, 120, Short.MAX_VALUE))
+                				.addGroup(Alignment.TRAILING, gl_optionsPanel.createParallelGroup(Alignment.LEADING, false)
+                					.addComponent(insurancePanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                					.addComponent(essentialPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                				.addComponent(extrasPanel, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+                			.addContainerGap())
                 );
 
                 JLabel lblUitgifteDatum = new JLabel("Uitgifte datum");
@@ -513,7 +494,7 @@ public class RentalView extends JFrame {
                 customerInfoPanel.setLayout(gl_customerInfoPanel);
                 customerPanel.setLayout(gl_customerPanel);
 
-                sliderController = new ImageSliderController();
+                //sliderController = new ImageSliderController();
 
                 GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
                 gl_vehiclePanel.setHorizontalGroup(gl_vehiclePanel.createParallelGroup(
