@@ -59,6 +59,10 @@ public class DamageController implements ActionListener{
 			}
 		}
 		
+		else if(e.getSource() == garageView.closeButton){
+			garageView.dispose();
+		}
+		
 		else if (e.getSource() == garageView.approveButton) {
 			Vehicle vehicle = new Vehicle();
 			vehicle.setVehicleAvailable(vehicleID, 0);

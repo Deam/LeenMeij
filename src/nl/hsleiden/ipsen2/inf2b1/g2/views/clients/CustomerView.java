@@ -12,11 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
+import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class CustomerView extends JFrame{
 	private JCheckBox standardInsuranceBox, allriskInsuranceBox, helmBox, navigationBox, dangerBox, helpBox;
 	private JLabel estimateLabel, priceLabel, lblPrijzenInDeze;
+	public JButton closeButton;
 
 	public CustomerView(ActionListener al) {
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -70,6 +72,10 @@ public class CustomerView extends JFrame{
 
 		priceLabel = new JLabel("New label");
 		optionsPanel.add(priceLabel);
+		
+		closeButton = new JButton("Sluiten");
+		closeButton.addActionListener(al);
+		optionsPanel.add(closeButton);
 
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.SOUTH);

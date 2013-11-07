@@ -125,6 +125,10 @@ public class RentalController implements ActionListener, MouseListener {
 			JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.", "Succes", JOptionPane.QUESTION_MESSAGE);
 		}
 
+		else if(e.getSource() == rentalView.closeButton){
+			rentalView.dispose();
+		}
+		
 		else if (e.getSource() == rentalView.addCustomerButton) {
 			addCustomer = new AddCustomer();
 			addCustomer.setVisible(true);
