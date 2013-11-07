@@ -112,6 +112,8 @@ public class DamageController implements ActionListener{
                         Vehicle vehicle = new Vehicle();
                         vehicle.setVehicleAvailable(vehicleID, checked);
                         
+                        JOptionPane.showMessageDialog(null, "De schade is toegevoegd", "Succes", JOptionPane.QUESTION_MESSAGE);
+                        
                         addDamage.dispose();
                 }
         }
