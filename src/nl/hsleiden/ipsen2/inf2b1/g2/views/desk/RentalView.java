@@ -31,586 +31,551 @@ import com.toedter.components.JSpinField;
 @SuppressWarnings("serial")
 public class RentalView extends JFrame {
 
-	private JPanel contentPane;
+        private JPanel contentPane;
 
-	private JLabel cnumberLabel, firstnameLabel, lastnameLabel, adresLabel,
-			zipcodeLabel, cityLabel, telephoneLabel, licenseLabel;
-	private ImageSliderController sliderController;
-	public JButton makeRentalAgreement;
-	private JDateChooser rentalDate, expectedReceiveDate;
-	private JSpinField paymentBox;
-	public JButton addCustomerButton;
+        private JLabel cnumberLabel, firstnameLabel, lastnameLabel, adresLabel,
+                        zipcodeLabel, cityLabel, telephoneLabel, licenseLabel;
+        private ImageSliderController sliderController;
+        public JButton makeRentalAgreement;
+        private JDateChooser rentalDate, expectedReceiveDate;
+        private JSpinField paymentBox;
+        public JButton addCustomerButton;
+        public JButton closeButton;
 
-	public RentalView(ActionListener al, RentalController controller) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 938, 765);
+        public RentalView(ActionListener al, RentalController controller) {
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                setBounds(0, 0, 938, 765);
 
-		GraphicsDevice gDevice = GraphicsEnvironment
-				.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		setSize(gDevice.getDisplayMode().getWidth(), gDevice.getDisplayMode()
-				.getHeight());
+                GraphicsDevice gDevice = GraphicsEnvironment
+                                .getLocalGraphicsEnvironment().getDefaultScreenDevice();
+                setSize(gDevice.getDisplayMode().getWidth(), gDevice.getDisplayMode()
+                                .getHeight());
 
-		// Remove decoration
-		setUndecorated(true);
+                // Remove decoration
+                setUndecorated(true);
 
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+                contentPane = new JPanel();
+                contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+                setContentPane(contentPane);
 
-		JPanel customerPanel = new JPanel();
-		customerPanel.setBorder(BorderFactory
-				.createTitledBorder("Klantgegevens"));
-		
-		JTable table = controller.CustomerTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+                JPanel customerPanel = new JPanel();
+                customerPanel.setBorder(BorderFactory
+                                .createTitledBorder("Klantgegevens"));
+                
+                JTable table = controller.CustomerTable();
+                table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                
 
-		JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setViewportView(table);
-		
-		JPanel customerTablePanel = new JPanel();
-		customerTablePanel.setLayout(new BorderLayout(0, 0));
+                JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                scrollPane.setViewportView(table);
+                
+                JPanel customerTablePanel = new JPanel();
+                customerTablePanel.setLayout(new BorderLayout(0, 0));
 
-		customerTablePanel.add(scrollPane);
-		customerTablePanel.setSize(100, 200);
+                customerTablePanel.add(scrollPane);
+                customerTablePanel.setSize(100, 200);
 
-		// Voertuigenpanel
-		JPanel vehiclePanel = new JPanel();
-		vehiclePanel.setBorder(BorderFactory
-				.createTitledBorder("Voertuigoverzicht"));
+                // Voertuigenpanel
+                JPanel vehiclePanel = new JPanel();
+                vehiclePanel.setBorder(BorderFactory
+                                .createTitledBorder("Voertuigoverzicht"));
 
-		JPanel optionsPanel = new JPanel();
-		optionsPanel.setBorder(BorderFactory
-				.createTitledBorder("Overige opties"));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane
-				.setHorizontalGroup(gl_contentPane
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(
-								gl_contentPane
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_contentPane
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addComponent(
-																customerPanel,
-																Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE,
-																892,
-																Short.MAX_VALUE)
-														.addComponent(
-																vehiclePanel,
-																Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE,
-																892,
-																Short.MAX_VALUE)
-														.addComponent(
-																optionsPanel,
-																Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE,
-																892,
-																Short.MAX_VALUE))
-										.addContainerGap()));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				gl_contentPane
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(customerPanel,
-								GroupLayout.PREFERRED_SIZE, 246,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE,
-								301, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
-								146, GroupLayout.PREFERRED_SIZE).addGap(0)));
+                JPanel optionsPanel = new JPanel();
+                optionsPanel.setBorder(BorderFactory
+                                .createTitledBorder("Overige opties"));
+                GroupLayout gl_contentPane = new GroupLayout(contentPane);
+                gl_contentPane
+                                .setHorizontalGroup(gl_contentPane
+                                                .createParallelGroup(Alignment.TRAILING)
+                                                .addGroup(
+                                                                gl_contentPane
+                                                                                .createSequentialGroup()
+                                                                                .addContainerGap()
+                                                                                .addGroup(
+                                                                                                gl_contentPane
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.TRAILING)
+                                                                                                                .addComponent(
+                                                                                                                                customerPanel,
+                                                                                                                                Alignment.LEADING,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                892,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addComponent(
+                                                                                                                                vehiclePanel,
+                                                                                                                                Alignment.LEADING,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                892,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addComponent(
+                                                                                                                                optionsPanel,
+                                                                                                                                Alignment.LEADING,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                892,
+                                                                                                                                Short.MAX_VALUE))
+                                                                                .addContainerGap()));
+                gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
+                                Alignment.LEADING).addGroup(
+                                gl_contentPane
+                                                .createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(customerPanel,
+                                                                GroupLayout.PREFERRED_SIZE, 246,
+                                                                GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(ComponentPlacement.RELATED)
+                                                .addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE,
+                                                                301, Short.MAX_VALUE)
+                                                .addPreferredGap(ComponentPlacement.RELATED)
+                                                .addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
+                                                                146, GroupLayout.PREFERRED_SIZE).addGap(0)));
 
-		makeRentalAgreement = new JButton("Cree\u00EBr huurovereenkomst");
-		makeRentalAgreement.addActionListener(al);
+                makeRentalAgreement = new JButton("Cree\u00EBr huurovereenkomst");
+                makeRentalAgreement.addActionListener(al);
 
-		JPanel insurancePanel = new JPanel();
+                JPanel insurancePanel = new JPanel();
 
-		JPanel extrasPanel = new JPanel();
+                JPanel extrasPanel = new JPanel();
 
-		JPanel essentialPanel = new JPanel();
+                JPanel essentialPanel = new JPanel();
 
-		JLabel lblNewLabel = new JLabel("");
+                JLabel lblNewLabel = new JLabel("");
+                
+                closeButton = new JButton("Sluiten");
+                closeButton.addActionListener(al);
 
-		GroupLayout gl_optionsPanel = new GroupLayout(optionsPanel);
-		gl_optionsPanel
-				.setHorizontalGroup(gl_optionsPanel
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(
-								gl_optionsPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(insurancePanel,
-												GroupLayout.PREFERRED_SIZE,
-												159, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												ComponentPlacement.UNRELATED)
-										.addComponent(extrasPanel,
-												GroupLayout.PREFERRED_SIZE,
-												196, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addComponent(essentialPanel,
-												GroupLayout.PREFERRED_SIZE,
-												326, GroupLayout.PREFERRED_SIZE)
-										.addGroup(
-												gl_optionsPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																gl_optionsPanel
-																		.createSequentialGroup()
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED,
-																				986,
-																				Short.MAX_VALUE)
-																		.addComponent(
-																				makeRentalAgreement)
-																		.addContainerGap())
-														.addGroup(
-																gl_optionsPanel
-																		.createSequentialGroup()
-																		.addGap(63)
-																		.addComponent(
-																				lblNewLabel)
-																		.addContainerGap()))));
-		gl_optionsPanel
-				.setVerticalGroup(gl_optionsPanel
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(
-								gl_optionsPanel
-										.createSequentialGroup()
-										.addGroup(
-												gl_optionsPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																extrasPanel,
-																GroupLayout.DEFAULT_SIZE,
-																117,
-																Short.MAX_VALUE)
-														.addComponent(
-																insurancePanel,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addGroup(
-																gl_optionsPanel
-																		.createSequentialGroup()
-																		.addGap(46)
-																		.addComponent(
-																				lblNewLabel)
-																		.addGap(34)
-																		.addComponent(
-																				makeRentalAgreement))
-														.addComponent(
-																essentialPanel,
-																GroupLayout.DEFAULT_SIZE,
-																117,
-																Short.MAX_VALUE))
-										.addContainerGap()));
+                GroupLayout gl_optionsPanel = new GroupLayout(optionsPanel);
+                gl_optionsPanel.setHorizontalGroup(
+                        gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
+                                .addGroup(gl_optionsPanel.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(insurancePanel, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(ComponentPlacement.UNRELATED)
+                                        .addComponent(extrasPanel, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(ComponentPlacement.RELATED)
+                                        .addComponent(essentialPanel, GroupLayout.PREFERRED_SIZE, 326, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
+                                                .addGroup(gl_optionsPanel.createSequentialGroup()
+                                                        .addPreferredGap(ComponentPlacement.RELATED, 895, Short.MAX_VALUE)
+                                                        .addComponent(closeButton)
+                                                        .addGap(18)
+                                                        .addComponent(makeRentalAgreement)
+                                                        .addContainerGap())
+                                                .addGroup(gl_optionsPanel.createSequentialGroup()
+                                                        .addGap(63)
+                                                        .addComponent(lblNewLabel)
+                                                        .addContainerGap())))
+                );
+                gl_optionsPanel.setVerticalGroup(
+                        gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
+                                .addGroup(gl_optionsPanel.createSequentialGroup()
+                                        .addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
+                                                .addComponent(extrasPanel, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                                                .addComponent(insurancePanel, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                                                .addGroup(gl_optionsPanel.createSequentialGroup()
+                                                        .addGap(46)
+                                                        .addComponent(lblNewLabel)
+                                                        .addGap(34)
+                                                        .addGroup(gl_optionsPanel.createParallelGroup(Alignment.BASELINE)
+                                                                .addComponent(makeRentalAgreement)
+                                                                .addComponent(closeButton)))
+                                                .addComponent(essentialPanel, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+                                        .addContainerGap())
+                );
 
-		JLabel lblUitgifteDatum = new JLabel("Uitgifte datum");
+                JLabel lblUitgifteDatum = new JLabel("Uitgifte datum");
 
-		rentalDate = new JDateChooser();
+                rentalDate = new JDateChooser();
 
-		JLabel lblVerwachteInnameDatum = new JLabel("Verwachte inname datum");
+                JLabel lblVerwachteInnameDatum = new JLabel("Verwachte inname datum");
 
-		expectedReceiveDate = new JDateChooser();
+                expectedReceiveDate = new JDateChooser();
 
-		JLabel lblAanbetaling = new JLabel("Aanbetaling \u20AC");
+                JLabel lblAanbetaling = new JLabel("Aanbetaling \u20AC");
 
-		paymentBox = new JSpinField();
-		GroupLayout gl_essentialPanel = new GroupLayout(essentialPanel);
-		gl_essentialPanel
-				.setHorizontalGroup(gl_essentialPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_essentialPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																lblAanbetaling)
-														.addComponent(
-																lblVerwachteInnameDatum)
-														.addComponent(
-																lblUitgifteDatum))
-										.addGap(30)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																paymentBox,
-																GroupLayout.DEFAULT_SIZE,
-																155,
-																Short.MAX_VALUE)
-														.addComponent(
-																expectedReceiveDate,
-																GroupLayout.DEFAULT_SIZE,
-																155,
-																Short.MAX_VALUE)
-														.addComponent(
-																rentalDate,
-																GroupLayout.DEFAULT_SIZE,
-																155,
-																Short.MAX_VALUE))
-										.addContainerGap()));
-		gl_essentialPanel
-				.setVerticalGroup(gl_essentialPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_essentialPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																rentalDate,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblUitgifteDatum))
-										.addGap(12)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																lblVerwachteInnameDatum)
-														.addComponent(
-																expectedReceiveDate,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												ComponentPlacement.RELATED, 23,
-												Short.MAX_VALUE)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addComponent(
-																paymentBox,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblAanbetaling))
-										.addContainerGap()));
-		essentialPanel.setLayout(gl_essentialPanel);
-		GroupLayout gl_insurancePanel = new GroupLayout(insurancePanel);
-		gl_insurancePanel.setHorizontalGroup(gl_insurancePanel
-				.createParallelGroup(Alignment.LEADING).addGap(0, 159,
-						Short.MAX_VALUE));
-		gl_insurancePanel.setVerticalGroup(gl_insurancePanel
-				.createParallelGroup(Alignment.LEADING).addGap(0, 117,
-						Short.MAX_VALUE));
-		insurancePanel.setLayout(gl_insurancePanel);
+                paymentBox = new JSpinField();
+                GroupLayout gl_essentialPanel = new GroupLayout(essentialPanel);
+                gl_essentialPanel
+                                .setHorizontalGroup(gl_essentialPanel
+                                                .createParallelGroup(Alignment.LEADING)
+                                                .addGroup(
+                                                                gl_essentialPanel
+                                                                                .createSequentialGroup()
+                                                                                .addContainerGap()
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addComponent(
+                                                                                                                                lblAanbetaling)
+                                                                                                                .addComponent(
+                                                                                                                                lblVerwachteInnameDatum)
+                                                                                                                .addComponent(
+                                                                                                                                lblUitgifteDatum))
+                                                                                .addGap(30)
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addComponent(
+                                                                                                                                paymentBox,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                155,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addComponent(
+                                                                                                                                expectedReceiveDate,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                155,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addComponent(
+                                                                                                                                rentalDate,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                155,
+                                                                                                                                Short.MAX_VALUE))
+                                                                                .addContainerGap()));
+                gl_essentialPanel
+                                .setVerticalGroup(gl_essentialPanel
+                                                .createParallelGroup(Alignment.LEADING)
+                                                .addGroup(
+                                                                gl_essentialPanel
+                                                                                .createSequentialGroup()
+                                                                                .addContainerGap()
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addComponent(
+                                                                                                                                rentalDate,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addComponent(
+                                                                                                                                lblUitgifteDatum))
+                                                                                .addGap(12)
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addComponent(
+                                                                                                                                lblVerwachteInnameDatum)
+                                                                                                                .addComponent(
+                                                                                                                                expectedReceiveDate,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                GroupLayout.PREFERRED_SIZE))
+                                                                                .addPreferredGap(
+                                                                                                ComponentPlacement.RELATED, 23,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.TRAILING)
+                                                                                                                .addComponent(
+                                                                                                                                paymentBox,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addComponent(
+                                                                                                                                lblAanbetaling))
+                                                                                .addContainerGap()));
+                essentialPanel.setLayout(gl_essentialPanel);
+                GroupLayout gl_insurancePanel = new GroupLayout(insurancePanel);
+                gl_insurancePanel.setHorizontalGroup(gl_insurancePanel
+                                .createParallelGroup(Alignment.LEADING).addGap(0, 159,
+                                                Short.MAX_VALUE));
+                gl_insurancePanel.setVerticalGroup(gl_insurancePanel
+                                .createParallelGroup(Alignment.LEADING).addGap(0, 117,
+                                                Short.MAX_VALUE));
+                insurancePanel.setLayout(gl_insurancePanel);
 
-		optionsPanel.setLayout(gl_optionsPanel);
-		
+                optionsPanel.setLayout(gl_optionsPanel);
+                
 
-		JPanel customerInfoPanel = new JPanel();
+                JPanel customerInfoPanel = new JPanel();
 
-		GroupLayout gl_customerPanel = new GroupLayout(customerPanel);
-		gl_customerPanel.setHorizontalGroup(
-			gl_customerPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_customerPanel.createSequentialGroup()
-					.addComponent(customerTablePanel, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-					.addGap(18)
-					.addComponent(customerInfoPanel, GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))
-		);
-		gl_customerPanel.setVerticalGroup(
-			gl_customerPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_customerPanel.createSequentialGroup()
-					.addGroup(gl_customerPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(customerInfoPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(gl_customerPanel.createSequentialGroup()
-							.addComponent(customerTablePanel, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-							.addGap(20)))
-					.addGap(0))
-		);
+                GroupLayout gl_customerPanel = new GroupLayout(customerPanel);
+                gl_customerPanel.setHorizontalGroup(
+                        gl_customerPanel.createParallelGroup(Alignment.TRAILING)
+                                .addGroup(gl_customerPanel.createSequentialGroup()
+                                        .addComponent(customerTablePanel, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                                        .addGap(18)
+                                        .addComponent(customerInfoPanel, GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))
+                );
+                gl_customerPanel.setVerticalGroup(
+                        gl_customerPanel.createParallelGroup(Alignment.TRAILING)
+                                .addGroup(gl_customerPanel.createSequentialGroup()
+                                        .addGroup(gl_customerPanel.createParallelGroup(Alignment.LEADING)
+                                                .addComponent(customerInfoPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(gl_customerPanel.createSequentialGroup()
+                                                        .addComponent(customerTablePanel, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                                        .addGap(20)))
+                                        .addGap(0))
+                );
 
-		// Labels for showing purpose only
-		JLabel custnrlbl = new JLabel("Klantnummer:");
-		JLabel fnLabel = new JLabel("Voornaam:");
-		JLabel lnLabel = new JLabel("Achternaam: ");
-		JLabel adLabel = new JLabel("Adres: ");
-		JLabel pcLabel = new JLabel("Postcode:");
-		JLabel wpLabel = new JLabel("Woonplaats:");
-		JLabel telLabel = new JLabel("Telefoonnummer:");
-		JLabel lcLabel = new JLabel("Rijbewijsnummer:");
+                // Labels for showing purpose only
+                JLabel custnrlbl = new JLabel("Klantnummer:");
+                JLabel fnLabel = new JLabel("Voornaam:");
+                JLabel lnLabel = new JLabel("Achternaam: ");
+                JLabel adLabel = new JLabel("Adres: ");
+                JLabel pcLabel = new JLabel("Postcode:");
+                JLabel wpLabel = new JLabel("Woonplaats:");
+                JLabel telLabel = new JLabel("Telefoonnummer:");
+                JLabel lcLabel = new JLabel("Rijbewijsnummer:");
 
-		// Labels for information filling
-		cnumberLabel = new JLabel("Klantnummer");
-		firstnameLabel = new JLabel("Voornaam");
-		lastnameLabel = new JLabel("Achternaam");
-		adresLabel = new JLabel("Adres");
-		zipcodeLabel = new JLabel("Postcode");
-		cityLabel = new JLabel("Woonplaats");
-		telephoneLabel = new JLabel("Telefoonnummer");
-		licenseLabel = new JLabel("Rijbewijsnummer");
+                // Labels for information filling
+                cnumberLabel = new JLabel("Klantnummer");
+                firstnameLabel = new JLabel("Voornaam");
+                lastnameLabel = new JLabel("Achternaam");
+                adresLabel = new JLabel("Adres");
+                zipcodeLabel = new JLabel("Postcode");
+                cityLabel = new JLabel("Woonplaats");
+                telephoneLabel = new JLabel("Telefoonnummer");
+                licenseLabel = new JLabel("Rijbewijsnummer");
 
 
 
-		// Add customer button and actionPerformed
-		addCustomerButton = new JButton("Klant toevoegen");
-		addCustomerButton.addActionListener(al);
+                // Add customer button and actionPerformed
+                addCustomerButton = new JButton("Klant toevoegen");
+                addCustomerButton.addActionListener(al);
 
-		GroupLayout gl_customerInfoPanel = new GroupLayout(customerInfoPanel);
-		gl_customerInfoPanel
-				.setHorizontalGroup(gl_customerInfoPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_customerInfoPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_customerInfoPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																gl_customerInfoPanel
-																		.createSequentialGroup()
-																		.addGroup(
-																				gl_customerInfoPanel
-																						.createParallelGroup(
-																								Alignment.TRAILING,
-																								false)
-																						.addComponent(
-																								custnrlbl,
-																								Alignment.LEADING)
-																						.addComponent(
-																								fnLabel,
-																								Alignment.LEADING)
-																						.addComponent(
-																								lnLabel,
-																								Alignment.LEADING)
-																						.addComponent(
-																								adLabel,
-																								Alignment.LEADING)
-																						.addComponent(
-																								pcLabel,
-																								Alignment.LEADING)
-																						.addComponent(
-																								wpLabel,
-																								Alignment.LEADING)
-																						.addComponent(
-																								telLabel,
-																								Alignment.LEADING,
-																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE))
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addGroup(
-																				gl_customerInfoPanel
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								telephoneLabel)
-																						.addGroup(
-																								gl_customerInfoPanel
-																										.createSequentialGroup()
-																										.addGap(1)
-																										.addGroup(
-																												gl_customerInfoPanel
-																														.createParallelGroup(
-																																Alignment.LEADING)
-																														.addComponent(
-																																firstnameLabel)
-																														.addComponent(
-																																cnumberLabel)))
-																						.addComponent(
-																								adresLabel)
-																						.addComponent(
-																								lastnameLabel)
-																						.addComponent(
-																								zipcodeLabel)
-																						.addComponent(
-																								cityLabel)))
-														.addGroup(
-																gl_customerInfoPanel
-																		.createSequentialGroup()
-																		.addComponent(
-																				lcLabel)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				licenseLabel)))
-										.addContainerGap(220, Short.MAX_VALUE))
-						.addGroup(
-								Alignment.TRAILING,
-								gl_customerInfoPanel.createSequentialGroup()
-										.addContainerGap(279, Short.MAX_VALUE)
-										.addComponent(addCustomerButton)
-										.addContainerGap()));
-		gl_customerInfoPanel
-				.setVerticalGroup(gl_customerInfoPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_customerInfoPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_customerInfoPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																gl_customerInfoPanel
-																		.createSequentialGroup()
-																		.addComponent(
-																				cnumberLabel)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				firstnameLabel)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				lastnameLabel))
-														.addGroup(
-																gl_customerInfoPanel
-																		.createSequentialGroup()
-																		.addComponent(
-																				custnrlbl)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				fnLabel)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				lnLabel)))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												gl_customerInfoPanel
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																adresLabel)
-														.addComponent(adLabel))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												gl_customerInfoPanel
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																zipcodeLabel)
-														.addComponent(pcLabel))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												gl_customerInfoPanel
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(cityLabel)
-														.addComponent(wpLabel))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												gl_customerInfoPanel
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																telephoneLabel)
-														.addComponent(telLabel))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												gl_customerInfoPanel
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(lcLabel)
-														.addComponent(
-																licenseLabel))
-										.addGap(13)
-										.addComponent(addCustomerButton)
-										.addContainerGap()));
-		customerInfoPanel.setLayout(gl_customerInfoPanel);
-		customerPanel.setLayout(gl_customerPanel);
+                GroupLayout gl_customerInfoPanel = new GroupLayout(customerInfoPanel);
+                gl_customerInfoPanel
+                                .setHorizontalGroup(gl_customerInfoPanel
+                                                .createParallelGroup(Alignment.LEADING)
+                                                .addGroup(
+                                                                gl_customerInfoPanel
+                                                                                .createSequentialGroup()
+                                                                                .addContainerGap()
+                                                                                .addGroup(
+                                                                                                gl_customerInfoPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addGroup(
+                                                                                                                                gl_customerInfoPanel
+                                                                                                                                                .createSequentialGroup()
+                                                                                                                                                .addGroup(
+                                                                                                                                                                gl_customerInfoPanel
+                                                                                                                                                                                .createParallelGroup(
+                                                                                                                                                                                                Alignment.TRAILING,
+                                                                                                                                                                                                false)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                custnrlbl,
+                                                                                                                                                                                                Alignment.LEADING)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                fnLabel,
+                                                                                                                                                                                                Alignment.LEADING)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                lnLabel,
+                                                                                                                                                                                                Alignment.LEADING)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                adLabel,
+                                                                                                                                                                                                Alignment.LEADING)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                pcLabel,
+                                                                                                                                                                                                Alignment.LEADING)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                wpLabel,
+                                                                                                                                                                                                Alignment.LEADING)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                telLabel,
+                                                                                                                                                                                                Alignment.LEADING,
+                                                                                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                                                                                Short.MAX_VALUE))
+                                                                                                                                                .addPreferredGap(
+                                                                                                                                                                ComponentPlacement.RELATED)
+                                                                                                                                                .addGroup(
+                                                                                                                                                                gl_customerInfoPanel
+                                                                                                                                                                                .createParallelGroup(
+                                                                                                                                                                                                Alignment.LEADING)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                telephoneLabel)
+                                                                                                                                                                                .addGroup(
+                                                                                                                                                                                                gl_customerInfoPanel
+                                                                                                                                                                                                                .createSequentialGroup()
+                                                                                                                                                                                                                .addGap(1)
+                                                                                                                                                                                                                .addGroup(
+                                                                                                                                                                                                                                gl_customerInfoPanel
+                                                                                                                                                                                                                                                .createParallelGroup(
+                                                                                                                                                                                                                                                                Alignment.LEADING)
+                                                                                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                                                                                firstnameLabel)
+                                                                                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                                                                                cnumberLabel)))
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                adresLabel)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                lastnameLabel)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                zipcodeLabel)
+                                                                                                                                                                                .addComponent(
+                                                                                                                                                                                                cityLabel)))
+                                                                                                                .addGroup(
+                                                                                                                                gl_customerInfoPanel
+                                                                                                                                                .createSequentialGroup()
+                                                                                                                                                .addComponent(
+                                                                                                                                                                lcLabel)
+                                                                                                                                                .addPreferredGap(
+                                                                                                                                                                ComponentPlacement.RELATED)
+                                                                                                                                                .addComponent(
+                                                                                                                                                                licenseLabel)))
+                                                                                .addContainerGap(220, Short.MAX_VALUE))
+                                                .addGroup(
+                                                                Alignment.TRAILING,
+                                                                gl_customerInfoPanel.createSequentialGroup()
+                                                                                .addContainerGap(279, Short.MAX_VALUE)
+                                                                                .addComponent(addCustomerButton)
+                                                                                .addContainerGap()));
+                gl_customerInfoPanel
+                                .setVerticalGroup(gl_customerInfoPanel
+                                                .createParallelGroup(Alignment.LEADING)
+                                                .addGroup(
+                                                                gl_customerInfoPanel
+                                                                                .createSequentialGroup()
+                                                                                .addContainerGap()
+                                                                                .addGroup(
+                                                                                                gl_customerInfoPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addGroup(
+                                                                                                                                gl_customerInfoPanel
+                                                                                                                                                .createSequentialGroup()
+                                                                                                                                                .addComponent(
+                                                                                                                                                                cnumberLabel)
+                                                                                                                                                .addPreferredGap(
+                                                                                                                                                                ComponentPlacement.RELATED)
+                                                                                                                                                .addComponent(
+                                                                                                                                                                firstnameLabel)
+                                                                                                                                                .addPreferredGap(
+                                                                                                                                                                ComponentPlacement.RELATED)
+                                                                                                                                                .addComponent(
+                                                                                                                                                                lastnameLabel))
+                                                                                                                .addGroup(
+                                                                                                                                gl_customerInfoPanel
+                                                                                                                                                .createSequentialGroup()
+                                                                                                                                                .addComponent(
+                                                                                                                                                                custnrlbl)
+                                                                                                                                                .addPreferredGap(
+                                                                                                                                                                ComponentPlacement.RELATED)
+                                                                                                                                                .addComponent(
+                                                                                                                                                                fnLabel)
+                                                                                                                                                .addPreferredGap(
+                                                                                                                                                                ComponentPlacement.RELATED)
+                                                                                                                                                .addComponent(
+                                                                                                                                                                lnLabel)))
+                                                                                .addPreferredGap(
+                                                                                                ComponentPlacement.RELATED)
+                                                                                .addGroup(
+                                                                                                gl_customerInfoPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.BASELINE)
+                                                                                                                .addComponent(
+                                                                                                                                adresLabel)
+                                                                                                                .addComponent(adLabel))
+                                                                                .addPreferredGap(
+                                                                                                ComponentPlacement.RELATED)
+                                                                                .addGroup(
+                                                                                                gl_customerInfoPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.BASELINE)
+                                                                                                                .addComponent(
+                                                                                                                                zipcodeLabel)
+                                                                                                                .addComponent(pcLabel))
+                                                                                .addPreferredGap(
+                                                                                                ComponentPlacement.RELATED)
+                                                                                .addGroup(
+                                                                                                gl_customerInfoPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.BASELINE)
+                                                                                                                .addComponent(cityLabel)
+                                                                                                                .addComponent(wpLabel))
+                                                                                .addPreferredGap(
+                                                                                                ComponentPlacement.RELATED)
+                                                                                .addGroup(
+                                                                                                gl_customerInfoPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.BASELINE)
+                                                                                                                .addComponent(
+                                                                                                                                telephoneLabel)
+                                                                                                                .addComponent(telLabel))
+                                                                                .addPreferredGap(
+                                                                                                ComponentPlacement.RELATED)
+                                                                                .addGroup(
+                                                                                                gl_customerInfoPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.BASELINE)
+                                                                                                                .addComponent(lcLabel)
+                                                                                                                .addComponent(
+                                                                                                                                licenseLabel))
+                                                                                .addGap(13)
+                                                                                .addComponent(addCustomerButton)
+                                                                                .addContainerGap()));
+                customerInfoPanel.setLayout(gl_customerInfoPanel);
+                customerPanel.setLayout(gl_customerPanel);
 
-		sliderController = new ImageSliderController();
+                sliderController = new ImageSliderController();
 
-		GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
-		gl_vehiclePanel.setHorizontalGroup(gl_vehiclePanel.createParallelGroup(
-				Alignment.TRAILING).addGroup(
-				Alignment.LEADING,
-				gl_vehiclePanel
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(sliderController.showImageSlider(),
-								GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
-						.addContainerGap()));
-		gl_vehiclePanel.setVerticalGroup(gl_vehiclePanel.createParallelGroup(
-				Alignment.TRAILING).addGroup(
-				Alignment.LEADING,
-				gl_vehiclePanel
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(sliderController.showImageSlider(),
-								GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-						.addContainerGap()));
-		vehiclePanel.setLayout(gl_vehiclePanel);
-		contentPane.setLayout(gl_contentPane);
-	}
-	
-	@SuppressWarnings("deprecation")
-	public Rented getModel()
-	{
-		Rented rented = new Rented();
-		rented.setCustomerId(Integer.parseInt(cnumberLabel.getText()));
-		rented.setVehicleId(sliderController.showImageSlider().getvID());
-		rented.setRentalDate(rentalDate.getDate().toGMTString());
-		rented.setExpectedReceiveDate(expectedReceiveDate.getDate()
-				.toGMTString());
-		rented.setPayment(paymentBox.getValue());
+                GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
+                gl_vehiclePanel.setHorizontalGroup(gl_vehiclePanel.createParallelGroup(
+                                Alignment.TRAILING).addGroup(
+                                Alignment.LEADING,
+                                gl_vehiclePanel
+                                                .createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(sliderController.showImageSlider(),
+                                                                GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
+                                                .addContainerGap()));
+                gl_vehiclePanel.setVerticalGroup(gl_vehiclePanel.createParallelGroup(
+                                Alignment.TRAILING).addGroup(
+                                Alignment.LEADING,
+                                gl_vehiclePanel
+                                                .createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(sliderController.showImageSlider(),
+                                                                GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                                                .addContainerGap()));
+                vehiclePanel.setLayout(gl_vehiclePanel);
+                contentPane.setLayout(gl_contentPane);
+        }
+        
+        @SuppressWarnings("deprecation")
+        public Rented getModel()
+        {
+                Rented rented = new Rented();
+                rented.setCustomerId(Integer.parseInt(cnumberLabel.getText()));
+                rented.setVehicleId(sliderController.showImageSlider().getvID());
+                rented.setRentalDate(rentalDate.getDate().toGMTString());
+                rented.setExpectedReceiveDate(expectedReceiveDate.getDate()
+                                .toGMTString());
+                rented.setPayment(paymentBox.getValue());
 
-		return rented;
-	}
+                return rented;
+        }
 
-	public void setModels(Customer customer) {
-		cnumberLabel.setText(Integer.toString(customer.getCustomerNumber()));
-		firstnameLabel.setText(customer.getFirstName());
-		lastnameLabel.setText(customer.getLastName());
-		adresLabel.setText(customer.getAdress());
-		zipcodeLabel.setText(customer.getZipcode());
-		cityLabel.setText(customer.getCity());
-		telephoneLabel.setText(customer.getPhoneNumber());
-		licenseLabel.setText(customer.getLicenseNumber());
-	}
-	
-	@SuppressWarnings("deprecation")
-	public Financial getFinancialModel(){
-		Financial f = new Financial();
-		f.setRentedDate(new Date().toGMTString());
-		f.setCustomerNumber(Integer.parseInt(cnumberLabel.getText()));
-		f.setCustomerFirstname(firstnameLabel.getText());
-		f.setCustomerLastname(lastnameLabel.getText());
-		f.setVehicleID(sliderController.showImageSlider().getvID());
-		f.setVehicleBrand(sliderController.showImageSlider().brandLabel.getText());
-		f.setVehicleModel(sliderController.showImageSlider().modelLabel.getText());
-		f.setLicencePlate(sliderController.showImageSlider().lisenceLabel.getText());
-		f.setRentalKost(paymentBox.getValue());
-		
-		return f;
-	}
+        public void setModels(Customer customer) {
+                cnumberLabel.setText(Integer.toString(customer.getCustomerNumber()));
+                firstnameLabel.setText(customer.getFirstName());
+                lastnameLabel.setText(customer.getLastName());
+                adresLabel.setText(customer.getAdress());
+                zipcodeLabel.setText(customer.getZipcode());
+                cityLabel.setText(customer.getCity());
+                telephoneLabel.setText(customer.getPhoneNumber());
+                licenseLabel.setText(customer.getLicenseNumber());
+        }
+        
+        @SuppressWarnings("deprecation")
+        public Financial getFinancialModel(){
+                Financial f = new Financial();
+                f.setRentedDate(new Date().toGMTString());
+                f.setCustomerNumber(Integer.parseInt(cnumberLabel.getText()));
+                f.setCustomerFirstname(firstnameLabel.getText());
+                f.setCustomerLastname(lastnameLabel.getText());
+                f.setVehicleID(sliderController.showImageSlider().getvID());
+                f.setVehicleBrand(sliderController.showImageSlider().brandLabel.getText());
+                f.setVehicleModel(sliderController.showImageSlider().modelLabel.getText());
+                f.setLicencePlate(sliderController.showImageSlider().lisenceLabel.getText());
+                f.setRentalKost(paymentBox.getValue());
+                
+                return f;
+        }
 }
