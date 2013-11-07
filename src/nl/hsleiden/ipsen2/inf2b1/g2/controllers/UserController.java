@@ -150,7 +150,7 @@ public class UserController implements ActionListener, MouseListener{
 
 		// If user clicks cancel button, dispose the frame.
 		else if (e.getSource() == loginView.cancelButton) {
-			loginView.dispose();
+			System.exit(0);
 		}
 		
 		else if(e.getSource() == editUser.editButton){

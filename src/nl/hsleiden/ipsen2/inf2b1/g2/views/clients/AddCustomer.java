@@ -145,32 +145,17 @@ public class AddCustomer extends JFrame {
 		
 	}
 	
-	public String getVoornaam() {
-		return voornaamText.getText();
-	}
-
-	public String getAchternaam() {
-		return achternaamText.getText();
-	}
-
-	public String getAdres() {
-		return adresText.getText();
-	}
-
-	public String getPostcode() {
-		return postcodeText.getText();
-	}
-
-	public String getWoonplaats() {
-		return woonplaatsText.getText();
-	}
-
-	public String getTelefoon() {
-		return telefoonText.getText();
-	}
-
-	public String getRijbewijs() {
-		return rijbewijsText.getText();
+	public Customer getModel()
+	{
+		Customer c = new Customer();
+		c.setFirstName(voornaamText.getText());
+		c.setLastName(achternaamText.getText());
+		c.setAdress(adresText.getText());
+		c.setZipcode(postcodeText.getText());
+		c.setCity(woonplaatsText.getText());
+		c.setPhoneNumber(telefoonText.getText());
+		c.setLicenseNumber(rijbewijsText.getText());
+		return c;
 	}
 
 }

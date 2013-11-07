@@ -30,17 +30,18 @@ public class RentalController implements ActionListener, MouseListener {
 
         private RentalView rentalView;
         private AddCustomer addCustomer;
+        private CustomerController cController;
 
         private int id = 0;
         private JTable table;
         
-        private EditCustomer editUser;
+        private EditCustomer editCustomer;
 
         private JPopupMenu popupMenu;
-        public JMenuItem editUserItem;
+        public JMenuItem editCustomerItem;
 
         public RentalController() {
-
+        	cController = new CustomerController();
         }
 
         public void showRentalView() {
@@ -54,12 +55,12 @@ public class RentalController implements ActionListener, MouseListener {
                 table = new JTable();
 
                 // Create a menuitem and add actionlistner
-                editUserItem = new JMenuItem("Bewerken");
-                editUserItem.addActionListener(this);
+                editCustomerItem = new JMenuItem("Bewerken");
+                editCustomerItem.addActionListener(this);
 
                 // Add the items to the popupmenu
                 popupMenu = new JPopupMenu();
-                popupMenu.add(editUserItem);
+                popupMenu.add(editCustomerItem);
 
                 // Create the lists for filling
                 Vector<Vector<String>> customerList = new Vector<Vector<String>>();
@@ -102,14 +103,20 @@ public class RentalController implements ActionListener, MouseListener {
                 return table;
         }
         
-        public void showEditUser(int uId){
-                editUser = new EditCustomer(uId, this);
-                editUser.setVisible(true);
+        public void showEditCustomer(int uId){
+                editCustomer = new EditCustomer(uId, this);
+                editCustomer.setVisible(true);
         }
+        
 
         @Override
         public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == rentalView.makeRentalAgreement) {
+        	
+            if(rentalView != null && e.getSource() == rentalView.addCustomerButton) {
+                cController.showAddCustomer();
+        }
+        
+            else if (rentalView != null && e.getSource() == rentalView.makeRentalAgreement) {
                         Rented rented = new Rented();
                         rented = rentalView.getModel();
 
@@ -125,28 +132,23 @@ public class RentalController implements ActionListener, MouseListener {
                         JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.", "Succes", JOptionPane.QUESTION_MESSAGE);
                 }
 
-                else if(e.getSource() == rentalView.closeButton){
+                else if(rentalView != null && e.getSource() == rentalView.closeButton){
                         rentalView.dispose();
                 }
-                
-                else if (e.getSource() == rentalView.addCustomerButton) {
-                        addCustomer = new AddCustomer(this);
-                        addCustomer.setVisible(true);
+               
+                else if(editCustomerItem != null && e.getSource() == editCustomerItem){
+                        showEditCustomer(id);
                 }
                 
-                else if(e.getSource() == editUserItem){
-                        showEditUser(id);
-                }
-                
-                else if (e.getSource() == editUser.editButton) {
-                        Customer customer = editUser.getModel();
+                else if (editCustomer != null && e.getSource() == editCustomer.editButton) {
+                        Customer customer = editCustomer.getModel();
                         customer.Update(customer, customer.getCustomerNumber());
 
                         // Show message dialog when it is completed
                         JOptionPane.showMessageDialog(null,
                                         "CustomerID " + customer.getCustomerNumber()
                                                         + " is met succes aangepast.");
-                        editUser.dispose();
+                        editCustomer.dispose();
                 }
         }
 

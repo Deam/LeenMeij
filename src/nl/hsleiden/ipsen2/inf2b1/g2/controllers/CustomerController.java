@@ -32,7 +32,7 @@ public class CustomerController implements ActionListener, MouseListener {
         private AdminView adminView;
         private CustomerView customerView;
         private EditCustomer editCustomerView;
-        private AddCustomer addCustomerView;
+        public AddCustomer addCustomerView;
         private CustomerOverview customerOverview;
         private JPopupMenu popupMenu;
         public JMenuItem editCustomerItem, deleteCustomerItem;
@@ -202,23 +202,33 @@ public class CustomerController implements ActionListener, MouseListener {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-                // Show the editCustomer screen
-                if (e.getSource() == editCustomerItem) {
+        public void actionPerformed(ActionEvent e) {  
+            if (addCustomerView != null && e.getSource() == addCustomerView.addButton)
+            {
+            	Customer customer = new Customer();
+            	{
+            		if (customer.Insert(addCustomerView.getModel()) == true)
+            		{
+            			addCustomerView.dispose();
+            		}
+            	}
+            }
+        		// Show the editCustomer screen
+            else if (editCustomerItem != null && e.getSource() == editCustomerItem) {
                         showEditCustomer(id, this);
-                }
+            }
 
                 // Show the delete option
-                else if (e.getSource() == deleteCustomerItem) {
+            else if (deleteCustomerItem != null && e.getSource() == deleteCustomerItem) {
                         showDeleteCustomer(id);
-                }
+            }
                 
-                else if(e.getSource() == customerView.closeButton) {
+            else if(customerView != null && e.getSource() == customerView.closeButton) {
                         customerView.dispose();
-                }
+            }
                 
                 // Edit customer view:
-                else if (e.getSource() == editCustomerView.editButton) {
+            else if (editCustomerView != null && e.getSource() == editCustomerView.editButton) {
                         Customer customer = editCustomerView.getModel();
                         customer.Update(customer, customer.getCustomerNumber());
 
@@ -227,22 +237,7 @@ public class CustomerController implements ActionListener, MouseListener {
                                         "CustomerID " + customer.getCustomerNumber()
                                                         + " is met succes aangepast.");
                         editCustomerView.dispose();
-                }
-                else if(e.getSource() == addCustomerView.addButton)
-                {
-    				Customer c = new Customer();
-    				c.setFirstName(addCustomerView.getVoornaam());
-    				c.setLastName(addCustomerView.getAchternaam());
-    				c.setAdress(addCustomerView.getAdres());
-    				c.setZipcode(addCustomerView.getPostcode());
-    				c.setCity(addCustomerView.getWoonplaats());
-    				c.setPhoneNumber(addCustomerView.getTelefoon());
-    				c.setLicenseNumber(addCustomerView.getRijbewijs());
-    				if (c.Insert(c) == true)
-    				{
-    					addCustomerView.dispose();
-    				}
-                }
+            }
         }
 
         @Override
