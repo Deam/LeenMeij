@@ -174,6 +174,8 @@ public class LoginView extends JFrame{
 		user.setUsername(usernameField.getText());
 		user.setPassword(passwordField.getPassword());
 		
+		System.out.println(passwordField.getPassword());
+		
 		return user;
 	}
 }
