@@ -31,7 +31,6 @@ public class GarageView extends JFrame {
 	public JPanel damageTablePanel;
 	public JButton addDamageButton;
 	public JButton approveButton;
-	public JButton closeButton;
 
 	/**
 	 * Create the frame.
@@ -55,32 +54,24 @@ public class GarageView extends JFrame {
 		JPanel customerPanel = new JPanel();
 		
 		vehiclePanel = new JPanel();
-		
-		closeButton = new JButton("Sluiten");
-		closeButton.addActionListener(al);
-		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblZoekHierHet)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(searchField, GroupLayout.DEFAULT_SIZE, 1019, Short.MAX_VALUE)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(searchButton)))
-								.addGap(814))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(customerPanel, GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE, 1041, Short.MAX_VALUE)
-								.addContainerGap()))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(closeButton)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblZoekHierHet)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(searchField, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(searchButton)))
+							.addGap(814))
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(customerPanel, GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE, 592, Short.MAX_VALUE)
 							.addContainerGap())))
 		);
 		groupLayout.setVerticalGroup(
@@ -96,9 +87,7 @@ public class GarageView extends JFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 						.addComponent(vehiclePanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(customerPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED, 632, Short.MAX_VALUE)
-					.addComponent(closeButton)
-					.addContainerGap())
+					.addContainerGap(330, Short.MAX_VALUE))
 		);
 			
 		

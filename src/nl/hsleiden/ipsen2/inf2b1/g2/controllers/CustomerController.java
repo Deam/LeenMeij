@@ -213,10 +213,6 @@ public class CustomerController implements ActionListener, MouseListener {
 			showDeleteCustomer(id);
 		}
 		
-		else if(e.getSource() == customerView.closeButton) {
-			customerView.dispose();
-		}
-		
 		// Edit customer view:
 		else if (e.getSource() == editCustomerView.editButton) {
 			Customer customer = editCustomerView.getModel();
