@@ -27,8 +27,9 @@ public class AddCustomer extends JFrame {
 	private static JTextField woonplaatsText;
 	private static JTextField telefoonText;
 	private static JTextField rijbewijsText;
+	public JButton addButton;
 	
-	public AddCustomer() {
+	public AddCustomer(ActionListener al) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -76,23 +77,9 @@ public class AddCustomer extends JFrame {
 		rijbewijsText = new JTextField();
 		rijbewijsText.setColumns(10);
 		
-		JButton addButton = new JButton("Toevoegen");
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				Customer c = new Customer();
-				c.setFirstName(voornaamText.getText());
-				c.setLastName(achternaamText.getText());
-				c.setAdress(adresText.getText());
-				c.setZipcode(postcodeText.getText());
-				c.setCity(woonplaatsText.getText());
-				c.setPhoneNumber(telefoonText.getText());
-				c.setLicenseNumber(rijbewijsText.getText());
-				c.Insert(c);
-				JOptionPane.showMessageDialog(null, voornaamText.getText() + " " + achternaamText.getText() + " is succesvol aangemaakt");
-				dispose();
-			}
-		});
+		addButton = new JButton("Toevoegen");
+		addButton.addActionListener(al);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -156,6 +143,19 @@ public class AddCustomer extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 		pack();
 		
+	}
+	
+	public Customer getModel()
+	{
+		Customer c = new Customer();
+		c.setFirstName(voornaamText.getText());
+		c.setLastName(achternaamText.getText());
+		c.setAdress(adresText.getText());
+		c.setZipcode(postcodeText.getText());
+		c.setCity(woonplaatsText.getText());
+		c.setPhoneNumber(telefoonText.getText());
+		c.setLicenseNumber(rijbewijsText.getText());
+		return c;
 	}
 
 }
