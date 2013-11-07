@@ -179,8 +179,8 @@ public class CustomerController implements ActionListener, MouseListener {
         
         private void refreshTableData()
         {
-			DefaultTableModel model = (DefaultTableModel) adminview.table.getModel();
-			adminview.table.setModel(new DefaultTableModel(customerList(), columnNames()));
+			DefaultTableModel model = (DefaultTableModel) adminview.customerTable.getModel();
+			adminview.customerTable.setModel(new DefaultTableModel(customerList(), columnNames()));
 			model.fireTableDataChanged();
         }
         
@@ -222,6 +222,7 @@ public class CustomerController implements ActionListener, MouseListener {
                 if (dialog == JOptionPane.YES_OPTION) {
 
                         customer.Delete(cId);
+                        refreshTableData();
                 }
         }
         
@@ -235,6 +236,19 @@ public class CustomerController implements ActionListener, MouseListener {
         			refreshTableData();
         		}
         	}
+        }
+        
+        private void editCustomer()
+        {
+            Customer customer = editCustomerView.getModel();
+            customer.Update(customer, customer.getCustomerNumber());
+
+            // Show message dialog when it is completed
+            JOptionPane.showMessageDialog(null,
+                            "CustomerID " + customer.getCustomerNumber()
+                                            + " is met succes aangepast.");
+            editCustomerView.dispose();
+            refreshTableData();
         }
 
         @Override
@@ -259,14 +273,7 @@ public class CustomerController implements ActionListener, MouseListener {
                 
                 // Edit customer view:
             else if (editCustomerView != null && e.getSource() == editCustomerView.editButton) {
-                        Customer customer = editCustomerView.getModel();
-                        customer.Update(customer, customer.getCustomerNumber());
-
-                        // Show message dialog when it is completed
-                        JOptionPane.showMessageDialog(null,
-                                        "CustomerID " + customer.getCustomerNumber()
-                                                        + " is met succes aangepast.");
-                        editCustomerView.dispose();
+            	editCustomer();
             }
         }
 
