@@ -1,9 +1,11 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.models;
 
 import java.sql.ResultSet;
-
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
 
@@ -30,7 +32,7 @@ public class Customer extends Database {
 	 * 
 	 * @param customer
 	 */
-	public void Insert(Customer customer) {
+	public boolean Insert(Customer customer) {
 		try {
 			// Open the connection
 			connect();
@@ -54,9 +56,12 @@ public class Customer extends Database {
 
 			// Close the connection
 			close();
-
-		} catch (Exception e) {
-			System.out.println(e);
+			JOptionPane.showMessageDialog(null, customer.getFirstName() + " " + customer.getLastName() + " is succesvol aangemaakt");
+			return true;
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Klant " + customer.getLastName() + " met rijbewijsnummer " + customer.getLicenseNumber() + " bestaal al.");
+			return false;
 		}
 	}
 

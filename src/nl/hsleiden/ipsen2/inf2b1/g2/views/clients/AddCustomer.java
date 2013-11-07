@@ -88,9 +88,10 @@ public class AddCustomer extends JFrame {
 				c.setCity(woonplaatsText.getText());
 				c.setPhoneNumber(telefoonText.getText());
 				c.setLicenseNumber(rijbewijsText.getText());
-				c.Insert(c);
-				JOptionPane.showMessageDialog(null, voornaamText.getText() + " " + achternaamText.getText() + " is succesvol aangemaakt");
-				dispose();
+				if (c.Insert(c) == true)
+				{
+					dispose();
+				}
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

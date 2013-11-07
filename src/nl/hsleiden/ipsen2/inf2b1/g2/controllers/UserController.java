@@ -140,8 +140,12 @@ public class UserController implements ActionListener, MouseListener{
 		}
 		
 		else if(e.getSource() == addUser.addButton){
-			User user = new User();			
-			user.Insert(addUser.getModel());
+			User user = new User();		
+			
+			if (user.Insert(addUser.getModel()) == true)
+			{
+				addUser.dispose();
+			}
 		}
 
 		// If user clicks cancel button, dispose the frame.

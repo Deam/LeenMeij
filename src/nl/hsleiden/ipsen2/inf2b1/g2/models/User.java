@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
 
 /**
@@ -27,7 +29,7 @@ public class User extends Database {
 	 * 
 	 * @param user
 	 */
-	public void Insert(User user) {
+	public boolean Insert(User user) {
 		// Connect to the database
 		connect();
 		try {
@@ -45,9 +47,11 @@ public class User extends Database {
 
 			// Close the connection
 			close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, user.getUsername() + " is succesvol aangemaakt");
+			return true;
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Kan gebruiker " + user.getUsername() + " niet aanmaken. Mogelijk bestaat deze al.");
+			return false;
 		}
 	}
 

@@ -93,10 +93,6 @@ public class AddUser extends JFrame {
 		u.setUsername(usernameField.getText());
 		u.setPassword(passwordField.getPassword());
 		u.setRole(comboBox.getSelectedItem().toString());
-		
-		JOptionPane.showMessageDialog(null, usernameField.getText() + " is succesvol aangemaakt");
-		dispose();
-		
 		return u;
 	}
 }
