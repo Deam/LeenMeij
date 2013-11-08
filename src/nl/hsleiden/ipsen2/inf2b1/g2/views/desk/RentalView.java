@@ -1,6 +1,7 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.desk;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionListener;
@@ -31,7 +32,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class RentalView extends JFrame {

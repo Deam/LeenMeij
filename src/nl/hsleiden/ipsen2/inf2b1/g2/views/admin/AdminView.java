@@ -1,32 +1,29 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.admin;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.BorderFactory;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.AdminController;
-import nl.hsleiden.ipsen2.inf2b1.g2.controllers.CustomerController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class AdminView extends JFrame  {

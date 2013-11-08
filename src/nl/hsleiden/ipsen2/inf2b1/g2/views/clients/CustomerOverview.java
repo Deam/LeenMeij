@@ -10,7 +10,6 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.AdminController;
-import nl.hsleiden.ipsen2.inf2b1.g2.controllers.CustomerController;
 
 @SuppressWarnings("serial")
 public class CustomerOverview extends JFrame {

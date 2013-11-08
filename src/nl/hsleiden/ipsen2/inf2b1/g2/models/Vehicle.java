@@ -28,6 +28,7 @@ public class Vehicle extends Database{
 	private String vehicleComment;
 	private String imageURL;
 	private int available;
+	private double price;
 	
 	private ResultSet set = null;
 	
@@ -42,7 +43,7 @@ public class Vehicle extends Database{
 			connect();
 			
 			// Prepare the insert statement
-			PreparedStatement statement = getConnection().prepareStatement("INSERT INTO vehicle(category, brand, model, color, milage, lisence, options, comment, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement statement = getConnection().prepareStatement("INSERT INTO vehicle(category, brand, model, color, milage, lisence, options, comment, image, price_pd) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			// Set all the customer information
 			statement.setString(1, vehicle.getVehicleCategory());
@@ -54,6 +55,7 @@ public class Vehicle extends Database{
 			statement.setString(7, vehicle.getVehicleOptions());
 			statement.setString(8, vehicle.getVehicleComment());
 			statement.setString(9, vehicle.getImageURL());
+			statement.setDouble(10, vehicle.getPrice());
 			
 			// Execute the query
 			statement.executeUpdate();
@@ -79,7 +81,7 @@ public class Vehicle extends Database{
 			connect();
 			
 			// Prepare the update statement
-			PreparedStatement statement = getConnection().prepareStatement("UPDATE vehicle SET category = ?, brand = ?, model = ?, color = ?, milage = ?, lisence = ?, options = ?, comment =?, image = ? WHERE vehicleid = ?");
+			PreparedStatement statement = getConnection().prepareStatement("UPDATE vehicle SET category = ?, brand = ?, model = ?, color = ?, milage = ?, lisence = ?, options = ?, comment =?, image = ?, price_pd = ? WHERE vehicleid = ?");
 			
 			// Set all the customer information
 			statement.setString(1, vehicle.getVehicleCategory());
@@ -91,7 +93,8 @@ public class Vehicle extends Database{
 			statement.setString(7, vehicle.getVehicleOptions());
 			statement.setString(8, vehicle.getVehicleComment());
 			statement.setString(9, vehicle.getImageURL());
-			statement.setInt(10, id);
+			statement.setDouble(10, vehicle.getPrice());
+			statement.setInt(11, id);
 			
 			// Execute the query
 			statement.executeUpdate();
@@ -159,6 +162,7 @@ public class Vehicle extends Database{
 				v.setVehicleComment(set.getString("comment"));
 				v.setImageURL(set.getString("image"));
 				v.setAvailable(set.getInt("available"));
+				v.setPrice(set.getDouble("price_pd"));
 				
 				vehicleList.add(v);
 			}
@@ -235,6 +239,7 @@ public class Vehicle extends Database{
 			v.setLicensePlate(set.getString("lisence"));
 			v.setVehicleComment(set.getString("comment"));
 			v.setImageURL(set.getString("image"));
+			v.setPrice(set.getDouble("price_pd"));
 			
 			
 			// Close the database connection
@@ -350,18 +355,20 @@ public class Vehicle extends Database{
 		this.imageURL = imageURL;
 	}
 
-	/**
-	 * @return the available
-	 */
 	public int getAvailable() {
 		return available;
 	}
 
-	/**
-	 * @param available the available to set
-	 */
 	public void setAvailable(int available) {
 		this.available = available;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 	
 
