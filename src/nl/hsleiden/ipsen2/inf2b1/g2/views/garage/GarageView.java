@@ -25,7 +25,7 @@ import com.toedter.components.JSpinField;
 
 @SuppressWarnings("serial")
 public class GarageView extends JFrame {
-	public JButton searchButton;
+	public JButton searchButton, closeButton;
 	public JSpinField searchField;
 	public JLabel lastnameLabel, firstnameLabel, customerNumberLabel, lisencenumberLabel, phonenumberLabel,cityLabel,zipcodeLabel,addressLabel;
 	public JPanel vehiclePanel;
@@ -146,6 +146,9 @@ public class GarageView extends JFrame {
 		
 		approveButton = new JButton("Voertuig goedkeuren");
 		approveButton.addActionListener(al);
+		
+		closeButton = new JButton("Terug");
+		closeButton.addActionListener(al);
 		
 		GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
 		gl_vehiclePanel.setHorizontalGroup(
