@@ -29,9 +29,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.AdminController;
-import nl.hsleiden.ipsen2.inf2b1.g2.controllers.CustomerController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
+
+import com.toedter.calendar.JDateChooser;
 
 @SuppressWarnings("serial")
 public class AdminView extends JFrame  {
@@ -46,6 +47,7 @@ public class AdminView extends JFrame  {
 	public JPanel customerOverviewPanel,vehicleOverviewPanel,financialOverviewPanel;
 	public JMenuItem customerItem, rentalItem, garageItem;
 	
+	private JDateChooser startDate, endDate;
 	
 	public AdminView(ActionListener al, AdminController controller)  {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -61,7 +63,7 @@ public class AdminView extends JFrame  {
 		JMenu mnBestand = new JMenu("Bestand");
 		mnBestand.setForeground(Color.BLACK);
 		mnBestand.setBackground(Color.LIGHT_GRAY);
-		mnBestand.setFont(new Font("Dialog", Font.PLAIN, 16));
+		mnBestand.setFont(new Font("Dialog", Font.BOLD, 16));
 		menuBar.add(mnBestand);
 		
 		closeAdmin = new JMenuItem("Afsluiten");
@@ -89,7 +91,7 @@ public class AdminView extends JFrame  {
 		
 		JMenu klantMenu = new JMenu("Klanten");
 		klantMenu.setForeground(Color.BLACK);
-		klantMenu.setFont(new Font("Dialog", Font.PLAIN, 16));
+		klantMenu.setFont(new Font("Dialog", Font.BOLD, 16));
 		menuBar.add(klantMenu);
 		
 		addCustomer = new JMenuItem("Klant toevoegen");
@@ -107,7 +109,7 @@ public class AdminView extends JFrame  {
 		
 		JMenu mnVoertuigen = new JMenu("Voertuigen");
 		mnVoertuigen.setForeground(Color.BLACK);
-		mnVoertuigen.setFont(new Font("Dialog", Font.PLAIN, 16));
+		mnVoertuigen.setFont(new Font("Dialog", Font.BOLD, 16));
 		menuBar.add(mnVoertuigen);
 		
 		addVehicle = new JMenuItem("Voertuig toevoegen");
@@ -125,7 +127,7 @@ public class AdminView extends JFrame  {
 		
 		JMenu mnGebruikers = new JMenu("Gebruikers");
 		mnGebruikers.setForeground(Color.BLACK);
-		mnGebruikers.setFont(new Font("Dialog", Font.PLAIN, 16));
+		mnGebruikers.setFont(new Font("Dialog", Font.BOLD, 16));
 		menuBar.add(mnGebruikers);
 		
 		addUser = new JMenuItem("Gebruiker toevoegen");
@@ -143,7 +145,7 @@ public class AdminView extends JFrame  {
 		
 		JMenu mnFinancien = new JMenu("Financi\u00EBn");
 		mnFinancien.setForeground(Color.BLACK);
-		mnFinancien.setFont(new Font("Dialog", Font.PLAIN, 16));
+		mnFinancien.setFont(new Font("Dialog", Font.BOLD, 16));
 		menuBar.add(mnFinancien);
 		
 		financialOverview = new JMenuItem("Overzicht weergegeven");
@@ -193,6 +195,20 @@ public class AdminView extends JFrame  {
 	         e.printStackTrace();
 	      }
 		
+		startDate = new JDateChooser();
+		startDate.getCalendarButton().setFont(
+				new Font("Tahoma", Font.PLAIN, 14));
+		endDate = new JDateChooser();
+		endDate.getCalendarButton().setFont(
+				new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblFinancieelWeergeven = new JLabel("Financieel weergeven");
+		
+		JLabel lblNewLabel = new JLabel("Van");
+		
+		JLabel lblTot = new JLabel("Tot");
+		
+		
 		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -201,12 +217,26 @@ public class AdminView extends JFrame  {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(10)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblNewLabel)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(startDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(lblTot))
+								.addComponent(lblFinancieelWeergeven))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(endDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 1309, Short.MAX_VALUE)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
 						.addComponent(financialOverviewPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1876, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(customerOverviewPanel, GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
 							.addGap(18)
-							.addComponent(vehicleOverviewPanel, GroupLayout.PREFERRED_SIZE, 925, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
+							.addComponent(vehicleOverviewPanel, GroupLayout.PREFERRED_SIZE, 925, GroupLayout.PREFERRED_SIZE)))
 					.addGap(22))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -214,12 +244,22 @@ public class AdminView extends JFrame  {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(customerOverviewPanel, GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+						.addComponent(customerOverviewPanel, GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
 						.addComponent(vehicleOverviewPanel, GroupLayout.PREFERRED_SIZE, 653, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(financialOverviewPanel, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblFinancieelWeergeven)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addComponent(startDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblNewLabel))
+								.addComponent(lblTot, Alignment.TRAILING)
+								.addComponent(endDate, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
