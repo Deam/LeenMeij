@@ -1,6 +1,7 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.controllers;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -48,8 +49,8 @@ public class AdminController implements ActionListener, MouseListener {
 	private int cId;
 
 	public AdminController() {
-		adminview = new AdminView(this);
-		adminview.userOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
+		adminview = new AdminView(this, this);
+		adminview.userOverview.setFont(new Font("Dialog", Font.PLAIN, 14)); 
 		adminview.addUser.setFont(new Font("Dialog", Font.PLAIN, 14));
 		adminview.vehicleOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		adminview.addVehicle.setFont(new Font("Dialog", Font.PLAIN, 14));

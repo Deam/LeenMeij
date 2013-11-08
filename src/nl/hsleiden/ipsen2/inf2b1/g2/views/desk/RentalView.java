@@ -37,7 +37,7 @@ import java.awt.Font;
 public class RentalView extends JFrame {
 
 	private JPanel contentPane;
-
+	public JTable customerTable;
 	private JLabel cnumberLabel, firstnameLabel, lastnameLabel, adresLabel,
 			zipcodeLabel, cityLabel, telephoneLabel, licenseLabel;
 	private ImageSliderController sliderController;
@@ -145,10 +145,13 @@ public class RentalView extends JFrame {
 		JPanel extrasPanel = new JPanel();
 
 		Options o = new Options();
+		
+		priceLabel = new JLabel("Totaal bedrag \u20AC ");
 
 		for (Options options : o.getAll()) {
 			final JCheckBox box = new JCheckBox();
 			box.setText(options.getName());
+			box.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			final double price = options.getPrice();
 			box.addItemListener(new ItemListener() {
 
@@ -338,6 +341,7 @@ public class RentalView extends JFrame {
                                                                                                                                 lblAanbetaling))
                                                                                 .addContainerGap()));
                 essentialPanel.setLayout(gl_essentialPanel);
+                JPanel insurancePanel = new JPanel();
                 GroupLayout gl_insurancePanel = new GroupLayout(insurancePanel);
                 gl_insurancePanel.setHorizontalGroup(gl_insurancePanel
                                 .createParallelGroup(Alignment.LEADING).addGap(0, 159,
