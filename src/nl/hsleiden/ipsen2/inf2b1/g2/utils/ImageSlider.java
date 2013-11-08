@@ -1,6 +1,7 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.utils;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class ImageSlider extends JPanel{
 	public Vehicle vehicle;
 
 	// Labels, textarea, and combobox
-	public JLabel brandLabel, modelLabel, lisenceLabel, milageLabel, colorLabel;
+	public JLabel brandLabel, modelLabel, lisenceLabel, milageLabel, colorLabel, priceLabel;
 	public JTextArea textArea, optionsArea;
 	public JComboBox<String> categoryBox;
 	public String imgUrl;
@@ -69,11 +70,13 @@ public class ImageSlider extends JPanel{
 		
 		// Create the information panel
 		JPanel eastPanel = new JPanel();
-		brandLabel = new JLabel("Merk:");
-		modelLabel = new JLabel("Model:");
-		colorLabel = new JLabel("Kleur:");
-		milageLabel = new JLabel("Kilometerstand:");
-		lisenceLabel = new JLabel("Kenteken:");
+		brandLabel = new JLabel("Merk: ");
+		modelLabel = new JLabel("Model: ");
+		colorLabel = new JLabel("Kleur: ");
+		milageLabel = new JLabel("Kilometerstand: ");
+		lisenceLabel = new JLabel("Kenteken: ");
+		priceLabel = new JLabel("Prijs per dag: ");
+		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textArea = new JTextArea();
 		optionsArea = new JTextArea();
 		
@@ -92,6 +95,7 @@ public class ImageSlider extends JPanel{
 						.addComponent(colorLabel)
 						.addComponent(milageLabel)
 						.addComponent(lisenceLabel)
+						.addComponent(priceLabel)
 						.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
 						.addComponent(optionsLabel)
 						.addComponent(optionsArea, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
@@ -112,6 +116,8 @@ public class ImageSlider extends JPanel{
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lisenceLabel)
 					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(priceLabel)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(commentLabel)
 					.addGap(8)
 					.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
@@ -127,11 +133,12 @@ public class ImageSlider extends JPanel{
 	
 	public void ChangeText() {
 		// Set the text for all the labels
-		brandLabel.setText(vehicle.getVehicleBrand());
-		modelLabel.setText(vehicle.getVehicleModel());
-		colorLabel.setText(vehicle.getVehicleColor());
-		milageLabel.setText(Integer.toString(vehicle.getVehicleMilage()) + " kilometer");
-		lisenceLabel.setText(vehicle.getLicensePlate());
+		brandLabel.setText("Merk: " + vehicle.getVehicleBrand());
+		modelLabel.setText("Model: " + vehicle.getVehicleModel());
+		colorLabel.setText("Kleur: " + vehicle.getVehicleColor());
+		milageLabel.setText("Kilometerstand " + Integer.toString(vehicle.getVehicleMilage()) + " kilometer");
+		lisenceLabel.setText("Kenteken: " + vehicle.getLicensePlate());
+		priceLabel.setText("Prijs per dag: " + Double.toString(vehicle.getPrice()));
 		
 		optionsArea.setText(vehicle.getVehicleOptions());
 		optionsArea.setEnabled(false);
