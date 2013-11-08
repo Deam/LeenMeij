@@ -139,7 +139,7 @@ public class UserController implements ActionListener, MouseListener{
 			handleLogin();
 		}
 		
-		else if(e.getSource() == addUser.addButton){
+		else if(addUser != null && e.getSource() == addUser.addButton){
 			User user = new User();		
 			
 			if (user.Insert(addUser.getModel()) == true)
@@ -153,7 +153,7 @@ public class UserController implements ActionListener, MouseListener{
 			System.exit(0);
 		}
 		
-		else if(e.getSource() == editUser.editButton){
+		else if(editUser != null && e.getSource() == editUser.editButton){
 			User user = new User();
 			user = editUser.getModel();
 			user.Update(user, id);
