@@ -250,6 +250,8 @@ public class CustomerController implements ActionListener, MouseListener {
                 
             else if(customerView != null && e.getSource() == customerView.closeButton) {
                         customerView.dispose();
+                        UserController controller = new UserController();
+            			controller.showLoginView();
             }
                 
                 // Edit customer view:

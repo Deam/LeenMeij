@@ -82,6 +82,8 @@ public class DamageController implements ActionListener{
                 
                 else if(e.getSource() == garageView.closeButton){
                         garageView.dispose();
+                        UserController controller = new UserController();
+            			controller.showLoginView();
                 }
                 
                 else if (e.getSource() == garageView.approveButton) {
