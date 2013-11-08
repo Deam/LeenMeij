@@ -612,6 +612,7 @@ public class RentalView extends JFrame {
 		rented.setExpectedReceiveDate(expectedReceiveDate.getDate()
 				.toGMTString());
 		rented.setPayment(paymentBox.getValue());
+		rented.setTotal(Double.parseDouble(priceLabel.getText()));
 
 		return rented;
 	}

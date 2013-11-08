@@ -21,6 +21,7 @@ public class Rented extends Database{
 	private double payment;
 	private String insurance;
 	private String options;
+	private double total;
 	
 	private ResultSet set = null;
 	
@@ -45,6 +46,7 @@ public class Rented extends Database{
 			rented.setPayment(set.getDouble("payment"));
 			rented.setInsurance(set.getString("insurance"));
 			rented.setOptions(set.getString("options"));
+			rented.setTotal(set.getDouble("total"));
 			
 			
 		} catch (Exception e) {
@@ -67,7 +69,7 @@ public class Rented extends Database{
 			connect();
 			
 			// Prepare the insert statement
-			PreparedStatement statement = getConnection().prepareStatement("INSERT INTO rented(vehicleid, customerid, rentaldate, expectedreceivedate, payment) VALUES(?, ?, ?, ?, ?)");
+			PreparedStatement statement = getConnection().prepareStatement("INSERT INTO rented(vehicleid, customerid, rentaldate, expectedreceivedate, payment, total) VALUES(?, ?, ?, ?, ?, ?)");
 			
 			// Set all the customer information
 			statement.setInt(1, rented.getVehicleId());
@@ -75,6 +77,7 @@ public class Rented extends Database{
 			statement.setString(3, rented.getRentalDate());
 			statement.setString(4, rented.getExpectedReceiveDate());
 			statement.setDouble(5, rented.getPayment());
+			statement.setDouble(6, rented.getTotal());
 			
 			// Execute the query
 			statement.executeUpdate();
@@ -211,6 +214,14 @@ public class Rented extends Database{
 	 */
 	public void setOptions(String options) {
 		this.options = options;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 }
