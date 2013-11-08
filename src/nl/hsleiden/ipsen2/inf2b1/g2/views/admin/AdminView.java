@@ -47,7 +47,7 @@ public class AdminView extends JFrame  {
 	public JPanel customerOverviewPanel,vehicleOverviewPanel,financialOverviewPanel;
 	public JMenuItem customerItem, rentalItem, garageItem;
 	
-	private JDateChooser startDate, endDate;
+	public JDateChooser startDate, endDate;
 	
 	public AdminView(ActionListener al, AdminController controller)  {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
