@@ -1,5 +1,6 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.vehicle;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -19,8 +20,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 
 import com.toedter.components.JSpinField;
-
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class AddVehicle extends JFrame {
@@ -42,7 +41,7 @@ public class AddVehicle extends JFrame {
 	public AddVehicle(ActionListener al) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 455, 510);
+		setBounds(100, 100, 486, 540);
 
 		JLabel categoryLabel = new JLabel("Voertuig category");
 		categoryLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));

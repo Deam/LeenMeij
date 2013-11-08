@@ -26,9 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.RentalController;
@@ -160,14 +158,14 @@ public class RentalView extends JFrame {
 						.createSequentialGroup()
 						.addContainerGap()
 						.addComponent(customerPanel,
-								GroupLayout.PREFERRED_SIZE, 246,
+								GroupLayout.PREFERRED_SIZE, 256,
 								GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE,
 								301, Short.MAX_VALUE)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
-								146, GroupLayout.PREFERRED_SIZE)
+								206, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90,
 								GroupLayout.PREFERRED_SIZE).addGap(0)));
 
