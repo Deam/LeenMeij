@@ -121,9 +121,12 @@ public class VehicleController implements ActionListener, MouseListener {
 	
 	public void updateVehicleTableData()
 	{
-		DefaultTableModel model = (DefaultTableModel)adminView.vehicleTable.getModel();
-		adminView.vehicleTable.setModel(new DefaultTableModel(vehicleList(), columnNames()));
-		model.fireTableDataChanged();
+		if (adminView != null)
+		{
+			DefaultTableModel model = (DefaultTableModel)adminView.vehicleTable.getModel();
+			adminView.vehicleTable.setModel(new DefaultTableModel(vehicleList(), columnNames()));
+			model.fireTableDataChanged();
+		}
 	}
 	
 	// Show the vehicle overview

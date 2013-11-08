@@ -6,6 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
@@ -14,6 +15,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
 public class VehicleOverview extends JFrame {
 
 	private JPanel contentPane;
+	public JTable vehicleTable;
 
 	public VehicleOverview() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -25,7 +27,7 @@ public class VehicleOverview extends JFrame {
 		
 		contentPane.setBorder(BorderFactory.createTitledBorder(" Alle voertuigen"));
 		VehicleController vehicleController = new VehicleController();
-		contentPane.add(new JScrollPane(vehicleController.VehicleTable()), BorderLayout.CENTER);
+		contentPane.add(new JScrollPane(vehicleTable = vehicleController.VehicleTable()), BorderLayout.CENTER);
 		
 		setContentPane(contentPane);
 		
