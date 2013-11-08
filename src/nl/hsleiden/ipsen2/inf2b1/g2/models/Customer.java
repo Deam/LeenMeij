@@ -60,7 +60,7 @@ public class Customer extends Database {
 			return true;
 			
 		} catch (SQLException e) {
-			if (e.getMessage().contains(""))
+			if (e.getMessage().contains("Duplicate entry"))
 			{
 				JOptionPane.showMessageDialog(null, "Klant " + customer.getLastName() + " met rijbewijsnummer " + customer.getLicenseNumber() + " bestaal al.");
 			}
