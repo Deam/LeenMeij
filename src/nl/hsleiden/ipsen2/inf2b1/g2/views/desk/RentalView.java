@@ -65,20 +65,20 @@ public class RentalView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JPanel customerPanel = new JPanel();
-		customerPanel.setBorder(BorderFactory
-				.createTitledBorder("Klantgegevens"));
+                JPanel customerPanel = new JPanel();
+                customerPanel.setBorder(BorderFactory
+                                .createTitledBorder("Klantgegevens"));
+                
+                customerTable = controller.CustomerTable();
+                customerTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                
 
-		JTable table = controller.CustomerTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		JScrollPane scrollPane = new JScrollPane(table,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setViewportView(table);
-
-		JPanel customerTablePanel = new JPanel();
-		customerTablePanel.setLayout(new BorderLayout(0, 0));
+                JScrollPane scrollPane = new JScrollPane(customerTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                scrollPane.setViewportView(customerTable);
+                
+                JPanel customerTablePanel = new JPanel();
+                customerTablePanel.setLayout(new BorderLayout(0, 0));
 
 		customerTablePanel.add(scrollPane);
 		customerTablePanel.setSize(100, 200);

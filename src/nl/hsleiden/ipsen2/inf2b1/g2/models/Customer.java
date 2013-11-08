@@ -71,7 +71,7 @@ public class Customer extends Database {
 	 * @param customer
 	 * @param id
 	 */
-	public void Update(Customer customer, int id) {
+	public boolean Update(Customer customer, int id) {
 		try {
 			// Open the connection
 			connect();
@@ -93,12 +93,14 @@ public class Customer extends Database {
 
 			// Execute the query
 			statement.executeUpdate();
-
 			// Close the connection
 			close();
+			JOptionPane.showMessageDialog(null, "CustomerID " + customer.getCustomerNumber() + " is met succes aangepast.");
+			return true;
 
-		} catch (Exception e) {
-			System.out.println(e);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Klant met rijbewijsnummer " + customer.getLicenseNumber() + " bestaat al");
+			return false;
 		}
 	}
 

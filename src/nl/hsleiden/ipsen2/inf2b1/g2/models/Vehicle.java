@@ -2,7 +2,10 @@ package nl.hsleiden.ipsen2.inf2b1.g2.models;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
 
@@ -32,7 +35,7 @@ public class Vehicle extends Database{
 	 * Insert a customer
 	 * @param customer
 	 */
-	public void Insert(Vehicle vehicle)
+	public boolean Insert(Vehicle vehicle)
 	{
 		try {
 			// Open the connection
@@ -57,9 +60,10 @@ public class Vehicle extends Database{
 			
 			// Close the connection
 			close();
-			
-		} catch (Exception e) {
-			System.out.println(e);
+			return true;
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Voertuig met nummerbord " + vehicle.getLicensePlate() + " bestaat al!");
+			return false;
 		}
 	}
 	

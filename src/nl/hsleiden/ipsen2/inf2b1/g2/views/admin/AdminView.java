@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JSeparator;
 
+import nl.hsleiden.ipsen2.inf2b1.g2.controllers.AdminController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.CustomerController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
@@ -34,14 +35,14 @@ public class AdminView extends JFrame  {
 	public JMenuItem editCustomer, deleteCustomer;
 	
 	private JPanel contentPane;
-	public JTable table;
+	public JTable customerTable, vehicleTable;
 	public JMenuItem closeAdmin, addCustomer, addVehicle, addUser, customerOverview, vehicleOverview, financialOverview, userOverview;
 	
 	public JPanel customerOverviewPanel,vehicleOverviewPanel,financialOverviewPanel;
 	public JMenuItem customerItem, rentalItem, garageItem;
 	
 	
-	public AdminView(ActionListener al)  {
+	public AdminView(ActionListener al, AdminController controller)  {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		GraphicsDevice gDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -137,16 +138,15 @@ public class AdminView extends JFrame  {
 		customerOverviewPanel.setLayout(new BorderLayout(0, 0));
 		customerOverviewPanel.setBorder(BorderFactory.createTitledBorder("Laatste 50 klanten"));
 		
-		CustomerController controller = new CustomerController();
-		customerOverviewPanel.add(new JScrollPane(controller.CustomerTable()), BorderLayout.CENTER);
+		customerOverviewPanel.add(new JScrollPane(customerTable = controller.CustomerTableLimited()), BorderLayout.CENTER);
 		
 		//
 		vehicleOverviewPanel = new JPanel();
 		vehicleOverviewPanel.setLayout(new BorderLayout(0, 0));
 		vehicleOverviewPanel.setBorder(BorderFactory.createTitledBorder("Alle voertuigen"));
 		
-		VehicleController vehicleController = new VehicleController();
-		vehicleOverviewPanel.add(new JScrollPane(vehicleController.VehicleTable()), BorderLayout.CENTER);
+		VehicleController vehicleController = new VehicleController(this);
+		vehicleOverviewPanel.add(new JScrollPane(vehicleTable = vehicleController.VehicleTable()), BorderLayout.CENTER);
 		
 		
 		financialOverviewPanel = new JPanel();
