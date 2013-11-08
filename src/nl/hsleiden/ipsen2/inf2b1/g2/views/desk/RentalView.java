@@ -1,14 +1,20 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.desk;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -83,53 +89,66 @@ public class RentalView extends JFrame {
 		JPanel optionsPanel = new JPanel();
 		optionsPanel.setBorder(BorderFactory
 				.createTitledBorder("Overige opties"));
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout(0,0));
+				
+		try {
+	         BufferedImage img = ImageIO.read(getClass().getResource("/image/logo.png"));
+	         ImageIcon icon = new ImageIcon(img);
+	         Image img1 = icon.getImage() ;  
+	         Image newimg = img1.getScaledInstance( 199, 92,  java.awt.Image.SCALE_SMOOTH ) ;  
+	         icon = new ImageIcon( newimg );
+	         JLabel label = new JLabel(icon);
+	         panel.add(label,BorderLayout.CENTER);
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      }
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane
-				.setHorizontalGroup(gl_contentPane
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(
-								gl_contentPane
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_contentPane
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addComponent(
-																customerPanel,
-																Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE,
-																892,
-																Short.MAX_VALUE)
-														.addComponent(
-																vehiclePanel,
-																Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE,
-																892,
-																Short.MAX_VALUE)
-														.addComponent(
-																optionsPanel,
-																Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE,
-																892,
-																Short.MAX_VALUE))
-										.addContainerGap()));
+		.setHorizontalGroup(gl_contentPane
+				.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE)
+								.addComponent(customerPanel,Alignment.LEADING,GroupLayout.DEFAULT_SIZE,
+										892,
+										Short.MAX_VALUE)
+										.addComponent(
+												vehiclePanel,
+												Alignment.LEADING,
+												GroupLayout.DEFAULT_SIZE,
+												892,
+												Short.MAX_VALUE)
+												.addComponent(
+														optionsPanel,
+														Alignment.LEADING,
+														GroupLayout.DEFAULT_SIZE,
+														892,
+														Short.MAX_VALUE))
+														.addContainerGap()));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
 				Alignment.LEADING).addGroup(
-				gl_contentPane
+						gl_contentPane
 						.createSequentialGroup()
 						.addContainerGap()
 						.addComponent(customerPanel,
 								GroupLayout.PREFERRED_SIZE, 246,
 								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE,
-								301, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
-								146, GroupLayout.PREFERRED_SIZE).addGap(0)));
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE,
+										301, Short.MAX_VALUE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
+												146, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+											.addGap(0))
+										);
 
 		makeRentalAgreement = new JButton("Cree\u00EBr huurovereenkomst");
+		makeRentalAgreement.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		makeRentalAgreement.addActionListener(al);
 
 		JPanel insurancePanel = new JPanel();
@@ -371,6 +390,7 @@ public class RentalView extends JFrame {
 
 		// Add customer button and actionPerformed
 		addCustomerButton = new JButton("Klant toevoegen");
+		addCustomerButton.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		addCustomerButton.addActionListener(al);
 
 		GroupLayout gl_customerInfoPanel = new GroupLayout(customerInfoPanel);
@@ -542,7 +562,7 @@ public class RentalView extends JFrame {
 														.addComponent(lcLabel)
 														.addComponent(
 																licenseLabel))
-										.addGap(13)
+										.addGap(10)
 										.addComponent(addCustomerButton)
 										.addContainerGap()));
 		customerInfoPanel.setLayout(gl_customerInfoPanel);

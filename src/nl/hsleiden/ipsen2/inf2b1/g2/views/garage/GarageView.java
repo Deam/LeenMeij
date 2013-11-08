@@ -1,24 +1,27 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.garage;
 
-import java.sql.SQLException;
-
-import javax.swing.JFrame;
-
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.sql.SQLException;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
-import com.toedter.components.JSpinField;
-
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import com.toedter.components.JSpinField;
 
 @SuppressWarnings("serial")
 public class GarageView extends JFrame {
@@ -31,6 +34,7 @@ public class GarageView extends JFrame {
 	public JPanel damageTablePanel;
 	public JButton addDamageButton;
 	public JButton approveButton;
+	private JPanel panel;
 
 	/**
 	 * Create the frame.
@@ -50,44 +54,65 @@ public class GarageView extends JFrame {
 		searchField = new JSpinField();
 
 		JLabel lblZoekHierHet = new JLabel("Zoek hier het verhuurnummer");
+		lblZoekHierHet.setFont(new Font("Tahoma", Font.PLAIN, 17));
 
 		JPanel customerPanel = new JPanel();
 		
 		vehiclePanel = new JPanel();
+		
+		panel = new JPanel();
+		panel.setLayout(new BorderLayout(0,0));
+				
+		try {
+	         BufferedImage img = ImageIO.read(getClass().getResource("/image/logo.png"));
+	         ImageIcon icon = new ImageIcon(img);
+	         Image img1 = icon.getImage() ;  
+	         Image newimg = img1.getScaledInstance( 199, 92,  java.awt.Image.SCALE_SMOOTH ) ;  
+	         icon = new ImageIcon( newimg );
+	         JLabel label = new JLabel(icon);
+	         panel.add(label,BorderLayout.CENTER);
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      }
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addGap(27)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE, 1065, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblZoekHierHet)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(searchField, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(searchButton)))
-							.addGap(814))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(customerPanel, GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE, 592, Short.MAX_VALUE)
-							.addContainerGap())))
+								.addComponent(searchButton)
+								.addComponent(searchField, GroupLayout.PREFERRED_SIZE, 312, GroupLayout.PREFERRED_SIZE))
+							.addGap(279)
+							.addComponent(customerPanel, GroupLayout.PREFERRED_SIZE, 779, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(1654, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+					.addGap(20))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblZoekHierHet)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(searchField, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(searchButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(vehiclePanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(customerPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
-					.addContainerGap(330, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(32)
+							.addComponent(lblZoekHierHet)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(searchField, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(searchButton))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(40)
+							.addComponent(customerPanel, GroupLayout.PREFERRED_SIZE, 349, GroupLayout.PREFERRED_SIZE)))
+					.addGap(29)
+					.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(155)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+					.addGap(157))
 		);
 			
 		
