@@ -171,10 +171,6 @@ public class RentalView extends JFrame {
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90,
 								GroupLayout.PREFERRED_SIZE).addGap(0)));
 
-		makeRentalAgreement = new JButton("Cree\u00EBr huurovereenkomst");
-		makeRentalAgreement.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-		makeRentalAgreement.addActionListener(al);
-
 		JPanel extrasPanel = new JPanel();
 
 		Options o = new Options();
@@ -208,10 +204,6 @@ public class RentalView extends JFrame {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		closeButton = new JButton("Sluiten");
-		closeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		closeButton.addActionListener(al);
-
 		JLabel lblSelecteerDeVerhuur = new JLabel(
 				"Selecteer de verhuur periode");
 		lblSelecteerDeVerhuur.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -223,127 +215,64 @@ public class RentalView extends JFrame {
 		calculateButton = new JButton("Bereken prijs");
 		calculateButton.addActionListener(al);
 		calculateButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		closeButton = new JButton("Sluiten");
+		closeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		closeButton.addActionListener(al);
+		
+		makeRentalAgreement = new JButton("Cree\u00EBr overeenkomst");
+		makeRentalAgreement.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		makeRentalAgreement.addActionListener(al);
 
 		GroupLayout gl_optionsPanel = new GroupLayout(optionsPanel);
-		gl_optionsPanel
-				.setHorizontalGroup(gl_optionsPanel
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(
-								gl_optionsPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_optionsPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																lblSelecteerDeVerhuur)
-														.addComponent(
-																essentialPanel,
-																GroupLayout.PREFERRED_SIZE,
-																326,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(18)
-										.addGroup(
-												gl_optionsPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																gl_optionsPanel
-																		.createSequentialGroup()
-																		.addComponent(
-																				extrasPanel,
-																				GroupLayout.PREFERRED_SIZE,
-																				493,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addGroup(
-																				gl_optionsPanel
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addGroup(
-																								gl_optionsPanel
-																										.createSequentialGroup()
-																										.addGap(55)
-																										.addComponent(
-																												priceLabel)
-																										.addPreferredGap(
-																												ComponentPlacement.RELATED,
-																												583,
-																												Short.MAX_VALUE)
-																										.addComponent(
-																												closeButton)
-																										.addGap(18)
-																										.addComponent(
-																												makeRentalAgreement))
-																						.addGroup(
-																								gl_optionsPanel
-																										.createSequentialGroup()
-																										.addGap(18)
-																										.addComponent(
-																												calculateButton))))
-														.addComponent(
-																lblSelecteerDeGewenste))
-										.addContainerGap()));
-		gl_optionsPanel
-				.setVerticalGroup(gl_optionsPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_optionsPanel
-										.createSequentialGroup()
-										.addGap(18)
-										.addGroup(
-												gl_optionsPanel
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addGroup(
-																gl_optionsPanel
-																		.createParallelGroup(
-																				Alignment.BASELINE)
-																		.addComponent(
-																				makeRentalAgreement)
-																		.addComponent(
-																				closeButton))
-														.addGroup(
-																gl_optionsPanel
-																		.createSequentialGroup()
-																		.addGroup(
-																				gl_optionsPanel
-																						.createParallelGroup(
-																								Alignment.BASELINE)
-																						.addComponent(
-																								lblSelecteerDeVerhuur)
-																						.addComponent(
-																								lblSelecteerDeGewenste))
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addGroup(
-																				gl_optionsPanel
-																						.createParallelGroup(
-																								Alignment.LEADING,
-																								false)
-																						.addComponent(
-																								essentialPanel,
-																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addGroup(
-																								Alignment.TRAILING,
-																								gl_optionsPanel
-																										.createSequentialGroup()
-																										.addComponent(
-																												calculateButton)
-																										.addPreferredGap(
-																												ComponentPlacement.RELATED,
-																												GroupLayout.DEFAULT_SIZE,
-																												Short.MAX_VALUE)
-																										.addComponent(
-																												priceLabel))
-																						.addComponent(
-																								extrasPanel,
-																								GroupLayout.DEFAULT_SIZE,
-																								156,
-																								Short.MAX_VALUE))))
-										.addContainerGap()));
+		gl_optionsPanel.setHorizontalGroup(
+			gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_optionsPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblSelecteerDeVerhuur)
+						.addComponent(essentialPanel, GroupLayout.PREFERRED_SIZE, 326, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_optionsPanel.createSequentialGroup()
+							.addComponent(extrasPanel, GroupLayout.PREFERRED_SIZE, 493, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(gl_optionsPanel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(priceLabel)
+								.addGroup(gl_optionsPanel.createSequentialGroup()
+									.addComponent(calculateButton)
+									.addGap(323))))
+						.addComponent(lblSelecteerDeGewenste))
+					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_optionsPanel.createSequentialGroup()
+							.addGap(69)
+							.addComponent(makeRentalAgreement))
+						.addGroup(gl_optionsPanel.createSequentialGroup()
+							.addGap(113)
+							.addComponent(closeButton)))
+					.addGap(101))
+		);
+		gl_optionsPanel.setVerticalGroup(
+			gl_optionsPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_optionsPanel.createSequentialGroup()
+					.addGap(18)
+					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSelecteerDeVerhuur)
+						.addComponent(lblSelecteerDeGewenste))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(essentialPanel, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+						.addGroup(gl_optionsPanel.createSequentialGroup()
+							.addGroup(gl_optionsPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(calculateButton)
+								.addComponent(makeRentalAgreement))
+							.addGap(18)
+							.addComponent(closeButton)
+							.addPreferredGap(ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+							.addComponent(priceLabel))
+						.addComponent(extrasPanel, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+					.addContainerGap())
+		);
 
 		JLabel lblUitgifteDatum = new JLabel("Uitgifte datum");
 		lblUitgifteDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));

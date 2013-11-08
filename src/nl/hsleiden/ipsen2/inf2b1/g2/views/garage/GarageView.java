@@ -147,7 +147,7 @@ public class GarageView extends JFrame {
 		approveButton = new JButton("Voertuig goedkeuren");
 		approveButton.addActionListener(al);
 		
-		closeButton = new JButton("Terug");
+		closeButton = new JButton("Sluiten");
 		closeButton.addActionListener(al);
 		
 		GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
@@ -155,9 +155,9 @@ public class GarageView extends JFrame {
 			gl_vehiclePanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_vehiclePanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_vehiclePanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(damageTablePanel, GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_vehiclePanel.createSequentialGroup()
+					.addGroup(gl_vehiclePanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(damageTablePanel, GroupLayout.DEFAULT_SIZE, 1543, Short.MAX_VALUE)
+						.addGroup(gl_vehiclePanel.createSequentialGroup()
 							.addGroup(gl_vehiclePanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_vehiclePanel.createSequentialGroup()
 									.addGroup(gl_vehiclePanel.createParallelGroup(Alignment.LEADING)
@@ -183,7 +183,9 @@ public class GarageView extends JFrame {
 								.addGroup(gl_vehiclePanel.createSequentialGroup()
 									.addComponent(addDamageButton)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(approveButton)))
+									.addComponent(approveButton)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(closeButton)))
 							.addGap(379)))
 					.addContainerGap())
 		);
@@ -225,8 +227,9 @@ public class GarageView extends JFrame {
 					.addGap(18)
 					.addGroup(gl_vehiclePanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(addDamageButton)
-						.addComponent(approveButton))
-					.addContainerGap())
+						.addComponent(approveButton)
+						.addComponent(closeButton))
+					.addGap(34))
 		);
 		damageTablePanel.setLayout(new BorderLayout(0, 0));
 		vehiclePanel.setLayout(gl_vehiclePanel);
