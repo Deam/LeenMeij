@@ -62,7 +62,15 @@ public class Vehicle extends Database{
 			close();
 			return true;
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Voertuig met nummerbord " + vehicle.getLicensePlate() + " bestaat al!");
+			if (e.getMessage().contains("Duplicate entry"))
+			{
+				JOptionPane.showMessageDialog(null, "Voertuig met nummerbord " + vehicle.getLicensePlate() + " bestaat al!");
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Er is een fout opgetreden bij het invoeren van het voertuig. " + e.getMessage());
+
+			}
 			return false;
 		}
 	}
