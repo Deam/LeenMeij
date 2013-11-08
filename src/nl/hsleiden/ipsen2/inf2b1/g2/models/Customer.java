@@ -60,7 +60,14 @@ public class Customer extends Database {
 			return true;
 			
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Klant " + customer.getLastName() + " met rijbewijsnummer " + customer.getLicenseNumber() + " bestaal al.");
+			if (e.getMessage().contains(""))
+			{
+				JOptionPane.showMessageDialog(null, "Klant " + customer.getLastName() + " met rijbewijsnummer " + customer.getLicenseNumber() + " bestaal al.");
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Er is een fout opgetreden bij het invoeren van de klant. " + e.getMessage());
+			}
 			return false;
 		}
 	}
