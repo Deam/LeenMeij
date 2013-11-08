@@ -38,7 +38,12 @@ public class VehicleController implements ActionListener, MouseListener {
 	private JTable table;
 	private int id = 0;
 	
-	public VehicleController(){
+	public VehicleController(AdminView adminview){
+		this.adminView = adminview;
+	}
+	
+	public VehicleController()
+	{
 		
 	}
 	
@@ -60,7 +65,44 @@ public class VehicleController implements ActionListener, MouseListener {
 		popupMenu.add(deleteVehicleItem);
 
 		// Create the lists for filling
+
+
+		
+		// Set the lists to the table
+		table = new JTable(new DefaultTableModel(vehicleList(), columnNames()));
+		// Add a mouse listner for the popupmenu
+		table.addMouseListener(this);
+
+		// Return the table
+		return table;
+	}
+	
+	private Vector<Vector<String>> vehicleList()
+	{
 		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
+		// Fill the table with the customer information
+				Vehicle vehicle = new Vehicle();
+				for (Vehicle v : vehicle.getAll()) {
+					// Add the customer data
+					Vector<String> data = new Vector<>();
+					data.add(Integer.toString(v.getVehicleID()));
+					data.add(v.getVehicleCategory());
+					data.add(v.getVehicleBrand());
+					data.add(v.getVehicleModel());
+					data.add(v.getVehicleColor());
+					data.add(Integer.toString(v.getVehicleMilage()));
+					data.add(v.getLicensePlate());
+					data.add(v.getVehicleOptions());
+					data.add(v.getVehicleComment());
+
+					// Set the customer information to the list
+					customerList.add(data);
+				}
+		return customerList;
+	}
+	
+	private Vector<String> columnNames()
+	{
 		Vector<String> columnNames = new Vector<>();
 
 		// Make all the columnname
@@ -73,33 +115,15 @@ public class VehicleController implements ActionListener, MouseListener {
 		columnNames.add("Kenteken");
 		columnNames.add("Opties");
 		columnNames.add("Opmerkingen");
-
-		// Fill the table with the customer information
-		Vehicle vehicle = new Vehicle();
-		for (Vehicle v : vehicle.getAll()) {
-			// Add the customer data
-			Vector<String> data = new Vector<>();
-			data.add(Integer.toString(v.getVehicleID()));
-			data.add(v.getVehicleCategory());
-			data.add(v.getVehicleBrand());
-			data.add(v.getVehicleModel());
-			data.add(v.getVehicleColor());
-			data.add(Integer.toString(v.getVehicleMilage()));
-			data.add(v.getLicensePlate());
-			data.add(v.getVehicleOptions());
-			data.add(v.getVehicleComment());
-
-			// Set the customer information to the list
-			customerList.add(data);
-		}
 		
-		// Set the lists to the table
-		table = new JTable(new DefaultTableModel(customerList, columnNames));
-		// Add a mouse listner for the popupmenu
-		table.addMouseListener(this);
-
-		// Return the table
-		return table;
+		return columnNames;
+	}
+	
+	public void updateVehicleTableData()
+	{
+		DefaultTableModel model = (DefaultTableModel)adminView.vehicleTable.getModel();
+		adminView.vehicleTable.setModel(new DefaultTableModel(vehicleList(), columnNames()));
+		model.fireTableDataChanged();
 	}
 	
 	// Show the vehicle overview
@@ -135,6 +159,7 @@ public class VehicleController implements ActionListener, MouseListener {
 		if (dialog == JOptionPane.YES_OPTION) {
 
 			v.Delete(cId);
+			updateVehicleTableData();
 		}
 
 	}
@@ -151,13 +176,15 @@ public class VehicleController implements ActionListener, MouseListener {
 			showDeleteVehicle(id);
 		}
 		
-		else if (e.getSource() == addVehicleView.addButton) {
+		else if (addVehicleView != null && e.getSource() == addVehicleView.addButton) {
 			Vehicle vehicle = addVehicleView.getModel();
-			vehicle.Insert(vehicle);
-			
+			if (vehicle.Insert(vehicle) == true)
+			{			
 			JOptionPane.showMessageDialog(null, vehicle.getVehicleBrand() + " "
 					+ vehicle.getVehicleModel() + " is succesvol aangemaakt");
 			addVehicleView.dispose();
+			updateVehicleTableData();
+			}
 		}
 		
 		else if (e.getSource() == editVehicleView.editButton){
@@ -169,6 +196,7 @@ public class VehicleController implements ActionListener, MouseListener {
 					"CustomerID " + vehicle.getVehicleID()
 					+ " is met succes aangepast.");
 			editVehicleView.dispose();
+			updateVehicleTableData();
 		}
 		
 	

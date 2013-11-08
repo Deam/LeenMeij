@@ -34,7 +34,7 @@ public class AdminView extends JFrame  {
 	public JMenuItem editCustomer, deleteCustomer;
 	
 	private JPanel contentPane;
-	public JTable customerTable;
+	public JTable customerTable, vehicleTable;
 	public JMenuItem closeAdmin, addCustomer, addVehicle, addUser, customerOverview, vehicleOverview, financialOverview, userOverview;
 	
 	public JPanel customerOverviewPanel,vehicleOverviewPanel,financialOverviewPanel;
@@ -139,8 +139,8 @@ public class AdminView extends JFrame  {
 		vehicleOverviewPanel.setLayout(new BorderLayout(0, 0));
 		vehicleOverviewPanel.setBorder(BorderFactory.createTitledBorder("Alle voertuigen"));
 		
-		VehicleController vehicleController = new VehicleController();
-		vehicleOverviewPanel.add(new JScrollPane(vehicleController.VehicleTable()), BorderLayout.CENTER);
+		VehicleController vehicleController = new VehicleController(this);
+		vehicleOverviewPanel.add(new JScrollPane(vehicleTable = vehicleController.VehicleTable()), BorderLayout.CENTER);
 		
 		
 		financialOverviewPanel = new JPanel();

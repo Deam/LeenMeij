@@ -50,7 +50,7 @@ public class AdminController implements ActionListener, MouseListener {
 	public AdminController() {
 		adminview = new AdminView(this, this);
 		cController = new CustomerController();
-		vController = new VehicleController();
+		vController = new VehicleController(adminview);
 		userController = new UserController();
 		rentalController = new RentalController();
 		damageController = new DamageController();
