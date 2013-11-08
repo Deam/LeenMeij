@@ -1,15 +1,22 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.admin;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -21,7 +28,7 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import nl.hsleiden.ipsen2.inf2b1.g2.controllers.AdminController;
+import nl.hsleiden.ipsen2.inf2b1.g2.controllers.CustomerController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
 
@@ -51,21 +58,27 @@ public class AdminView extends JFrame  {
 		setJMenuBar(menuBar);
 		
 		JMenu mnBestand = new JMenu("Bestand");
-		mnBestand.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		mnBestand.setForeground(new Color(0, 0, 0));
+		mnBestand.setBackground(Color.LIGHT_GRAY);
+		mnBestand.setFont(new Font("Segoe UI", Font.BOLD, 26));
 		menuBar.add(mnBestand);
 		
 		closeAdmin = new JMenuItem("Afsluiten");
+		closeAdmin.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		closeAdmin.addActionListener(al);
 		
 		garageItem = new JMenuItem("Garagescherm");
+		garageItem.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		garageItem.addActionListener(al);
 		mnBestand.add(garageItem);
 		
 		rentalItem = new JMenuItem("Verhuurscherm");
+		rentalItem.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		rentalItem.addActionListener(al);
 		mnBestand.add(rentalItem);
 		
 		customerItem = new JMenuItem("Klantenscherm");
+		customerItem.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		customerItem.addActionListener(al);
 		mnBestand.add(customerItem);
 		
@@ -74,10 +87,12 @@ public class AdminView extends JFrame  {
 		mnBestand.add(closeAdmin);
 		
 		JMenu klantMenu = new JMenu("Klanten");
-		klantMenu.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		klantMenu.setForeground(new Color(128, 128, 128));
+		klantMenu.setFont(new Font("Segoe UI", Font.BOLD, 26));
 		menuBar.add(klantMenu);
 		
 		addCustomer = new JMenuItem("Klant toevoegen");
+		addCustomer.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		addCustomer.addActionListener(al);
 		klantMenu.add(addCustomer);
 		
@@ -85,14 +100,17 @@ public class AdminView extends JFrame  {
 		klantMenu.add(separator_1);
 		
 		customerOverview = new JMenuItem("Overzicht weergeven");
+		customerOverview.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		customerOverview.addActionListener(al);
 		klantMenu.add(customerOverview);
 		
 		JMenu mnVoertuigen = new JMenu("Voertuigen");
-		mnVoertuigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		mnVoertuigen.setForeground(new Color(0, 0, 0));
+		mnVoertuigen.setFont(new Font("Segoe UI", Font.BOLD, 26));
 		menuBar.add(mnVoertuigen);
 		
 		addVehicle = new JMenuItem("Voertuig toevoegen");
+		addVehicle.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		addVehicle.addActionListener(al);
 		mnVoertuigen.add(addVehicle);
 		
@@ -100,14 +118,17 @@ public class AdminView extends JFrame  {
 		mnVoertuigen.add(separator);
 		
 		vehicleOverview = new JMenuItem("Overzicht weergeven ");
+		vehicleOverview.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		vehicleOverview.addActionListener(al);
 		mnVoertuigen.add(vehicleOverview);
 		
 		JMenu mnGebruikers = new JMenu("Gebruikers");
-		mnGebruikers.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		mnGebruikers.setForeground(new Color(128, 128, 128));
+		mnGebruikers.setFont(new Font("Segoe UI", Font.BOLD, 26));
 		menuBar.add(mnGebruikers);
 		
 		addUser = new JMenuItem("Gebruiker toevoegen");
+		addUser.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		addUser.addActionListener(al);
 		mnGebruikers.add(addUser);
 		
@@ -115,14 +136,17 @@ public class AdminView extends JFrame  {
 		mnGebruikers.add(separator_4);
 		
 		userOverview = new JMenuItem("Overzicht weergeven");
+		userOverview.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		userOverview.addActionListener(al);
 		mnGebruikers.add(userOverview);
 		
 		JMenu mnFinancien = new JMenu("Financi\u00EBn");
-		mnFinancien.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		mnFinancien.setForeground(new Color(0, 0, 0));
+		mnFinancien.setFont(new Font("Segoe UI", Font.BOLD, 26));
 		menuBar.add(mnFinancien);
 		
 		financialOverview = new JMenuItem("Overzicht weergegeven");
+		financialOverview.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		financialOverview.addActionListener(al);
 		mnFinancien.add(financialOverview);
 		
@@ -152,8 +176,23 @@ public class AdminView extends JFrame  {
 		
 		FinancialController fController = new FinancialController();
 		financialOverviewPanel.add(new JScrollPane(fController.FinancialTable()), BorderLayout.CENTER);
-
-
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout(0,0));
+				
+		try {
+	         BufferedImage img = ImageIO.read(getClass().getResource("/image/logo.png"));
+	         ImageIcon icon = new ImageIcon(img);
+	         Image img1 = icon.getImage() ;  
+	         Image newimg = img1.getScaledInstance( 199, 92,  java.awt.Image.SCALE_SMOOTH ) ;  
+	         icon = new ImageIcon( newimg );
+	         JLabel label = new JLabel(icon);
+	         panel.add(label,BorderLayout.CENTER);
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      }
+		
+		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -161,11 +200,12 @@ public class AdminView extends JFrame  {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(financialOverviewPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1862, Short.MAX_VALUE)
+						.addComponent(financialOverviewPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1876, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(customerOverviewPanel, GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE)
+							.addComponent(customerOverviewPanel, GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
 							.addGap(18)
-							.addComponent(vehicleOverviewPanel, GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)))
+							.addComponent(vehicleOverviewPanel, GroupLayout.PREFERRED_SIZE, 925, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
 					.addGap(22))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -174,10 +214,12 @@ public class AdminView extends JFrame  {
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(customerOverviewPanel, GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
-						.addComponent(vehicleOverviewPanel, GroupLayout.PREFERRED_SIZE, 634, GroupLayout.PREFERRED_SIZE))
+						.addComponent(vehicleOverviewPanel, GroupLayout.PREFERRED_SIZE, 653, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(financialOverviewPanel, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE)
-					.addGap(110))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
