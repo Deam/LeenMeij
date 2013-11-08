@@ -17,6 +17,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Options;
 
 import javax.swing.JButton;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class CustomerView extends JFrame {

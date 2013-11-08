@@ -25,6 +25,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class AdminView extends JFrame  {
@@ -52,6 +53,7 @@ public class AdminView extends JFrame  {
 		setJMenuBar(menuBar);
 		
 		JMenu mnBestand = new JMenu("Bestand");
+		mnBestand.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		menuBar.add(mnBestand);
 		
 		closeAdmin = new JMenuItem("Afsluiten");
@@ -74,6 +76,7 @@ public class AdminView extends JFrame  {
 		mnBestand.add(closeAdmin);
 		
 		JMenu klantMenu = new JMenu("Klanten");
+		klantMenu.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		menuBar.add(klantMenu);
 		
 		addCustomer = new JMenuItem("Klant toevoegen");
@@ -88,6 +91,7 @@ public class AdminView extends JFrame  {
 		klantMenu.add(customerOverview);
 		
 		JMenu mnVoertuigen = new JMenu("Voertuigen");
+		mnVoertuigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		menuBar.add(mnVoertuigen);
 		
 		addVehicle = new JMenuItem("Voertuig toevoegen");
@@ -102,6 +106,7 @@ public class AdminView extends JFrame  {
 		mnVoertuigen.add(vehicleOverview);
 		
 		JMenu mnGebruikers = new JMenu("Gebruikers");
+		mnGebruikers.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		menuBar.add(mnGebruikers);
 		
 		addUser = new JMenuItem("Gebruiker toevoegen");
@@ -116,6 +121,7 @@ public class AdminView extends JFrame  {
 		mnGebruikers.add(userOverview);
 		
 		JMenu mnFinancien = new JMenu("Financi\u00EBn");
+		mnFinancien.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		menuBar.add(mnFinancien);
 		
 		financialOverview = new JMenuItem("Overzicht weergegeven");

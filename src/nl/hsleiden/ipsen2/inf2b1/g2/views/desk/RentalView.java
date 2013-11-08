@@ -31,6 +31,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class RentalView extends JFrame {
@@ -137,8 +138,9 @@ public class RentalView extends JFrame {
 								GroupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
-		makeRentalAgreement = new JButton("Cree\u00EBr huurovereenkomst");
-		makeRentalAgreement.addActionListener(al);
+                makeRentalAgreement = new JButton("Cree\u00EBr huurovereenkomst");
+                makeRentalAgreement.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                makeRentalAgreement.addActionListener(al);
 
 		JPanel extrasPanel = new JPanel();
 
@@ -168,10 +170,12 @@ public class RentalView extends JFrame {
 
 		JPanel essentialPanel = new JPanel();
 
-		priceLabel = new JLabel("Totaal bedrag \u20AC " + totalPrice);
-
-		closeButton = new JButton("Sluiten");
-		closeButton.addActionListener(al);
+                JLabel lblNewLabel = new JLabel("");
+                lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                
+                closeButton = new JButton("Sluiten");
+                closeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                closeButton.addActionListener(al);
 
 		JLabel lblSelecteerDeVerhuur = new JLabel(
 				"Selecteer de verhuur periode");
@@ -232,104 +236,116 @@ public class RentalView extends JFrame {
 					.addContainerGap())
 		);
 
-		JLabel lblUitgifteDatum = new JLabel("Uitgifte datum");
+                JLabel lblUitgifteDatum = new JLabel("Uitgifte datum");
+                lblUitgifteDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		rentalDate = new JDateChooser();
-		rentalDate.setDateFormatString("MM dd yyyy");
+                rentalDate = new JDateChooser();
+                rentalDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		JLabel lblVerwachteInnameDatum = new JLabel("Verwachte inname datum");
+                JLabel lblVerwachteInnameDatum = new JLabel("Verwachte inname datum");
+                lblVerwachteInnameDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		expectedReceiveDate = new JDateChooser();
-		expectedReceiveDate.setDateFormatString("MM dd yyyy");
+                expectedReceiveDate = new JDateChooser();
+                expectedReceiveDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		JLabel lblAanbetaling = new JLabel("Aanbetaling \u20AC");
+                JLabel lblAanbetaling = new JLabel("Aanbetaling \u20AC");
+                lblAanbetaling.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		paymentBox = new JSpinField();
-		GroupLayout gl_essentialPanel = new GroupLayout(essentialPanel);
-		gl_essentialPanel
-				.setHorizontalGroup(gl_essentialPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_essentialPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																lblVerwachteInnameDatum)
-														.addComponent(
-																lblUitgifteDatum)
-														.addComponent(
-																lblAanbetaling))
-										.addGap(30)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																paymentBox,
-																GroupLayout.DEFAULT_SIZE,
-																155,
-																Short.MAX_VALUE)
-														.addComponent(
-																expectedReceiveDate,
-																GroupLayout.DEFAULT_SIZE,
-																155,
-																Short.MAX_VALUE)
-														.addComponent(
-																rentalDate,
-																GroupLayout.DEFAULT_SIZE,
-																155,
-																Short.MAX_VALUE))
-										.addContainerGap()));
-		gl_essentialPanel
-				.setVerticalGroup(gl_essentialPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_essentialPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																rentalDate,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblUitgifteDatum))
-										.addGap(12)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																lblVerwachteInnameDatum)
-														.addComponent(
-																expectedReceiveDate,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												ComponentPlacement.RELATED, 23,
-												Short.MAX_VALUE)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addComponent(
-																paymentBox,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblAanbetaling))
-										.addContainerGap()));
-		essentialPanel.setLayout(gl_essentialPanel);
+                paymentBox = new JSpinField();
+                paymentBox.getSpinner().setFont(new Font("Tahoma", Font.PLAIN, 14));
+                GroupLayout gl_essentialPanel = new GroupLayout(essentialPanel);
+                gl_essentialPanel
+                                .setHorizontalGroup(gl_essentialPanel
+                                                .createParallelGroup(Alignment.LEADING)
+                                                .addGroup(
+                                                                gl_essentialPanel
+                                                                                .createSequentialGroup()
+                                                                                .addContainerGap()
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addComponent(
+                                                                                                                                lblAanbetaling)
+                                                                                                                .addComponent(
+                                                                                                                                lblVerwachteInnameDatum)
+                                                                                                                .addComponent(
+                                                                                                                                lblUitgifteDatum))
+                                                                                .addGap(30)
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addComponent(
+                                                                                                                                paymentBox,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                155,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addComponent(
+                                                                                                                                expectedReceiveDate,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                155,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addComponent(
+                                                                                                                                rentalDate,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                155,
+                                                                                                                                Short.MAX_VALUE))
+                                                                                .addContainerGap()));
+                gl_essentialPanel
+                                .setVerticalGroup(gl_essentialPanel
+                                                .createParallelGroup(Alignment.LEADING)
+                                                .addGroup(
+                                                                gl_essentialPanel
+                                                                                .createSequentialGroup()
+                                                                                .addContainerGap()
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addComponent(
+                                                                                                                                rentalDate,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addComponent(
+                                                                                                                                lblUitgifteDatum))
+                                                                                .addGap(12)
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.LEADING)
+                                                                                                                .addComponent(
+                                                                                                                                lblVerwachteInnameDatum)
+                                                                                                                .addComponent(
+                                                                                                                                expectedReceiveDate,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                GroupLayout.PREFERRED_SIZE))
+                                                                                .addPreferredGap(
+                                                                                                ComponentPlacement.RELATED, 23,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addGroup(
+                                                                                                gl_essentialPanel
+                                                                                                                .createParallelGroup(
+                                                                                                                                Alignment.TRAILING)
+                                                                                                                .addComponent(
+                                                                                                                                paymentBox,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addComponent(
+                                                                                                                                lblAanbetaling))
+                                                                                .addContainerGap()));
+                essentialPanel.setLayout(gl_essentialPanel);
+                GroupLayout gl_insurancePanel = new GroupLayout(insurancePanel);
+                gl_insurancePanel.setHorizontalGroup(gl_insurancePanel
+                                .createParallelGroup(Alignment.LEADING).addGap(0, 159,
+                                                Short.MAX_VALUE));
+                gl_insurancePanel.setVerticalGroup(gl_insurancePanel
+                                .createParallelGroup(Alignment.LEADING).addGap(0, 117,
+                                                Short.MAX_VALUE));
+                insurancePanel.setLayout(gl_insurancePanel);
 
 		optionsPanel.setLayout(gl_optionsPanel);
 
@@ -373,29 +389,48 @@ public class RentalView extends JFrame {
 																		.addGap(20)))
 										.addGap(0)));
 
-		// Labels for showing purpose only
-		JLabel custnrlbl = new JLabel("Klantnummer:");
-		JLabel fnLabel = new JLabel("Voornaam:");
-		JLabel lnLabel = new JLabel("Achternaam: ");
-		JLabel adLabel = new JLabel("Adres: ");
-		JLabel pcLabel = new JLabel("Postcode:");
-		JLabel wpLabel = new JLabel("Woonplaats:");
-		JLabel telLabel = new JLabel("Telefoonnummer:");
-		JLabel lcLabel = new JLabel("Rijbewijsnummer:");
+                // Labels for showing purpose only
+                JLabel custnrlbl = new JLabel("Klantnummer:");
+                custnrlbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                JLabel fnLabel = new JLabel("Voornaam:");
+                fnLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                JLabel lnLabel = new JLabel("Achternaam: ");
+                lnLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                JLabel adLabel = new JLabel("Adres: ");
+                adLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                JLabel pcLabel = new JLabel("Postcode:");
+                pcLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                JLabel wpLabel = new JLabel("Woonplaats:");
+                wpLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                JLabel telLabel = new JLabel("Telefoonnummer:");
+                telLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                JLabel lcLabel = new JLabel("Rijbewijsnummer:");
+                lcLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		// Labels for information filling
-		cnumberLabel = new JLabel("Klantnummer");
-		firstnameLabel = new JLabel("Voornaam");
-		lastnameLabel = new JLabel("Achternaam");
-		adresLabel = new JLabel("Adres");
-		zipcodeLabel = new JLabel("Postcode");
-		cityLabel = new JLabel("Woonplaats");
-		telephoneLabel = new JLabel("Telefoonnummer");
-		licenseLabel = new JLabel("Rijbewijsnummer");
+                // Labels for information filling
+                cnumberLabel = new JLabel("Klantnummer");
+                cnumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                firstnameLabel = new JLabel("Voornaam");
+                firstnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                lastnameLabel = new JLabel("Achternaam");
+                lastnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                adresLabel = new JLabel("Adres");
+                adresLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                zipcodeLabel = new JLabel("Postcode");
+                zipcodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                cityLabel = new JLabel("Woonplaats");
+                cityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                telephoneLabel = new JLabel("Telefoonnummer");
+                telephoneLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                licenseLabel = new JLabel("Rijbewijsnummer");
+                licenseLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		// Add customer button and actionPerformed
-		addCustomerButton = new JButton("Klant toevoegen");
-		addCustomerButton.addActionListener(al);
+
+
+                // Add customer button and actionPerformed
+                addCustomerButton = new JButton("Klant toevoegen");
+                addCustomerButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                addCustomerButton.addActionListener(al);
 
 		GroupLayout gl_customerInfoPanel = new GroupLayout(customerInfoPanel);
 		gl_customerInfoPanel
@@ -575,37 +610,39 @@ public class RentalView extends JFrame {
 		// TODO comment out for designer
 		sliderController = new ImageSliderController();
 
-		GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
-		gl_vehiclePanel.setHorizontalGroup(gl_vehiclePanel.createParallelGroup(
-				Alignment.TRAILING).addGroup(
-				Alignment.LEADING,
-				gl_vehiclePanel
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(sliderController.showImageSlider(),
-								GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
-						.addContainerGap()));
-		gl_vehiclePanel.setVerticalGroup(gl_vehiclePanel.createParallelGroup(
-				Alignment.TRAILING).addGroup(
-				Alignment.LEADING,
-				gl_vehiclePanel
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(sliderController.showImageSlider(),
-								GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-						.addContainerGap()));
-		vehiclePanel.setLayout(gl_vehiclePanel);
-		contentPane.setLayout(gl_contentPane);
-	}
-
-	@SuppressWarnings("deprecation")
-	public Rented getModel() {
-		Rented rented = new Rented();
-		rented.setCustomerId(Integer.parseInt(cnumberLabel.getText()));
-		rented.setVehicleId(sliderController.showImageSlider().getvID());
-		rented.setRentalDate(rentalDate.getDate().toString());
-		rented.setExpectedReceiveDate(expectedReceiveDate.getDate().toString());
-		rented.setPayment(paymentBox.getValue());
+                GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
+                gl_vehiclePanel.setHorizontalGroup(gl_vehiclePanel.createParallelGroup(
+                                Alignment.TRAILING).addGroup(
+                                Alignment.LEADING,
+                                gl_vehiclePanel
+                                                .createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(sliderController.showImageSlider(),
+                                                               GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
+                                                .addContainerGap()));
+                gl_vehiclePanel.setVerticalGroup(gl_vehiclePanel.createParallelGroup(
+                                Alignment.TRAILING).addGroup(
+                                Alignment.LEADING,
+                                gl_vehiclePanel
+                                                .createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(sliderController.showImageSlider(),
+                                                                GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                                                .addContainerGap()));
+                vehiclePanel.setLayout(gl_vehiclePanel);
+                contentPane.setLayout(gl_contentPane);
+        }
+        
+        @SuppressWarnings("deprecation")
+        public Rented getModel()
+        {
+                Rented rented = new Rented();
+                rented.setCustomerId(Integer.parseInt(cnumberLabel.getText()));
+                rented.setVehicleId(sliderController.showImageSlider().getvID());
+                rented.setRentalDate(rentalDate.getDate().toGMTString());
+                rented.setExpectedReceiveDate(expectedReceiveDate.getDate()
+                                .toGMTString());
+                rented.setPayment(paymentBox.getValue());
 
 		return rented;
 	}

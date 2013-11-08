@@ -15,6 +15,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.garage.AddDamage;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.garage.GarageView;
+import java.awt.Font;
 
 /**
  * Handles the damage that is inflicted on a vehicle.
@@ -32,6 +33,26 @@ public class DamageController implements ActionListener{
         
         public DamageController(){
                 garageView = new GarageView(this);
+                garageView.commentBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.closeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.approveButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.addDamageButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.milageLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.lisenceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.brandLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.modelLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.colorLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.categoryLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.customerNumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.firstnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.lastnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.addressLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.zipcodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.cityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.phonenumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.lisencenumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.searchButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                garageView.searchField.getSpinner().setFont(new Font("Tahoma", Font.PLAIN, 14));
         }
         
         // The show methods
@@ -90,6 +111,8 @@ public class DamageController implements ActionListener{
                         // Set the vehicle available
                         Vehicle vehicle = new Vehicle();
                         vehicle.setVehicleAvailable(vehicleID, checked);
+                        
+                        JOptionPane.showMessageDialog(null, "De schade is toegevoegd", "Succes", JOptionPane.QUESTION_MESSAGE);
                         
                         addDamage.dispose();
                 }

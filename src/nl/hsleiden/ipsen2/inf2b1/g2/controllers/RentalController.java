@@ -108,6 +108,18 @@ public class RentalController implements ActionListener, MouseListener {
                 editCustomer.setVisible(true);
         }
         
+        //Check if all field are filled
+        @SuppressWarnings("unused")
+		public boolean isEmpty(){
+        	Rented rented = new Rented();
+        	boolean customerId = rented.getCustomerId() == 0;
+        	boolean vehicleId = rented.getVehicleId() == 0;
+        	boolean rentalDate = rented.getRentalDate() == null;
+        	boolean expectedReceiveDate = rented.getExpectedReceiveDate() == null;
+        	boolean payment = rented.getPayment() == 0;
+        	
+        	return false;
+        }
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -117,19 +129,24 @@ public class RentalController implements ActionListener, MouseListener {
         }
         
             else if (rentalView != null && e.getSource() == rentalView.makeRentalAgreement) {
-                        Rented rented = new Rented();
-                        rented = rentalView.getModel();
-
-                        rented.Insert(rented);
-                        
-                        Vehicle vehicle = new Vehicle();
-                        vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
-                        
-                        Financial financial = new Financial();
-                        financial = rentalView.getFinancialModel();
-                        financial.Insert(financial);
-                        
-                        JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.", "Succes", JOptionPane.QUESTION_MESSAGE);
+                        if(!isEmpty()){
+                        	JOptionPane.showMessageDialog(null, "De overeenkomst kan niet worden aangemaakt. Controleer of alle velden correct zijn ingevuld.", "Fail", JOptionPane.QUESTION_MESSAGE);
+                        }
+                        else{
+	                        Rented rented = new Rented();
+	                        rented = rentalView.getModel();
+	
+	                        rented.Insert(rented);
+	                        
+	                        Vehicle vehicle = new Vehicle();
+	                        vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
+	                        
+	                        Financial financial = new Financial();
+	                        financial = rentalView.getFinancialModel();
+	                        financial.Insert(financial);
+	                        
+	                        JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.", "Succes", JOptionPane.QUESTION_MESSAGE);
+                        }
                 }
 
                 else if(rentalView != null && e.getSource() == rentalView.closeButton){

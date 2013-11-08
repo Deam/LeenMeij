@@ -16,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class AddCustomer extends JFrame {
@@ -36,48 +37,63 @@ public class AddCustomer extends JFrame {
 		setTitle("Klant toevoegen");
 		
 		JPanel contentPane = new JPanel();
-		add(contentPane);
+		getContentPane().add(contentPane);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		setVisible(true);
 		
 		JLabel lblVoornaam = new JLabel("Voornaam:");
+		lblVoornaam.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblAchternaam = new JLabel("Achternaam:");
+		lblAchternaam.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblAdres = new JLabel("Adres:");
+		lblAdres.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblPostcode = new JLabel("Postcode:");
+		lblPostcode.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblWoonplaats = new JLabel("Woonplaats:");
+		lblWoonplaats.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel = new JLabel("Telefoonnummer:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblRijbewijsnummer = new JLabel("Rijbewijsnummer:");
+		lblRijbewijsnummer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		voornaamText = new JTextField();
+		voornaamText.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		voornaamText.setColumns(10);
 		
 		achternaamText = new JTextField();
+		achternaamText.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		achternaamText.setColumns(10);
 		
 		adresText = new JTextField();
+		adresText.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		adresText.setColumns(10);
 		
 		postcodeText = new JTextField();
+		postcodeText.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		postcodeText.setColumns(10);
 		
 		woonplaatsText = new JTextField();
+		woonplaatsText.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		woonplaatsText.setColumns(10);
 		
 		telefoonText = new JTextField();
+		telefoonText.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		telefoonText.setColumns(10);
 		
 		rijbewijsText = new JTextField();
+		rijbewijsText.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		rijbewijsText.setColumns(10);
 		
 		addButton = new JButton("Toevoegen");
+		addButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		addButton.addActionListener(al);
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

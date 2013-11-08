@@ -19,6 +19,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextArea;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class GarageView extends JFrame {
@@ -46,17 +47,21 @@ public class GarageView extends JFrame {
                 setUndecorated(true);
 
                 searchButton = new JButton("Zoeken");
+                searchButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 searchButton.addActionListener(al);
 
                 searchField = new JSpinField();
+                searchField.getSpinner().setFont(new Font("Tahoma", Font.PLAIN, 14));
 
                 JLabel lblZoekHierHet = new JLabel("Zoek hier het verhuurnummer");
+                lblZoekHierHet.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
                 JPanel customerPanel = new JPanel();
                 
                 vehiclePanel = new JPanel();
                 
                 closeButton = new JButton("Sluiten");
+                closeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 closeButton.addActionListener(al);
                 
                 GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -103,32 +108,49 @@ public class GarageView extends JFrame {
                         
                 
                 JLabel lblCategorie = new JLabel("Categorie:");
+                lblCategorie.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblMerk = new JLabel("Merk:");
+                lblMerk.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblModel = new JLabel("Model:");
+                lblModel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblKleur = new JLabel("Kleur:");
+                lblKleur.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblKmStand = new JLabel("Km stand:");
+                lblKmStand.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblKenteken = new JLabel("Kenteken:");
+                lblKenteken.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblOpmerkingen = new JLabel("Opmerkingen:");
+                lblOpmerkingen.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 
                 
                 categoryLabel = new JLabel("....");
+                categoryLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 brandLabel = new JLabel("....");
+                brandLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 modelLabel = new JLabel("....");
+                modelLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 colorLabel = new JLabel("....");
+                colorLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 milageLabel = new JLabel("....");
+                milageLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 lisenceLabel = new JLabel("....");
+                lisenceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 commentBox = new JTextArea();
+                commentBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 commentBox.setLineWrap(true);
                 commentBox.setEnabled(false);
                 
                 JLabel lblSchadegeschiedenis = new JLabel("Schadegeschiedenis");
+                lblSchadegeschiedenis.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 
                 damageTablePanel = new JPanel();
                 
                 addDamageButton = new JButton("Schade toevoegen");
+                addDamageButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 addDamageButton.addActionListener(al);
                 
                 approveButton = new JButton("Voertuig goedkeuren");
+                approveButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 approveButton.addActionListener(al);
                 
                 GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
@@ -213,23 +235,39 @@ public class GarageView extends JFrame {
                 vehiclePanel.setLayout(gl_vehiclePanel);
 
                 JLabel lblKlantnummer = new JLabel("Klantnummer:");
+                lblKlantnummer.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblVoornaam = new JLabel("Voornaam:");
+                lblVoornaam.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblAchternaam = new JLabel("Achternaam:");
+                lblAchternaam.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblAdres = new JLabel("Adres:");
+                lblAdres.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblPostcode = new JLabel("Postcode:");
+                lblPostcode.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblWoonplaats = new JLabel("Woonplaats:");
+                lblWoonplaats.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblTelefoonnr = new JLabel("Telefoonnr:");
+                lblTelefoonnr.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 JLabel lblRijbewijsnr = new JLabel("Rijbewijsnr:");
+                lblRijbewijsnr.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 
 
                 customerNumberLabel = new JLabel("....");
+                customerNumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 firstnameLabel = new JLabel("....");
+                firstnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 lastnameLabel = new JLabel("....");
+                lastnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 addressLabel = new JLabel("....");
+                addressLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 zipcodeLabel = new JLabel("....");
+                zipcodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 cityLabel = new JLabel("....");
+                cityLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 phonenumberLabel = new JLabel("....");
+                phonenumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 lisencenumberLabel = new JLabel("....");
+                lisencenumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
                 
                 GroupLayout gl_customerPanel = new GroupLayout(customerPanel);
                 gl_customerPanel.setHorizontalGroup(

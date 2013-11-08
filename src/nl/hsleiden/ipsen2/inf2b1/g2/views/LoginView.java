@@ -48,19 +48,25 @@ public class LoginView extends JFrame{
 
 		// Create user controls.
 		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel passwordLabel = new JLabel("Wachtwoord:");
+		passwordLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		usernameField = new JTextField();
+		usernameField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		JLabel usernameLabel = new JLabel("Gebruikersnaam:");
+		usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		loginButton = new JButton("Inloggen");
+		loginButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		loginButton.addActionListener(al);
 
 		cancelButton = new JButton("Annuleren");
+		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cancelButton.addActionListener(al);
 
 		JLabel lblLogoPlaceholder = new JLabel("LeenMeij");
-		lblLogoPlaceholder.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblLogoPlaceholder.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblLogoPlaceholder.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Place all the user controls on the frame.
