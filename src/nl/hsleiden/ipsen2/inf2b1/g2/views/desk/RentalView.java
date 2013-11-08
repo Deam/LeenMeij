@@ -32,7 +32,7 @@ import com.toedter.components.JSpinField;
 public class RentalView extends JFrame {
 
         private JPanel contentPane;
-
+        public JTable customerTable;
         private JLabel cnumberLabel, firstnameLabel, lastnameLabel, adresLabel,
                         zipcodeLabel, cityLabel, telephoneLabel, licenseLabel;
         private ImageSliderController sliderController;
@@ -62,13 +62,13 @@ public class RentalView extends JFrame {
                 customerPanel.setBorder(BorderFactory
                                 .createTitledBorder("Klantgegevens"));
                 
-                JTable table = controller.CustomerTable();
-                table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                customerTable = controller.CustomerTable();
+                customerTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 
 
-                JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane scrollPane = new JScrollPane(customerTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                     JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                scrollPane.setViewportView(table);
+                scrollPane.setViewportView(customerTable);
                 
                 JPanel customerTablePanel = new JPanel();
                 customerTablePanel.setLayout(new BorderLayout(0, 0));

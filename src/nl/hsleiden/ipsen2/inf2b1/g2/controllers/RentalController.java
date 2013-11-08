@@ -31,7 +31,8 @@ public class RentalController implements ActionListener, MouseListener {
         private RentalView rentalView;
         private AddCustomer addCustomer;
         private CustomerController cController;
-
+        public AddCustomer addCustomerView;
+        
         private int id = 0;
         private JTable table;
         
@@ -62,40 +63,9 @@ public class RentalController implements ActionListener, MouseListener {
                 popupMenu = new JPopupMenu();
                 popupMenu.add(editCustomerItem);
 
-                // Create the lists for filling
-                Vector<Vector<String>> customerList = new Vector<Vector<String>>();
-                Vector<String> columnNames = new Vector<>();
-
-                // Make all the columnname
-                columnNames.add("Klantnr");
-                columnNames.add("Voornaam");
-                columnNames.add("Achternaam");
-                columnNames.add("Adres");
-                columnNames.add("Postcode");
-                columnNames.add("Woonplaats");
-                columnNames.add("Telefoonnummer");
-                columnNames.add("Rijbewijsnummer");
-
-                // Fill the table with the customer information
-                Customer customer = new Customer();
-                for (Customer c : customer.getAll()) {
-                        // Add the customer data
-                        Vector<String> data = new Vector<>();
-                        data.add(Integer.toString(c.getCustomerNumber()));
-                        data.add(c.getFirstName());
-                        data.add(c.getLastName());
-                        data.add(c.getAdress());
-                        data.add(c.getZipcode());
-                        data.add(c.getCity());
-                        data.add(c.getPhoneNumber());
-                        data.add(c.getLicenseNumber());
-
-                        // Set the customer information to the list
-                        customerList.add(data);
-                }
 
                 // Set the lists to the table
-                table = new JTable(new DefaultTableModel(customerList, columnNames));
+                table = new JTable(new DefaultTableModel(customerList(), columnNames()));
                 // Add a mouse listner for the popupmenu
                 table.addMouseListener(this);
 
@@ -103,9 +73,72 @@ public class RentalController implements ActionListener, MouseListener {
                 return table;
         }
         
+        public Vector<String> columnNames()
+        {
+            Vector<String> columnNames = new Vector<>();
+
+            // Make all the columnname
+            columnNames.add("Klantnr");
+            columnNames.add("Voornaam");
+            columnNames.add("Achternaam");
+            columnNames.add("Adres");
+            columnNames.add("Postcode");
+            columnNames.add("Woonplaats");
+            columnNames.add("Telefoonnummer");
+            columnNames.add("Rijbewijsnummer");
+            
+            return columnNames;
+        }
+        
+        // Fill the table with the customer information
+        public Vector<Vector<String>> customerList()
+        {
+        	Vector<Vector<String>> customerList = new Vector<Vector<String>>();
+            Customer customer = new Customer();
+            for (Customer c : customer.getAll()) {
+                    // Add the customer data
+                    Vector<String> data = new Vector<>();
+                    data.add(Integer.toString(c.getCustomerNumber()));
+                    data.add(c.getFirstName());
+                    data.add(c.getLastName());
+                    data.add(c.getAdress());
+                    data.add(c.getZipcode());
+                    data.add(c.getCity());
+                    data.add(c.getPhoneNumber());
+                    data.add(c.getLicenseNumber());
+
+                    // Set the customer information to the list
+                    customerList.add(data);
+            }
+            return customerList;
+        }
+        
         public void showEditCustomer(int uId){
                 editCustomer = new EditCustomer(uId, this);
                 editCustomer.setVisible(true);
+        }
+        
+    	public void updateCustomerTableData()
+    	{
+    		DefaultTableModel model = (DefaultTableModel)rentalView.customerTable.getModel();
+    		rentalView.customerTable.setModel(new DefaultTableModel(customerList(), columnNames()));
+    		model.fireTableDataChanged();
+    	}
+    	
+        public void showAddCustomer() {
+            addCustomerView = new AddCustomer(this);
+            addCustomerView.setVisible(true);
+    }
+        
+        public void addCustomer()
+        {
+        	Customer customer = new Customer();
+        	{
+        		if (customer.Insert(addCustomerView.getModel()) == true)
+        		{
+        			addCustomerView.dispose();
+        		}
+        	}
         }
         
 
@@ -113,8 +146,14 @@ public class RentalController implements ActionListener, MouseListener {
         public void actionPerformed(ActionEvent e) {
         	
             if(rentalView != null && e.getSource() == rentalView.addCustomerButton) {
-                cController.showAddCustomer();
+                showAddCustomer();
         }
+            
+            else if (addCustomerView != null && e.getSource() == addCustomerView.addButton)
+            {
+            	addCustomer();
+            	updateCustomerTableData();
+            }
         
             else if (rentalView != null && e.getSource() == rentalView.makeRentalAgreement) {
                         Rented rented = new Rented();
@@ -142,13 +181,11 @@ public class RentalController implements ActionListener, MouseListener {
                 
                 else if (editCustomer != null && e.getSource() == editCustomer.editButton) {
                         Customer customer = editCustomer.getModel();
-                        customer.Update(customer, customer.getCustomerNumber());
-
-                        // Show message dialog when it is completed
-                        JOptionPane.showMessageDialog(null,
-                                        "CustomerID " + customer.getCustomerNumber()
-                                                        + " is met succes aangepast.");
-                        editCustomer.dispose();
+                        if (customer.Update(customer, customer.getCustomerNumber()) == true);
+                        {
+                        	editCustomer.dispose();
+                        	updateCustomerTableData();
+                        }
                 }
         }
 
@@ -179,7 +216,10 @@ public class RentalController implements ActionListener, MouseListener {
                 rentalView.setModels(customer);
 
                 // Show the menu
+            if (e.getButton() == MouseEvent.BUTTON3)
+            {
                 popupMenu.show(e.getComponent(), e.getX(), e.getY());
+        	}
         }
 
         @Override

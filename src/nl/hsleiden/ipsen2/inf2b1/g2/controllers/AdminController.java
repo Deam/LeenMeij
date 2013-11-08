@@ -180,13 +180,11 @@ public class AdminController implements ActionListener, MouseListener {
 	private void editCustomer()
 	{
 		Customer customer = editCustomerView.getModel();
-		customer.Update(customer, customer.getCustomerNumber());
-
-		// Show message dialog when it is completed
-		JOptionPane.showMessageDialog(null,
-				"CustomerID " + customer.getCustomerNumber()
-				+ " is met succes aangepast.");
-		editCustomerView.dispose();
+		if (customer.Update(customer, customer.getCustomerNumber()) == true);
+		{
+			// Disposes dialog when it is completed
+			editCustomerView.dispose();
+		}
 	}
 
 	// Show the customer view

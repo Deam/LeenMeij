@@ -225,14 +225,15 @@ public class CustomerController implements ActionListener, MouseListener {
         
         private void editCustomer()
         {
-            Customer customer = editCustomerView.getModel();
-            customer.Update(customer, customer.getCustomerNumber());
-
-            // Show message dialog when it is completed
-            JOptionPane.showMessageDialog(null,
-                            "CustomerID " + customer.getCustomerNumber()
-                                            + " is met succes aangepast.");
-            editCustomerView.dispose();
+//            Customer customer = editCustomerView.getModel();
+//            if (customer.Update(customer, customer.getCustomerNumber()) == true)
+//            {
+//            	// Show message dialog when it is completed
+//            	JOptionPane.showMessageDialog(null,
+//                            "CustomerID " + customer.getCustomerNumber()
+//                                            + " is met succes aangepast.");
+//            	editCustomerView.dispose();
+//            }
         }
 
         @Override
