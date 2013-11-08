@@ -94,7 +94,7 @@ public class DamageController implements ActionListener{
                         clearText();
                 }
                 
-                else if(e.getSource() == addDamage.addButton)
+                else if(addDamage != null && e.getSource() == addDamage.addButton)
                 {
                         int checked = 1;
                         if(addDamage.readyCheckbox.isSelected()){

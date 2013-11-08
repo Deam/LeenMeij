@@ -187,7 +187,7 @@ public class VehicleController implements ActionListener, MouseListener {
 			}
 		}
 		
-		else if (e.getSource() == editVehicleView.editButton){
+		else if (editVehicleView != null && e.getSource() == editVehicleView.editButton){
 			Vehicle vehicle = editVehicleView.getModel();
 			vehicle.Update(vehicle, vehicle.getVehicleID());
 			
@@ -199,7 +199,7 @@ public class VehicleController implements ActionListener, MouseListener {
 			updateVehicleTableData();
 		}
 		
-		else if (e.getSource() == addVehicleView.addButton) {
+		else if (addVehicleView != null && e.getSource() == addVehicleView.addButton) {
 			Vehicle vehicle = addVehicleView.getModel();
 			vehicle.Insert(vehicle);
 			
