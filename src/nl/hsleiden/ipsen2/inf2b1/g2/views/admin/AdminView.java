@@ -61,25 +61,25 @@ public class AdminView extends JFrame  {
 		JMenu mnBestand = new JMenu("Bestand");
 		mnBestand.setForeground(Color.BLACK);
 		mnBestand.setBackground(Color.LIGHT_GRAY);
-		mnBestand.setFont(new Font("Dialog", Font.PLAIN, 18));
+		mnBestand.setFont(new Font("Dialog", Font.PLAIN, 16));
 		menuBar.add(mnBestand);
 		
 		closeAdmin = new JMenuItem("Afsluiten");
-		closeAdmin.setFont(new Font("Dialog", Font.PLAIN, 16));
+		closeAdmin.setFont(new Font("Dialog", Font.PLAIN, 14));
 		closeAdmin.addActionListener(al);
 		
 		garageItem = new JMenuItem("Garagescherm");
-		garageItem.setFont(new Font("Dialog", Font.PLAIN, 16));
+		garageItem.setFont(new Font("Dialog", Font.PLAIN, 14));
 		garageItem.addActionListener(al);
 		mnBestand.add(garageItem);
 		
 		rentalItem = new JMenuItem("Verhuurscherm");
-		rentalItem.setFont(new Font("Dialog", Font.PLAIN, 16));
+		rentalItem.setFont(new Font("Dialog", Font.PLAIN, 14));
 		rentalItem.addActionListener(al);
 		mnBestand.add(rentalItem);
 		
 		customerItem = new JMenuItem("Klantenscherm");
-		customerItem.setFont(new Font("Dialog", Font.PLAIN, 16));
+		customerItem.setFont(new Font("Dialog", Font.PLAIN, 14));
 		customerItem.addActionListener(al);
 		mnBestand.add(customerItem);
 		
@@ -89,11 +89,11 @@ public class AdminView extends JFrame  {
 		
 		JMenu klantMenu = new JMenu("Klanten");
 		klantMenu.setForeground(Color.BLACK);
-		klantMenu.setFont(new Font("Dialog", Font.PLAIN, 18));
+		klantMenu.setFont(new Font("Dialog", Font.PLAIN, 16));
 		menuBar.add(klantMenu);
 		
 		addCustomer = new JMenuItem("Klant toevoegen");
-		addCustomer.setFont(new Font("Dialog", Font.PLAIN, 16));
+		addCustomer.setFont(new Font("Dialog", Font.PLAIN, 14));
 		addCustomer.addActionListener(al);
 		klantMenu.add(addCustomer);
 		
@@ -101,17 +101,17 @@ public class AdminView extends JFrame  {
 		klantMenu.add(separator_1);
 		
 		customerOverview = new JMenuItem("Overzicht weergeven");
-		customerOverview.setFont(new Font("Dialog", Font.PLAIN, 16));
+		customerOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		customerOverview.addActionListener(al);
 		klantMenu.add(customerOverview);
 		
 		JMenu mnVoertuigen = new JMenu("Voertuigen");
 		mnVoertuigen.setForeground(Color.BLACK);
-		mnVoertuigen.setFont(new Font("Dialog", Font.PLAIN, 18));
+		mnVoertuigen.setFont(new Font("Dialog", Font.PLAIN, 16));
 		menuBar.add(mnVoertuigen);
 		
 		addVehicle = new JMenuItem("Voertuig toevoegen");
-		addVehicle.setFont(new Font("Dialog", Font.PLAIN, 16));
+		addVehicle.setFont(new Font("Dialog", Font.PLAIN, 14));
 		addVehicle.addActionListener(al);
 		mnVoertuigen.add(addVehicle);
 		
@@ -119,17 +119,17 @@ public class AdminView extends JFrame  {
 		mnVoertuigen.add(separator);
 		
 		vehicleOverview = new JMenuItem("Overzicht weergeven ");
-		vehicleOverview.setFont(new Font("Dialog", Font.PLAIN, 16));
+		vehicleOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		vehicleOverview.addActionListener(al);
 		mnVoertuigen.add(vehicleOverview);
 		
 		JMenu mnGebruikers = new JMenu("Gebruikers");
 		mnGebruikers.setForeground(Color.BLACK);
-		mnGebruikers.setFont(new Font("Dialog", Font.PLAIN, 18));
+		mnGebruikers.setFont(new Font("Dialog", Font.PLAIN, 16));
 		menuBar.add(mnGebruikers);
 		
 		addUser = new JMenuItem("Gebruiker toevoegen");
-		addUser.setFont(new Font("Dialog", Font.PLAIN, 16));
+		addUser.setFont(new Font("Dialog", Font.PLAIN, 14));
 		addUser.addActionListener(al);
 		mnGebruikers.add(addUser);
 		
@@ -137,17 +137,17 @@ public class AdminView extends JFrame  {
 		mnGebruikers.add(separator_4);
 		
 		userOverview = new JMenuItem("Overzicht weergeven");
-		userOverview.setFont(new Font("Dialog", Font.PLAIN, 16));
+		userOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		userOverview.addActionListener(al);
 		mnGebruikers.add(userOverview);
 		
 		JMenu mnFinancien = new JMenu("Financi\u00EBn");
 		mnFinancien.setForeground(Color.BLACK);
-		mnFinancien.setFont(new Font("Dialog", Font.PLAIN, 18));
+		mnFinancien.setFont(new Font("Dialog", Font.PLAIN, 16));
 		menuBar.add(mnFinancien);
 		
 		financialOverview = new JMenuItem("Overzicht weergegeven");
-		financialOverview.setFont(new Font("Dialog", Font.PLAIN, 16));
+		financialOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		financialOverview.addActionListener(al);
 		mnFinancien.add(financialOverview);
 		
