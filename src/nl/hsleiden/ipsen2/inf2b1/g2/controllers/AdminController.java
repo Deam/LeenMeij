@@ -1,6 +1,5 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.controllers;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +10,13 @@ import java.util.Vector;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
+import nl.hsleiden.ipsen2.inf2b1.g2.models.Financial;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
+import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.FinancialOverview;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.AddCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.CustomerOverview;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.CustomerView;
@@ -47,7 +47,8 @@ public class AdminController implements ActionListener, MouseListener {
 	private JTable table;
 	private int id = 0;
 	private int cId;
-
+	private FinancialOverview financialOverview;
+	
 	public AdminController() {
 		adminview = new AdminView(this, this);
 		adminview.userOverview.setFont(new Font("Dialog", Font.PLAIN, 14)); 
@@ -254,7 +255,8 @@ public class AdminController implements ActionListener, MouseListener {
 			modelAll.fireTableDataChanged();
 		}
 	}
-
+	
+	
 	public void addCustomer()
 	{
 		Customer customer = new Customer();
@@ -267,6 +269,48 @@ public class AdminController implements ActionListener, MouseListener {
 		}
 	}
 
+	
+	
+	private Vector<Vector<String>> financialListLimited()
+	{
+		
+		Vector<Vector<String>> financialList = new Vector<Vector<String>>();
+		// Fill the table with the customer information
+		Financial financial = new Financial();
+		for (Financial f : financial.getAll_by_Date()) {
+			// Add the customer data
+			Vector<String> data = new Vector<>();
+			data.add(Integer.toString(f.getRentalID()));
+			data.add(f.getRentedDate());
+			data.add(Integer.toString(f.getCustomerNumber()));
+			data.add(f.getCustomerFirstname());
+			data.add(f.getCustomerLastname());
+			data.add(Integer.toString(f.getVehicleID()));
+			data.add(f.getVehicleBrand());
+			data.add(f.getVehicleModel());
+			data.add(f.getLicencePlate());
+			data.add(Integer.toString(f.getRentalKost()));
+
+			// Set the customer information to the list
+			financialList.add(data);
+		}
+		return financialList;
+		
+	}
+	public void updateFinancialTableData()
+	{
+		//Financial financial = new Financial();
+		DefaultTableModel modelLim = (DefaultTableModel)adminview.financialTable.getModel();
+		adminview.financialTable.setModel(new DefaultTableModel(financialListLimited(), columnNames()));
+		modelLim.fireTableDataChanged();
+		if (financialOverview != null)
+		{
+			DefaultTableModel modelAll = (DefaultTableModel)financialOverview.financialTable.getModel();
+			financialOverview.financialTable.setModel(new DefaultTableModel(financialController.financialListAll(), columnNames()));
+			modelAll.fireTableDataChanged();
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -340,6 +384,12 @@ public class AdminController implements ActionListener, MouseListener {
 		else if (editCustomerView != null && e.getSource() == editCustomerView.editButton) {
 			editCustomer();
 			updateCustomerTableData();
+		}
+		else if(e.getSource() == AdminView.btnSearchFinancials) {
+			
+			updateFinancialTableData();
+			System.out.println("yes1");
+			
 		}
 	}
 
