@@ -74,6 +74,7 @@ public class CustomerView extends JFrame {
 		lblPrijzenInDeze = new JLabel(
 				"*Prijzen in deze applicatie zijn onder voorbehoud, aan de getoonde prijzen kunnen geen rechten worden ontleend");
 		panel.add(lblPrijzenInDeze);
+		panel.add(closeButton);
 
 		setVisible(true);
 	}

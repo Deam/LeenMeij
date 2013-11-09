@@ -221,6 +221,7 @@ public class UserController implements ActionListener, MouseListener{
 						
 						if (role == UserRole.BALIE) {
 							rentalController.showRentalView();
+							loginView.setVisible(false);
 						} else if (role == UserRole.ADMIN) {
 							AdminController adminController = new AdminController();
 							adminController.showAdminView();
@@ -228,8 +229,10 @@ public class UserController implements ActionListener, MouseListener{
 						} else if (role == UserRole.GARAGE) {
 							DamageController damageController = new DamageController();
 							damageController.showGarageView();
+							loginView.setVisible(false);
 						} else if (role == UserRole.KLANT) {
 							customerController.showCustomerView();
+							loginView.setVisible(false);
 						} else if (role == UserRole.NONE) {
 							JOptionPane
 									.showMessageDialog(

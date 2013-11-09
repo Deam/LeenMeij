@@ -6,6 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
@@ -14,7 +15,8 @@ import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
 public class FinancialOverview extends JFrame {
 
 	private JPanel contentPane;
-
+	public JTable financialTable;
+	
 	public FinancialOverview() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 950, 656);
@@ -25,7 +27,7 @@ public class FinancialOverview extends JFrame {
 		
 		contentPane.setBorder(BorderFactory.createTitledBorder("Meest recente huur"));
 		FinancialController financialController = new FinancialController();
-		contentPane.add(new JScrollPane(financialController.FinancialTable()), BorderLayout.CENTER);
+		contentPane.add(new JScrollPane(financialTable=financialController.FinancialTable()), BorderLayout.CENTER);
 		
 		setContentPane(contentPane);
 		

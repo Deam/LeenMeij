@@ -193,6 +193,8 @@ public class RentalController implements ActionListener, MouseListener {
 
 		else if (rentalView != null && e.getSource() == rentalView.closeButton) {
 			rentalView.dispose();
+			UserController controller = new UserController();
+			controller.showLoginView();
 		}
 
 		else if (editCustomerItem != null && e.getSource() == editCustomerItem) {
