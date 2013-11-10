@@ -12,7 +12,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Financial;
-import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.FinancialOverview;
 
 public class FinancialController implements ActionListener, MouseListener {
@@ -22,14 +21,15 @@ public class FinancialController implements ActionListener, MouseListener {
 
 	private JTable table;
 	private JPopupMenu popupMenu;
-	private AdminView adminView;
 
 	private FinancialOverview financialOverview;
+	
 	public FinancialController() {
-
+		
 	}
+	
 	public void showFinancialOverview(){
-		financialOverview = new FinancialOverview();
+		financialOverview = new FinancialOverview(this);
 		financialOverview.setVisible(true);
 	}
 
@@ -49,43 +49,9 @@ public class FinancialController implements ActionListener, MouseListener {
 		popupMenu.add(editFinancialItem);
 		popupMenu.add(deleteFinancialItem);
 
-		// Create the lists for filling
-		Vector<Vector<String>> financialList = new Vector<Vector<String>>();
-		Vector<String> columnNames = new Vector<>();
-
-		// Make all the columnname
-		columnNames.add("Rental ID");
-		columnNames.add("Verhuur Datum");
-		columnNames.add("Klant nr");
-		columnNames.add("Voornaam");
-		columnNames.add("Achternaam");
-		columnNames.add("Voertuig ID");
-		columnNames.add("Voertuig Merk");
-		columnNames.add("Voertuig Model");
-		columnNames.add("Voertuig Kenteken");
-		columnNames.add("Verhuurkosten");
-
-		// Fill the table with the customer information
-		Financial financial = new Financial();
-		for (Financial f : financial.getAll()) {
-			Vector<String> data = new Vector<>();
-			data.add(Integer.toString(f.getRentalID()));
-			data.add(f.getRentedDate());
-			data.add(Integer.toString(f.getCustomerNumber()));
-			data.add(f.getCustomerFirstname());
-			data.add(f.getCustomerLastname());
-			data.add(Integer.toString(f.getVehicleID()));
-			data.add(f.getVehicleBrand());
-			data.add(f.getVehicleModel());
-			data.add(f.getLicencePlate());
-			data.add(Integer.toString(f.getRentalKost()));
-
-			// Set the customer information to the list
-			financialList.add(data);
-		}
-
+		
 		// Set the lists to the table
-		table = new JTable(new DefaultTableModel(financialListAll(), columnNames()));
+		table = new JTable(new DefaultTableModel(financialListLimited2(), columnNames()));
 		// Add a mouse listner for the popupmenu
 		table.addMouseListener(this);
 
@@ -124,9 +90,9 @@ public class FinancialController implements ActionListener, MouseListener {
 			columnNames.add("Voertuig Kenteken");
 			columnNames.add("Verhuurkosten");
 
-			// Fill the table with the customer information
+			// Fill the table with the financial information
 			Financial financial = new Financial();
-			for (Financial f : financial.getAll_by_Date()) {
+			for (Financial f : financial.getAll_by_Date(financialOverview.getModel().getSearchDate())) {
 				Vector<String> data = new Vector<>();
 				data.add(Integer.toString(f.getRentalID()));
 				data.add(f.getRentedDate());
@@ -139,7 +105,7 @@ public class FinancialController implements ActionListener, MouseListener {
 				data.add(f.getLicencePlate());
 				data.add(Integer.toString(f.getRentalKost()));
 
-				// Set the customer information to the list
+				// Set the financial information to the list
 				financialList.add(data);
 			}
 
@@ -175,10 +141,10 @@ public class FinancialController implements ActionListener, MouseListener {
 	{
 		
 		Vector<Vector<String>> financialList = new Vector<Vector<String>>();
-		// Fill the table with the customer information
+		// Fill the table with the financial information
 		Financial financial = new Financial();
 		for (Financial f : financial.getAll()) {
-			// Add the customer data
+			// Add the financial data
 			Vector<String> data = new Vector<>();
 			data.add(Integer.toString(f.getRentalID()));
 			data.add(f.getRentedDate());
@@ -191,24 +157,50 @@ public class FinancialController implements ActionListener, MouseListener {
 			data.add(f.getLicencePlate());
 			data.add(Integer.toString(f.getRentalKost()));
 
-			// Set the customer information to the list
+			// Set the financial information to the list
 			financialList.add(data);
 		}
 		return financialList;
 		
 	}
-	/*public void showFinancialOverview(){
-		financialOverview = new FinancialOverview();
-		financialOverview.setVisible(true);
-	}*/
 	
 	
+	public Vector<Vector<String>> financialListLimited2()
+	{
+		Vector<Vector<String>> financialList = new Vector<Vector<String>>();
+		// Fill the table with the financial information
+		Financial financial = new Financial();
+		
+		for (Financial f : financial.getLimited()) {
+			// Add the financial data
+			Vector<String> data = new Vector<>();
+			data.add(Integer.toString(f.getRentalID()));
+			data.add(f.getRentedDate());
+			data.add(Integer.toString(f.getCustomerNumber()));
+			data.add(f.getCustomerFirstname());
+			data.add(f.getCustomerLastname());
+			data.add(Integer.toString(f.getVehicleID()));
+			data.add(f.getVehicleBrand());
+			data.add(f.getVehicleModel());
+			data.add(f.getLicencePlate());
+			data.add(Integer.toString(f.getRentalKost()));
+
+			// Set the financial information to the list
+			financialList.add(data);
+		}
+		return financialList;
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == editFinancialItem) {
 			
+		}
+		
+		else if(financialOverview != null && e.getSource() == financialOverview.searchButton) {
+			System.err.println("dicks");
+			updateFinancialTableData();		
 		}
 
 	}
@@ -236,6 +228,40 @@ public class FinancialController implements ActionListener, MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 
+	}
+	
+	public Vector<Vector<String>> financialListLimited()
+	{
+		Vector<Vector<String>> financialList = new Vector<Vector<String>>();
+		// Fill the table with the financial information
+		Financial financial = new Financial();
+		
+		for (Financial f : financial.getAll_by_Date(financialOverview.getModel().getSearchDate())) {
+			// Add the financial data
+			Vector<String> data = new Vector<>();
+			data.add(Integer.toString(f.getRentalID()));
+			data.add(f.getRentedDate());
+			data.add(Integer.toString(f.getCustomerNumber()));
+			data.add(f.getCustomerFirstname());
+			data.add(f.getCustomerLastname());
+			data.add(Integer.toString(f.getVehicleID()));
+			data.add(f.getVehicleBrand());
+			data.add(f.getVehicleModel());
+			data.add(f.getLicencePlate());
+			data.add(Integer.toString(f.getRentalKost()));
+
+			// Set the financial information to the list
+			financialList.add(data);
+		}
+		return financialList;
+	}
+
+	public void updateFinancialTableData()
+	{
+		
+		DefaultTableModel modelLim = (DefaultTableModel)financialOverview.financialTable.getModel();
+		financialOverview.financialTable.setModel(new DefaultTableModel(financialListLimited(), columnNames()));
+		modelLim.fireTableDataChanged();
 	}
 
 }
