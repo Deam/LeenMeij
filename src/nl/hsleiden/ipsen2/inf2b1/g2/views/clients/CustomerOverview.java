@@ -27,7 +27,7 @@ public class CustomerOverview extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		contentPane.setBorder(BorderFactory.createTitledBorder("Verhuurde voertuigen"));
+		contentPane.setBorder(BorderFactory.createTitledBorder("Alle Klanten"));
 		AdminController controller = new AdminController();
 		contentPane.add(new JScrollPane(customerTable = controller.CustomerTable()), BorderLayout.CENTER);
 		

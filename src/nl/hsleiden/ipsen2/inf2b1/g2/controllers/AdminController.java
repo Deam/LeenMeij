@@ -14,7 +14,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
-import nl.hsleiden.ipsen2.inf2b1.g2.models.Financial;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.FinancialOverview;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.AddCustomer;
@@ -31,7 +30,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.EditCustomer;
 
 public class AdminController implements ActionListener, MouseListener {
 
-	private AdminView adminview;
+	private static AdminView adminview;
 	private CustomerController cController;
 	private VehicleController vController;
 	private UserController userController;
@@ -69,6 +68,10 @@ public class AdminController implements ActionListener, MouseListener {
 		damageController = new DamageController();
 		financialController = new FinancialController();
 		this.editCustomerView = new EditCustomer(cId, this);
+	}
+	
+	public static AdminView view(){
+		return adminview;
 	}
 
 	public void showAdminView() {
@@ -269,48 +272,6 @@ public class AdminController implements ActionListener, MouseListener {
 		}
 	}
 
-	
-	
-	private Vector<Vector<String>> financialListLimited()
-	{
-		
-		Vector<Vector<String>> financialList = new Vector<Vector<String>>();
-		// Fill the table with the customer information
-		Financial financial = new Financial();
-		for (Financial f : financial.getAll_by_Date()) {
-			// Add the customer data
-			Vector<String> data = new Vector<>();
-			data.add(Integer.toString(f.getRentalID()));
-			data.add(f.getRentedDate());
-			data.add(Integer.toString(f.getCustomerNumber()));
-			data.add(f.getCustomerFirstname());
-			data.add(f.getCustomerLastname());
-			data.add(Integer.toString(f.getVehicleID()));
-			data.add(f.getVehicleBrand());
-			data.add(f.getVehicleModel());
-			data.add(f.getLicencePlate());
-			data.add(Integer.toString(f.getRentalKost()));
-
-			// Set the customer information to the list
-			financialList.add(data);
-		}
-		return financialList;
-		
-	}
-	public void updateFinancialTableData()
-	{
-		//Financial financial = new Financial();
-		DefaultTableModel modelLim = (DefaultTableModel)adminview.financialTable.getModel();
-		adminview.financialTable.setModel(new DefaultTableModel(financialListLimited(), columnNames()));
-		modelLim.fireTableDataChanged();
-		if (financialOverview != null)
-		{
-			DefaultTableModel modelAll = (DefaultTableModel)financialOverview.financialTable.getModel();
-			financialOverview.financialTable.setModel(new DefaultTableModel(financialController.financialListAll(), columnNames()));
-			modelAll.fireTableDataChanged();
-		}
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -358,12 +319,9 @@ public class AdminController implements ActionListener, MouseListener {
 
 		else if(e.getSource() == adminview.financialOverview){
 			financialController.showFinancialOverview();
-			//JOptionPane.showMessageDialog(null,
-			//	"Er kunnen op dit moment geen gegevens worden opgehaald", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
-		else if(addCustomerView != null && e.getSource() == addCustomerView.addButton)
-		{
+		else if(addCustomerView != null && e.getSource() == addCustomerView.addButton){
 			addCustomer();
 		}
 
@@ -384,12 +342,6 @@ public class AdminController implements ActionListener, MouseListener {
 		else if (editCustomerView != null && e.getSource() == editCustomerView.editButton) {
 			editCustomer();
 			updateCustomerTableData();
-		}
-		else if(e.getSource() == AdminView.btnSearchFinancials) {
-			
-			updateFinancialTableData();
-			System.out.println("yes1");
-			
 		}
 	}
 

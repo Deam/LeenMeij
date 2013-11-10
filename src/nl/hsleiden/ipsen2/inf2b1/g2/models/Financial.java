@@ -2,11 +2,9 @@ package nl.hsleiden.ipsen2.inf2b1.g2.models;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
-import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
 
 /**
  * Getters and setters for the financial model.
@@ -30,6 +28,8 @@ public class Financial extends Database
 	private String vehicleModel;
 	private String licencePlate;
 	private int rentalKost;
+	
+	private String searchDate;
 	
 	private ResultSet set = null;
 	
@@ -173,27 +173,16 @@ public class Financial extends Database
 		
 		return financialList;
 	}
-	public ArrayList<Financial> getAll_by_Date(){
+	public ArrayList<Financial> getAll_by_Date(String date){
 		// Make a new list for the financial's
 		ArrayList<Financial> financialList = new ArrayList<Financial>();
 		
 		try {
 			// Open the connection
 			connect();
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("MMM yyyy");
-			//System.out.println(sdf);
-			
-			String s = sdf.format(AdminView.getDate_s());
-			System.out.println("-->"+s);
-			
-			
-			/*String e = sdf.format(AdminView.getDate_e());
-			System.out.println(e);*/
-			
-			//SELECT * FROM financials WHERE rentedDate LIKE '%Nov 2013%'  or '%Nov 2013%' 
+
 			// Create the query and execute it
-			PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM financials WHERE rentedDate LIKE '%" + s +"%'");
+			PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM financials WHERE rentedDate LIKE '%" + date +"%'");
 			System.out.println(statement);
 			set = statement.executeQuery();
 			
@@ -224,6 +213,46 @@ public class Financial extends Database
 		
 		return financialList;
 	}
+	public ArrayList<Financial> getLimited(){
+		// Make a new list for the financial's
+		ArrayList<Financial> financialList = new ArrayList<Financial>();
+		
+		try {
+			// Open the connection
+			connect();
+
+			// Create the query and execute it
+			PreparedStatement statement = getConnection().prepareStatement(
+					"SELECT * FROM financials ORDER BY rentedDate DESC LIMIT 50 ");
+			
+			set = statement.executeQuery();
+			while (set.next()) 
+			{
+				Financial f = new Financial();
+				f.setRentalID(set.getInt("rentalid"));
+				f.setRentedDate(set.getString("renteddate"));
+				f.setCustomerNumber(set.getInt("customerid"));
+				f.setCustomerFirstname(set.getString("firstname"));
+				f.setCustomerLastname(set.getString("lastname"));
+				f.setVehicleID(set.getInt("vehicleid"));
+				f.setVehicleBrand(set.getString("vehiclebrand"));
+				f.setVehicleModel(set.getString("vehiclemodel"));
+				f.setLicencePlate(set.getString("licenceplate"));
+				f.setRentalKost(set.getInt("rentalkost"));
+				
+				financialList.add(f);
+			}
+			
+			// Close the connection
+			close();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return financialList;
+	}
+	
 	
 	/** 
 	 * Get by id method, for getting a single financial defined by the financialid
@@ -347,6 +376,14 @@ public class Financial extends Database
 	}
 	public void setLicencePlate(String licencePlate) {
 		this.licencePlate = licencePlate;
+	}
+
+	public String getSearchDate() {
+		return searchDate;
+	}
+
+	public void setSearchDate(String searchDate) {
+		this.searchDate = searchDate;
 	}
 	
 }

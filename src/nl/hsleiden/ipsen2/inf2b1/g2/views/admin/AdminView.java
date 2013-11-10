@@ -16,7 +16,6 @@ import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -34,8 +33,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.controllers.AdminController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
 
-import com.toedter.calendar.JDateChooser;
-
 @SuppressWarnings("serial")
 public class AdminView extends JFrame  {
 
@@ -49,11 +46,8 @@ public class AdminView extends JFrame  {
 	public JPanel customerOverviewPanel,vehicleOverviewPanel;
 	public static JPanel financialOverviewPanel,financialOverviewPanel2;
 	public JMenuItem customerItem, rentalItem, garageItem;
-	
-	public static JDateChooser startDate;
 	public static Date date_s;
 	public static Date date_e;
-	public static JButton btnSearchFinancials;
 	
 	public AdminView(ActionListener al, AdminController controller)  {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -185,8 +179,6 @@ public class AdminView extends JFrame  {
 		
 		FinancialController fController = new FinancialController();
 		financialOverviewPanel.add(new JScrollPane(financialTable = fController.FinancialTable()), BorderLayout.CENTER);
-		//financialOverviewPanel2 = new JPanel();
-		//financialOverviewPanel.add(new JScrollPane(financialTable = fController.FinancialTable2()), BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout(0,0));
@@ -203,19 +195,6 @@ public class AdminView extends JFrame  {
 	         e.printStackTrace();
 	      }
 		
-		startDate = new JDateChooser();
-		startDate.setDateFormatString("MMM, yyyy");
-		startDate.getCalendarButton().setFont(
-				new Font("Tahoma", Font.PLAIN, 14));
-		//date_e = endDate.getDateFormatString();
-		
-		JLabel lblFinancieelWeergeven = new JLabel("Financieel weergeven");
-		
-		JLabel lblNewLabel = new JLabel("Van maand");
-		
-		btnSearchFinancials = new JButton("Zoek");
-		btnSearchFinancials.addActionListener(al);
-		
 		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -224,19 +203,7 @@ public class AdminView extends JFrame  {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNewLabel)
-									.addGap(18)
-									.addComponent(startDate, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblFinancieelWeergeven))
-							.addGap(18)
-							.addComponent(btnSearchFinancials, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 1282, Short.MAX_VALUE)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE)
 						.addComponent(financialOverviewPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1876, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(customerOverviewPanel, GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
@@ -254,24 +221,11 @@ public class AdminView extends JFrame  {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(financialOverviewPanel, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblFinancieelWeergeven)
-							.addGap(10)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblNewLabel)
-								.addComponent(startDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnSearchFinancials))))
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
-	public static Date getDate_s(){
-		
-		return date_s = startDate.getDate();
-	}
-	/*public static Date getDate_e(){
-		return date_e = endDate.getDate();
-	}*/
+	
+	
 }
