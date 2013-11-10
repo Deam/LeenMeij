@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.User;
+import java.awt.SystemColor;
 
 /**
  * This class logs the user in to the system, check the password hashes and shows
@@ -49,6 +50,7 @@ public class LoginView extends JFrame{
 			
 		// Create contentPane
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
@@ -77,6 +79,7 @@ public class LoginView extends JFrame{
 
 		
 		panel = new JPanel();
+		panel.setBackground(SystemColor.activeCaption);
 		panel.setLayout(new BorderLayout(0,0));
 		
 		try {
@@ -134,7 +137,7 @@ public class LoginView extends JFrame{
 	public User getModel(){
 		User user = new User();
 		user.setUsername(usernameField.getText());
-		user.setPassword(passwordField.getPassword());
+		user.setPassword(passwordField.getText());
 		
 		System.out.println(passwordField.getPassword());
 		

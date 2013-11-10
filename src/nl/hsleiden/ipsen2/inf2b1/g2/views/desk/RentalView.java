@@ -37,6 +37,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class RentalView extends JFrame {
@@ -52,9 +53,10 @@ public class RentalView extends JFrame {
 	public JButton addCustomerButton;
 	public JButton closeButton;
 	public double totalPrice = 0;
-	public JLabel priceLabel;
+	private JLabel priceLabel;
 	public JButton calculateButton;
 	public JSpinField daysField;
+	public JLabel calcPrice;
 
 	public RentalView(ActionListener al, RentalController controller) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,76 +100,43 @@ public class RentalView extends JFrame {
 		JPanel optionsPanel = new JPanel();
 		optionsPanel.setBorder(BorderFactory
 				.createTitledBorder("Overige opties"));
-
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout(0, 0));
+		
+		ImageIcon icon = null;
 
 		try {
 			BufferedImage img = ImageIO.read(getClass().getResource(
 					"/image/logo.png"));
-			ImageIcon icon = new ImageIcon(img);
+			icon = new ImageIcon(img);
 			Image img1 = icon.getImage();
 			Image newimg = img1.getScaledInstance(199, 92,
 					java.awt.Image.SCALE_SMOOTH);
 			icon = new ImageIcon(newimg);
-			JLabel label = new JLabel(icon);
-			panel.add(label, BorderLayout.CENTER);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane
-				.setHorizontalGroup(gl_contentPane
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(
-								gl_contentPane
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_contentPane
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addComponent(
-																panel,
-																GroupLayout.PREFERRED_SIZE,
-																279,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																customerPanel,
-																Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE,
-																892,
-																Short.MAX_VALUE)
-														.addComponent(
-																vehiclePanel,
-																Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE,
-																892,
-																Short.MAX_VALUE)
-														.addComponent(
-																optionsPanel,
-																Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE,
-																892,
-																Short.MAX_VALUE))
-										.addContainerGap()));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				gl_contentPane
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(customerPanel,
-								GroupLayout.PREFERRED_SIZE, 256,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(vehiclePanel, GroupLayout.PREFERRED_SIZE,
-								301, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
-								206, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90,
-								GroupLayout.PREFERRED_SIZE).addGap(0)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(vehiclePanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE)
+						.addComponent(customerPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE)
+						.addComponent(optionsPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(customerPanel, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(vehiclePanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
 
 		JPanel extrasPanel = new JPanel();
 
@@ -215,12 +184,19 @@ public class RentalView extends JFrame {
 		calculateButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		closeButton = new JButton("Sluiten");
+		closeButton.setBackground(Color.RED);
 		closeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		closeButton.addActionListener(al);
 		
 		makeRentalAgreement = new JButton("Cree\u00EBr overeenkomst");
 		makeRentalAgreement.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		makeRentalAgreement.addActionListener(al);
+		
+				JPanel panel = new JPanel();
+				panel.setLayout(new BorderLayout(0, 0));
+		
+		calcPrice = new JLabel("0");
+		calcPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		GroupLayout gl_optionsPanel = new GroupLayout(optionsPanel);
 		gl_optionsPanel.setHorizontalGroup(
@@ -234,21 +210,22 @@ public class RentalView extends JFrame {
 					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_optionsPanel.createSequentialGroup()
 							.addComponent(extrasPanel, GroupLayout.PREFERRED_SIZE, 493, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGroup(gl_optionsPanel.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(priceLabel)
+							.addGap(18)
+							.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(gl_optionsPanel.createSequentialGroup()
 									.addComponent(calculateButton)
-									.addGap(323))))
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_optionsPanel.createSequentialGroup()
+									.addComponent(priceLabel)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(calcPrice)
+									.addGap(548)
+									.addComponent(closeButton)
+									.addGap(18)
+									.addComponent(makeRentalAgreement))))
 						.addComponent(lblSelecteerDeGewenste))
-					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_optionsPanel.createSequentialGroup()
-							.addGap(69)
-							.addComponent(makeRentalAgreement))
-						.addGroup(gl_optionsPanel.createSequentialGroup()
-							.addGap(113)
-							.addComponent(closeButton)))
-					.addGap(101))
+					.addContainerGap())
 		);
 		gl_optionsPanel.setVerticalGroup(
 			gl_optionsPanel.createParallelGroup(Alignment.LEADING)
@@ -258,19 +235,26 @@ public class RentalView extends JFrame {
 						.addComponent(lblSelecteerDeVerhuur)
 						.addComponent(lblSelecteerDeGewenste))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(essentialPanel, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(essentialPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(gl_optionsPanel.createSequentialGroup()
+							.addGroup(gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_optionsPanel.createSequentialGroup()
+									.addComponent(calculateButton)
+									.addPreferredGap(ComponentPlacement.RELATED, 83, Short.MAX_VALUE))
+								.addGroup(gl_optionsPanel.createSequentialGroup()
+									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)))
 							.addGroup(gl_optionsPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(calculateButton)
-								.addComponent(makeRentalAgreement))
-							.addGap(18)
-							.addComponent(closeButton)
-							.addPreferredGap(ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-							.addComponent(priceLabel))
-						.addComponent(extrasPanel, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+								.addComponent(priceLabel)
+								.addComponent(makeRentalAgreement)
+								.addComponent(closeButton)
+								.addComponent(calcPrice)))
+						.addComponent(extrasPanel, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
 					.addContainerGap())
 		);
+		JLabel label = new JLabel(icon);
+		panel.add(label, BorderLayout.CENTER);
 
 		JLabel lblUitgifteDatum = new JLabel("Uitgifte datum");
 		lblUitgifteDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -291,115 +275,50 @@ public class RentalView extends JFrame {
 
 		paymentBox = new JSpinField();
 		paymentBox.getSpinner().setFont(new Font("Tahoma", Font.PLAIN, 14));
-
+		
 		daysField = new JSpinField();
-
-		JLabel lblAantalDagen = new JLabel("Aantal dagen");
-		lblAantalDagen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblAantalDagenVerhuurt = new JLabel("Aantal dagen verhuurt");
+		lblAantalDagenVerhuurt.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout gl_essentialPanel = new GroupLayout(essentialPanel);
-		gl_essentialPanel
-				.setHorizontalGroup(gl_essentialPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_essentialPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																lblAanbetaling)
-														.addComponent(
-																lblVerwachteInnameDatum)
-														.addComponent(
-																lblUitgifteDatum)
-														.addComponent(
-																lblAantalDagen))
-										.addGap(30)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																paymentBox,
-																GroupLayout.DEFAULT_SIZE,
-																120,
-																Short.MAX_VALUE)
-														.addComponent(
-																expectedReceiveDate,
-																GroupLayout.DEFAULT_SIZE,
-																120,
-																Short.MAX_VALUE)
-														.addComponent(
-																rentalDate,
-																GroupLayout.DEFAULT_SIZE,
-																120,
-																Short.MAX_VALUE)
-														.addComponent(
-																daysField,
-																GroupLayout.DEFAULT_SIZE,
-																120,
-																Short.MAX_VALUE))
-										.addContainerGap()));
-		gl_essentialPanel
-				.setVerticalGroup(gl_essentialPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_essentialPanel
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																rentalDate,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblUitgifteDatum))
-										.addGap(12)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																lblVerwachteInnameDatum)
-														.addComponent(
-																expectedReceiveDate,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addComponent(
-																daysField,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblAantalDagen))
-										.addPreferredGap(
-												ComponentPlacement.RELATED, 36,
-												Short.MAX_VALUE)
-										.addGroup(
-												gl_essentialPanel
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addComponent(
-																paymentBox,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblAanbetaling))
-										.addContainerGap()));
+		gl_essentialPanel.setHorizontalGroup(
+			gl_essentialPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_essentialPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblAanbetaling)
+						.addComponent(lblVerwachteInnameDatum)
+						.addComponent(lblUitgifteDatum)
+						.addComponent(lblAantalDagenVerhuurt))
+					.addGap(30)
+					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(paymentBox, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+						.addComponent(expectedReceiveDate, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+						.addComponent(rentalDate, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+						.addComponent(daysField, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_essentialPanel.setVerticalGroup(
+			gl_essentialPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_essentialPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(rentalDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblUitgifteDatum))
+					.addGap(12)
+					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblVerwachteInnameDatum)
+						.addComponent(expectedReceiveDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(daysField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblAantalDagenVerhuurt))
+					.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(paymentBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblAanbetaling))
+					.addContainerGap())
+		);
 		essentialPanel.setLayout(gl_essentialPanel);
 		JPanel insurancePanel = new JPanel();
 		GroupLayout gl_insurancePanel = new GroupLayout(insurancePanel);
@@ -610,7 +529,7 @@ public class RentalView extends JFrame {
 		rented.setExpectedReceiveDate(expectedReceiveDate.getDate()
 				.toGMTString());
 		rented.setPayment(paymentBox.getValue());
-		rented.setTotal(Double.parseDouble(priceLabel.getText()));
+		rented.setTotal(Double.parseDouble(calcPrice.getText()));
 
 		return rented;
 	}

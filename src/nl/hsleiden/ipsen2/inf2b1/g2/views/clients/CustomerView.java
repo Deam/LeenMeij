@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,15 +15,18 @@ import javax.swing.JPanel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Options;
-
-import javax.swing.JButton;
-import java.awt.Font;
+import com.toedter.components.JSpinField;
 
 @SuppressWarnings("serial")
 public class CustomerView extends JFrame {
-	private JLabel estimateLabel, priceLabel, lblPrijzenInDeze;
+	private JLabel lblPrijzenInDeze;
 	public JButton closeButton;
-	private double totalPrice = 0;
+	public double totalPrice = 0;
+	public JLabel priceLabel;
+	public JButton calculateButton;
+	public ImageSliderController controller;
+	private JLabel lblAantalDagen;
+	public JSpinField dayFIeld;
 
 	public CustomerView(ActionListener al) {
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -33,8 +36,7 @@ public class CustomerView extends JFrame {
 				.getHeight());
 
 		setUndecorated(true);
-
-		ImageSliderController controller = new ImageSliderController();
+		controller = new ImageSliderController();
 
 		getContentPane().add(controller.showImageSlider(), BorderLayout.CENTER);
 
@@ -50,10 +52,8 @@ public class CustomerView extends JFrame {
 				public void itemStateChanged(ItemEvent e) {
 					if (box.isSelected()) {
 						totalPrice += price;
-						priceLabel.setText("Totaal bedrag \u20AC " + totalPrice);
 					} else {
 						totalPrice -= price;
-						priceLabel.setText("Totaal bedrag \u20AC " + totalPrice);
 					}
 				}
 			});
@@ -70,6 +70,22 @@ public class CustomerView extends JFrame {
 		getContentPane().add(panel, BorderLayout.SOUTH);
 	
 		panel.add(extrasPanel);
+		
+		JPanel calculatePanel = new JPanel();
+		panel.add(calculatePanel);
+		
+		calculateButton = new JButton("Bereken de prijs");
+		calculateButton.addActionListener(al);
+		
+		lblAantalDagen = new JLabel("Aantal dagen:");
+		calculatePanel.add(lblAantalDagen);
+		
+		dayFIeld = new JSpinField();
+		calculatePanel.add(dayFIeld);
+		calculatePanel.add(calculateButton);
+		
+		priceLabel = new JLabel("");
+		calculatePanel.add(priceLabel);
 
 		lblPrijzenInDeze = new JLabel(
 				"*Prijzen in deze applicatie zijn onder voorbehoud, aan de getoonde prijzen kunnen geen rechten worden ontleend");

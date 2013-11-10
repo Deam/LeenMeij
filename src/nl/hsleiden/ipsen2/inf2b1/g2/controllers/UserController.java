@@ -153,6 +153,7 @@ public class UserController implements ActionListener, MouseListener{
 			System.exit(0);
 		}
 		
+		// Update the user credentials
 		else if(editUser != null && e.getSource() == editUser.editButton){
 			User user = new User();
 			user = editUser.getModel();
@@ -166,15 +167,20 @@ public class UserController implements ActionListener, MouseListener{
 			editUser.dispose();
 		}
 		
+		// Show the edit screen
 		else if(e.getSource() == editUserItem){
 			showEditUser(id);
 		}
 		
+		// Show the delete screen
 		else if(e.getSource() == deleteUserItem){
 			showDeleteUser();
 		}
 	}
 	
+	/**
+	 * This method handles the logging in of the user.
+	 */
 	public void handleLogin(){
 		User u = loginView.getModel();
 		// Check if username is empty, if so then show a message.
@@ -187,7 +193,7 @@ public class UserController implements ActionListener, MouseListener{
 		}
 
 		// Check if password is empty, if so then show a message.
-		else if (u.getPassword().length == 0) {
+		else if (u.getPassword().equals("")) {
 			JOptionPane
 					.showMessageDialog(
 							null,
@@ -247,7 +253,7 @@ public class UserController implements ActionListener, MouseListener{
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"Uw inloggegevens kloppen niet, probeer het later opnieuw.",
+									"Uw inloggegevens kloppen niet, probeer het opnieuw.",
 									"Fout!", JOptionPane.ERROR_MESSAGE);
 				}
 

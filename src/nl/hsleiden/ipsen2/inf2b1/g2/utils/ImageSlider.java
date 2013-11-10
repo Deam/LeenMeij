@@ -75,6 +75,7 @@ public class ImageSlider extends JPanel{
 		colorLabel = new JLabel("Kleur: ");
 		milageLabel = new JLabel("Kilometerstand: ");
 		lisenceLabel = new JLabel("Kenteken: ");
+		JLabel euroLabel = new JLabel("€");
 		priceLabel = new JLabel("Prijs per dag: ");
 		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textArea = new JTextArea();
@@ -95,6 +96,7 @@ public class ImageSlider extends JPanel{
 						.addComponent(colorLabel)
 						.addComponent(milageLabel)
 						.addComponent(lisenceLabel)
+						.addComponent(euroLabel)
 						.addComponent(priceLabel)
 						.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
 						.addComponent(optionsLabel)
@@ -116,6 +118,8 @@ public class ImageSlider extends JPanel{
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lisenceLabel)
 					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(euroLabel)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(priceLabel)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(commentLabel)
@@ -136,9 +140,9 @@ public class ImageSlider extends JPanel{
 		brandLabel.setText("Merk: " + vehicle.getVehicleBrand());
 		modelLabel.setText("Model: " + vehicle.getVehicleModel());
 		colorLabel.setText("Kleur: " + vehicle.getVehicleColor());
-		milageLabel.setText("Kilometerstand " + Integer.toString(vehicle.getVehicleMilage()) + " kilometer");
+		milageLabel.setText("Kilometerstand: " + Integer.toString(vehicle.getVehicleMilage()) + " kilometer");
 		lisenceLabel.setText("Kenteken: " + vehicle.getLicensePlate());
-		priceLabel.setText("Prijs per dag: " + Double.toString(vehicle.getPrice()));
+		priceLabel.setText(Double.toString(vehicle.getPrice()));
 		
 		optionsArea.setText(vehicle.getVehicleOptions());
 		optionsArea.setEnabled(false);

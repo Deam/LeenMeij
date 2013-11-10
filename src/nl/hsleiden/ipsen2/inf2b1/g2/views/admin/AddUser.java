@@ -98,7 +98,7 @@ public class AddUser extends JFrame {
 	public User getModel(){
 		User u = new User();
 		u.setUsername(usernameField.getText());
-		u.setPassword(passwordField.getPassword());
+		u.setPassword(passwordField.getText());
 		u.setRole(comboBox.getSelectedItem().toString());
 		return u;
 	}

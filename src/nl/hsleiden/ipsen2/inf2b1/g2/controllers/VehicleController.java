@@ -22,13 +22,11 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.vehicle.VehicleOverview;
 /**
  * This class handles anything that has to do with vehicles
  * 
- * @author Deam 
- * @wbp.parser.entryPoint
+ * @author Deam
  */
 
 public class VehicleController implements ActionListener, MouseListener {
-		
-	@SuppressWarnings("unused")
+
 	private AdminView adminView;
 	private AddVehicle addVehicleView;
 	private EditVehicle editVehicleView;
@@ -37,16 +35,15 @@ public class VehicleController implements ActionListener, MouseListener {
 	public JMenuItem editVehicleItem, deleteVehicleItem;
 	private JTable table;
 	private int id = 0;
-	
-	public VehicleController(AdminView adminview){
+
+	public VehicleController(AdminView adminview) {
 		this.adminView = adminview;
 	}
-	
-	public VehicleController()
-	{
-		
+
+	public VehicleController() {
+
 	}
-	
+
 	// Create the customer table
 	public JTable VehicleTable() {
 		// Create a new table
@@ -66,8 +63,6 @@ public class VehicleController implements ActionListener, MouseListener {
 
 		// Create the lists for filling
 
-
-		
 		// Set the lists to the table
 		table = new JTable(new DefaultTableModel(vehicleList(), columnNames()));
 		// Add a mouse listner for the popupmenu
@@ -76,33 +71,45 @@ public class VehicleController implements ActionListener, MouseListener {
 		// Return the table
 		return table;
 	}
-	
-	private Vector<Vector<String>> vehicleList()
-	{
+
+	/**
+	 * Returns a list with all the vehicles. We also check and return the
+	 * vehicle availability
+	 * 
+	 * @return
+	 */
+	private Vector<Vector<String>> vehicleList() {
 		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
 		// Fill the table with the customer information
-				Vehicle vehicle = new Vehicle();
-				for (Vehicle v : vehicle.getAll()) {
-					// Add the customer data
-					Vector<String> data = new Vector<>();
-					data.add(Integer.toString(v.getVehicleID()));
-					data.add(v.getVehicleCategory());
-					data.add(v.getVehicleBrand());
-					data.add(v.getVehicleModel());
-					data.add(v.getVehicleColor());
-					data.add(Integer.toString(v.getVehicleMilage()));
-					data.add(v.getLicensePlate());
-					data.add(v.getVehicleOptions());
-					data.add(v.getVehicleComment());
+		Vehicle vehicle = new Vehicle();
+		for (Vehicle v : vehicle.getAll()) {
+			// Add the vehicle data to the list
 
-					// Set the customer information to the list
-					customerList.add(data);
-				}
+			Vector<String> data = new Vector<>();
+			data.add(Integer.toString(v.getVehicleID()));
+			data.add(v.getVehicleCategory());
+			data.add(v.getVehicleBrand());
+			data.add(v.getVehicleModel());
+			data.add(v.getVehicleColor());
+			data.add(Integer.toString(v.getVehicleMilage()));
+			data.add(v.getLicensePlate());
+			data.add(v.getVehicleOptions());
+			data.add(v.getVehicleComment());
+
+			// Make a check, so we can see if the vehicle is available
+			if (v.getAvailable() == 1) {
+				data.add("Beschikbaar");
+			} else if (v.getAvailable() == 0) {
+				data.add("Onbeschikbaar");
+			}
+
+			// Set the customer information to the list
+			customerList.add(data);
+		}
 		return customerList;
 	}
-	
-	private Vector<String> columnNames()
-	{
+
+	private Vector<String> columnNames() {
 		Vector<String> columnNames = new Vector<>();
 
 		// Make all the columnname
@@ -115,32 +122,33 @@ public class VehicleController implements ActionListener, MouseListener {
 		columnNames.add("Kenteken");
 		columnNames.add("Opties");
 		columnNames.add("Opmerkingen");
-		
+		columnNames.add("Beschikbaar");
+
 		return columnNames;
 	}
-	
-	public void updateVehicleTableData()
-	{
-		if (adminView != null)
-		{
-			DefaultTableModel model = (DefaultTableModel)adminView.vehicleTable.getModel();
-			adminView.vehicleTable.setModel(new DefaultTableModel(vehicleList(), columnNames()));
+
+	public void updateVehicleTableData() {
+		if (adminView != null) {
+			DefaultTableModel model = (DefaultTableModel) adminView.vehicleTable
+					.getModel();
+			adminView.vehicleTable.setModel(new DefaultTableModel(
+					vehicleList(), columnNames()));
 			model.fireTableDataChanged();
 		}
 	}
-	
+
 	// Show the vehicle overview
-	public void showVehicleOverview(){
+	public void showVehicleOverview() {
 		vehicleOverview = new VehicleOverview();
 		vehicleOverview.setVisible(true);
 	}
-	
+
 	// Show the add screen
 	public void showAddVehicle() {
 		addVehicleView = new AddVehicle(this);
 		addVehicleView.setVisible(true);
 	}
-	
+
 	// Show the edit screen
 	public void showEditVehicle(int cId, ActionListener al) {
 		editVehicleView = new EditVehicle(cId, al);
@@ -157,8 +165,8 @@ public class VehicleController implements ActionListener, MouseListener {
 				"Weet je zeker dat je dit voertuig wilt verwijderen?",
 				"Weet je het zeker?", JOptionPane.WARNING_MESSAGE,
 				JOptionPane.YES_NO_OPTION);
-		
-		// Get the 
+
+		// Get the
 		if (dialog == JOptionPane.YES_OPTION) {
 
 			v.Delete(cId);
@@ -190,6 +198,16 @@ public class VehicleController implements ActionListener, MouseListener {
 			}
 		}
 		
+		else if(e.getSource() == editVehicleView.availableRadio){
+			if(editVehicleView.availableRadio.isSelected())
+				editVehicleView.unavailableRadio.setSelected(false);
+		}
+			
+		else if (e.getSource() == editVehicleView.unavailableRadio) {
+			if(editVehicleView.unavailableRadio.isSelected())
+				editVehicleView.availableRadio.setSelected(false);
+		}
+		
 		else if (editVehicleView != null && e.getSource() == editVehicleView.editButton){
 			Vehicle vehicle = editVehicleView.getModel();
 			vehicle.Update(vehicle, vehicle.getVehicleID());
@@ -212,22 +230,20 @@ public class VehicleController implements ActionListener, MouseListener {
 		}	
 	}
 
-
-
 	/**
 	 * Makes a DefaultComboBoxModel, filled with the vehicle categories.
+	 * 
 	 * @return
 	 */
 	public static DefaultComboBoxModel<String> categoryItems() {
 		Vector<String> comboboxItemsVector = new Vector<String>();
-		
+
 		Vehicle vehicle = new Vehicle();
 
-		for (String categorie : vehicle.getCategories()) 
-		{
+		for (String categorie : vehicle.getCategories()) {
 			comboboxItemsVector.add(categorie);
 		}
-		
+
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(
 				comboboxItemsVector);
 
@@ -237,26 +253,25 @@ public class VehicleController implements ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// Get the source for the popupmenu
-		if (e.getButton() == MouseEvent.BUTTON3)
-		{
+		if (e.getButton() == MouseEvent.BUTTON3) {
 			JTable source = (JTable) e.getSource();
 			int row = source.rowAtPoint(e.getPoint());
 			int column = source.columnAtPoint(e.getPoint());
@@ -277,6 +292,6 @@ public class VehicleController implements ActionListener, MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

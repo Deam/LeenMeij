@@ -20,6 +20,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 import com.toedter.components.JSpinField;
 
 import java.awt.Font;
+import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")
 public class EditVehicle extends JFrame {
@@ -35,6 +36,7 @@ public class EditVehicle extends JFrame {
 	private JSpinField milageField;
 	private JLabel lblPrijsPerDag;
 	private JTextField priceField;
+	public JRadioButton availableRadio, unavailableRadio;
 
 	/**
 	 * Create the frame.
@@ -146,6 +148,19 @@ public class EditVehicle extends JFrame {
 		});
 		priceField.setColumns(10);
 		
+		availableRadio = new JRadioButton("Beschikbaar");
+		availableRadio.addActionListener(al);
+		unavailableRadio = new JRadioButton("Onbeschikbaar");
+		unavailableRadio.addActionListener(al);
+		
+		if(v.getAvailable() == 1){
+			unavailableRadio.setSelected(true);
+			availableRadio.setSelected(false);
+		} else if(v.getAvailable() == 0){
+			unavailableRadio.setSelected(false);
+			availableRadio.setSelected(true);
+		}
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -167,16 +182,20 @@ public class EditVehicle extends JFrame {
 								.addComponent(lblPrijsPerDag))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(optionsField, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-								.addComponent(brandField, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-								.addComponent(categoryBox, 0, 285, Short.MAX_VALUE)
-								.addComponent(modelField, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-								.addComponent(colorField, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-								.addComponent(lisenceField, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-								.addComponent(commentField, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-								.addComponent(urlField, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-								.addComponent(milageField, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-								.addComponent(priceField, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))))
+								.addComponent(optionsField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+								.addComponent(brandField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+								.addComponent(categoryBox, 0, 270, Short.MAX_VALUE)
+								.addComponent(modelField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+								.addComponent(colorField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+								.addComponent(lisenceField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+								.addComponent(commentField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+								.addComponent(urlField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+								.addComponent(milageField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+								.addComponent(priceField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(availableRadio)
+									.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+									.addComponent(unavailableRadio)))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -222,7 +241,11 @@ public class EditVehicle extends JFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPrijsPerDag)
 						.addComponent(priceField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(availableRadio)
+						.addComponent(unavailableRadio))
+					.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
 					.addComponent(editButton)
 					.addContainerGap())
 		);
@@ -243,6 +266,12 @@ public class EditVehicle extends JFrame {
 		vehicle.setVehicleComment(commentField.getText());
 		vehicle.setImageURL(urlField.getText());
 		vehicle.setPrice(Double.parseDouble(priceField.getText()));
+		
+		if(availableRadio.isSelected()){
+			vehicle.setAvailable(0);
+		} else if(unavailableRadio.isSelected()){
+			vehicle.setAvailable(1);
+		}
 		
 		return vehicle;
 	}

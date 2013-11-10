@@ -1,7 +1,7 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.clients;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
@@ -9,14 +9,12 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class AddCustomer extends JFrame {
@@ -37,7 +35,6 @@ public class AddCustomer extends JFrame {
 		setTitle("Klant toevoegen");
 		
 		JPanel contentPane = new JPanel();
-		getContentPane().add(contentPane);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);

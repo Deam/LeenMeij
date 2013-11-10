@@ -19,7 +19,7 @@ public class User extends Database {
 
 	private int userId;
 	private String username;
-	private char[] password;
+	private String password;
 	private String role;
 
 	private ResultSet set = null;
@@ -108,7 +108,7 @@ public class User extends Database {
 
 				u.setUserId(set.getInt("userid"));
 				u.setUsername(set.getString("username"));
-				u.setPassword(set.getString("password").toCharArray());
+				u.setPassword(set.getString("password"));
 				u.setRole(set.getString("role"));
 
 				userList.add(u);
@@ -146,7 +146,6 @@ public class User extends Database {
 			
 			// Insert statement into resultset
 			set = statement.executeQuery();
-
 			
 			// Fill out the customer information
 			set.next();
@@ -154,7 +153,7 @@ public class User extends Database {
 			u.setUserId(id);
 			// Get all the additional information
 			u.setUsername(set.getString("username"));
-			u.setPassword(set.getString("password").toCharArray());
+			u.setPassword(set.getString("password"));
 			u.setRole(set.getString("role"));
 			
 			// Close the database connection
@@ -359,11 +358,11 @@ public class User extends Database {
 		this.username = username;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 

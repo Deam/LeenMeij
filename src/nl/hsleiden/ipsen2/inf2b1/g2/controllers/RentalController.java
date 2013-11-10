@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.text.DecimalFormat;
 import java.util.Vector;
 
 import javax.swing.JMenuItem;
@@ -25,7 +24,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.desk.RentalView;
  * Handles the rental agreement
  * 
  * @author Deam
- * 
+ * @additions David
  */
 public class RentalController implements ActionListener, MouseListener {
 
@@ -42,16 +41,21 @@ public class RentalController implements ActionListener, MouseListener {
 	private JPopupMenu popupMenu;
 	public JMenuItem editCustomerItem;
 
+	// Initialize variables
 	public RentalController() {
 		cController = new CustomerController();
 	}
 
+	// Return the rentalview
 	public void showRentalView() {
-
 		rentalView = new RentalView(this, this);
 		rentalView.setVisible(true);
 	}
 
+	/**
+	 * Returns the table
+	 * @return
+	 */
 	public JTable CustomerTable() {
 		// Create a new table
 		table = new JTable();
@@ -73,6 +77,10 @@ public class RentalController implements ActionListener, MouseListener {
 		return table;
 	}
 
+	/**
+	 * Returns the information for the table.
+	 * @return
+	 */
 	public Vector<String> columnNames() {
 		Vector<String> columnNames = new Vector<>();
 
@@ -111,11 +119,13 @@ public class RentalController implements ActionListener, MouseListener {
 		return customerList;
 	}
 
+	// Show edit cutomer
 	public void showEditCustomer(int uId) {
 		editCustomer = new EditCustomer(uId, this);
 		editCustomer.setVisible(true);
 	}
 
+	// Update the table data
 	public void updateCustomerTableData() {
 		DefaultTableModel model = (DefaultTableModel) rentalView.customerTable
 				.getModel();
@@ -124,11 +134,13 @@ public class RentalController implements ActionListener, MouseListener {
 		model.fireTableDataChanged();
 	}
 
+	// Show the add customer screen
 	public void showAddCustomer() {
 		addCustomerView = new AddCustomer(this);
 		addCustomerView.setVisible(true);
 	}
 
+	// Add a customer
 	public void addCustomer() {
 		Customer customer = new Customer();
 		{
@@ -138,19 +150,9 @@ public class RentalController implements ActionListener, MouseListener {
 		}
 	}
 
-	// Check if all field are filled
-	@SuppressWarnings("unused")
-	public boolean isEmpty() {
-		Rented rented = new Rented();
-		boolean customerId = rented.getCustomerId() == 0;
-		boolean vehicleId = rented.getVehicleId() == 0;
-		boolean rentalDate = rented.getRentalDate() == null;
-		boolean expectedReceiveDate = rented.getExpectedReceiveDate() == null;
-		boolean payment = rented.getPayment() == 0;
-
-		return false;
-	}
-
+	/**
+	 * Here we catch all the actions that are linked to the buttons.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -164,31 +166,22 @@ public class RentalController implements ActionListener, MouseListener {
 			updateCustomerTableData();
 		}
 
-		else if (rentalView != null
-				&& e.getSource() == rentalView.makeRentalAgreement) {
-			if (!isEmpty()) {
-				JOptionPane
-						.showMessageDialog(
-								null,
-								"De overeenkomst kan niet worden aangemaakt. Controleer of alle velden correct zijn ingevuld.",
-								"Fail", JOptionPane.QUESTION_MESSAGE);
-			} else {
-				Rented rented = new Rented();
-				rented = rentalView.getModel();
+		else if (rentalView != null && e.getSource() == rentalView.makeRentalAgreement) {
+			Rented rented = new Rented();			
+			rented = rentalView.getModel();
 
-				rented.Insert(rented);
+			rented.Insert(rented);
 
-				Vehicle vehicle = new Vehicle();
-				vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
+			Vehicle vehicle = new Vehicle();
+			vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
 
-				Financial financial = new Financial();
-				financial = rentalView.getFinancialModel();
-				financial.Insert(financial);
+			Financial financial = new Financial();
+			financial = rentalView.getFinancialModel();
+			financial.Insert(financial);
 
-				JOptionPane.showMessageDialog(null,
-						"Overeenkomst is aangemaakt.", "Succes",
-						JOptionPane.QUESTION_MESSAGE);
-			}
+			JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
+					"Succes", JOptionPane.QUESTION_MESSAGE);
+
 		}
 
 		else if (rentalView != null && e.getSource() == rentalView.closeButton) {
@@ -200,25 +193,29 @@ public class RentalController implements ActionListener, MouseListener {
 		else if (editCustomerItem != null && e.getSource() == editCustomerItem) {
 			showEditCustomer(id);
 		}
-		
-		else if(rentalView != null && e.getSource() == rentalView.calculateButton){
+
+		else if (rentalView != null
+				&& e.getSource() == rentalView.calculateButton) {
 			double price = 0;
-			
-			if(rentalView.sliderController.showImageSlider().priceLabel.getText().equals("Prijs per dag:")){
-				JOptionPane.showMessageDialog(null,
-						"Selecteer een voertuig", "Waarschuwing",
-						JOptionPane.QUESTION_MESSAGE);
+
+			if (rentalView.sliderController.showImageSlider().priceLabel
+					.getText().equals("Prijs per dag:")) {
+				JOptionPane.showMessageDialog(null, "Selecteer een voertuig",
+						"Waarschuwing", JOptionPane.QUESTION_MESSAGE);
 			}
-			
+
 			else if (rentalView.daysField.getValue() == 0) {
 				JOptionPane.showMessageDialog(null,
-						"Vul het aantal dagen voor verhuur in.", "Waarschuwing",
-						JOptionPane.QUESTION_MESSAGE);
+						"Vul het aantal dagen voor verhuur in.",
+						"Waarschuwing", JOptionPane.QUESTION_MESSAGE);
 			}
-			
-			price = (rentalView.totalPrice + Double.parseDouble(rentalView.sliderController.showImageSlider().priceLabel.getText())) * rentalView.daysField.getValue();
-			
-			rentalView.priceLabel.setText("Totaal bedrag \u20AC " + price);
+
+			price = (rentalView.totalPrice + Double
+					.parseDouble(rentalView.sliderController.showImageSlider().priceLabel
+							.getText()))
+					* rentalView.daysField.getValue();
+
+			rentalView.calcPrice.setText("" + price);
 		}
 
 		else if (editCustomer != null
@@ -252,8 +249,7 @@ public class RentalController implements ActionListener, MouseListener {
 		// Set the id
 		id = Integer.parseInt((String) source.getValueAt(row, 0));
 
-		System.out.println(id);
-
+		// Declare a new customer, so we can get one bij id
 		Customer customer = new Customer();
 		customer = customer.getById(id);
 

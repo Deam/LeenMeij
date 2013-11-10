@@ -103,7 +103,7 @@ public class EditUser extends JFrame {
 	{
 		User user = new User();
 		user.setUsername(usernameField.getText());
-		user.setPassword(passwordField.getPassword());
+		user.setPassword(passwordField.getText());
 		user.setRole(comboBox.getSelectedItem().toString());
 		
 		return user;
