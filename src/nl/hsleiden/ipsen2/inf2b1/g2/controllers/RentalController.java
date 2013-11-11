@@ -16,6 +16,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Financial;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
+import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.AddCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.EditCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.desk.RentalView;
@@ -32,6 +33,7 @@ public class RentalController implements ActionListener, MouseListener {
 	private AddCustomer addCustomer;
 	private CustomerController cController;
 	public AddCustomer addCustomerView;
+	public AdminView adminView;
 
 	private int id = 0;
 	private JTable table;
@@ -192,8 +194,11 @@ public class RentalController implements ActionListener, MouseListener {
 
 		else if (rentalView != null && e.getSource() == rentalView.closeButton) {
 			rentalView.dispose();
-			UserController controller = new UserController();
-			controller.showLoginView();
+			if(adminView == null){}
+            else{
+               	UserController controller = new UserController();
+               	controller.showLoginView();
+            }
 		}
 
 		else if (editCustomerItem != null && e.getSource() == editCustomerItem) {

@@ -13,8 +13,10 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Damage;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
+import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.garage.AddDamage;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.garage.GarageView;
+
 import java.awt.Font;
 
 /**
@@ -29,6 +31,7 @@ public class DamageController implements ActionListener {
 	private GarageView garageView;
 	private AddDamage addDamage;
 	private JTable table;
+	public AdminView adminView;
 
 	private int vehicleID = 0;
 
@@ -90,8 +93,11 @@ public class DamageController implements ActionListener {
 
 		else if (e.getSource() == garageView.closeButton) {
 			garageView.dispose();
-			UserController controller = new UserController();
-			controller.showLoginView();
+			if(adminView == null){}
+            else{
+               	UserController controller = new UserController();
+               	controller.showLoginView();
+            }
 		}
 
 		else if (e.getSource() == garageView.approveButton) {
