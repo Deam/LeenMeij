@@ -20,16 +20,25 @@ import nl.hsleiden.ipsen2.inf2b1.g2.utils.ImageSlider;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.ImageUtil;
 import java.awt.Font;
 
-public class ImageSliderController implements ActionListener, ListSelectionListener{
+/**
+ * This class handles the actionperformed that are involved with the imageslider and panel
+ * 
+ * @author Deam
+ * @additions Nick
+ */
+public class ImageSliderController implements ActionListener,
+		ListSelectionListener {
 
 	private ImageSlider imageSlider;
-	
-	public ImageSliderController(){
+
+	// Delcare the fonts
+	public ImageSliderController() {
 		try {
 			imageSlider = new ImageSlider(this);
 			imageSlider.optionsArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			imageSlider.textArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			imageSlider.lisenceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			imageSlider.lisenceLabel
+					.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			imageSlider.milageLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			imageSlider.colorLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			imageSlider.modelLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -41,22 +50,26 @@ public class ImageSliderController implements ActionListener, ListSelectionListe
 			e.printStackTrace();
 		}
 	}
-	
-	public ImageSlider showImageSlider(){
+
+	public ImageSlider showImageSlider() {
 
 		return imageSlider;
 	}
-	
+
+	/**
+	 * If the value is changed, change all depending values.
+	 * Also loads the images
+	 */
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		imageSlider.icon = (ImageIcon)imageSlider.iconList.getSelectedValue();
+		imageSlider.icon = (ImageIcon) imageSlider.iconList.getSelectedValue();
 		try {
 			imageSlider.imgUrl = imageSlider.icon.getDescription();
 		} catch (Exception e2) {
 			// Maybe set the logo of the company here
 			imageSlider.imgUrl = "http://jimpunk.net/Loading/wp-content/uploads/loading1.gif";
 		}
-		
+
 		// Get the image url from the database
 		for (Vehicle vh : imageSlider.v.getAll()) {
 			if (vh.getImageURL().equals(imageSlider.imgUrl)) {
@@ -66,7 +79,7 @@ public class ImageSliderController implements ActionListener, ListSelectionListe
 				imageSlider.setvID(vh.getVehicleID());
 				imageSlider.ChangeText();
 			}
-			
+
 		}
 
 		// Set the images to the panel.
@@ -90,54 +103,62 @@ public class ImageSliderController implements ActionListener, ListSelectionListe
 		}.execute();
 	}
 
+	/**
+	 * If another image is selected, clear the list and refill with selected categories
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// CLEAR ALL THE LISTS!
-				DefaultListModel<ImageIcon> listModel = (DefaultListModel<ImageIcon>)imageSlider.iconList.getModel();
-				listModel.removeAllElements();
-				listModel.clear();
-				imageSlider.imageList.clear();
-				
-				// Get the results depending on the selected item in the combobox
-				// Only return the available vehicles, 0 = available, 1 = not.
-				for (Vehicle vehicle : imageSlider.v.getAll()) {
-					if (vehicle.getAvailable() == 0 && vehicle.getVehicleCategory().equals(imageSlider.categoryBox.getSelectedItem().toString())) {
-						imageSlider.imageList.add(vehicle.getImageURL());
-					}
+		DefaultListModel<ImageIcon> listModel = (DefaultListModel<ImageIcon>) imageSlider.iconList
+				.getModel();
+		listModel.removeAllElements();
+		listModel.clear();
+		imageSlider.imageList.clear();
+
+		// Get the results depending on the selected item in the combobox
+		// Only return the available vehicles, 0 = available, 1 = not.
+		for (Vehicle vehicle : imageSlider.v.getAll()) {
+			if (vehicle.getAvailable() == 0
+					&& vehicle.getVehicleCategory().equals(
+							imageSlider.categoryBox.getSelectedItem()
+									.toString())) {
+				imageSlider.imageList.add(vehicle.getImageURL());
+			}
+		}
+
+		// Declare new ImageIcon
+		imageSlider.icons = new ImageIcon[imageSlider.imageList.size()];
+
+		new SwingWorker<Void, ImageIcon>() {
+
+			@Override
+			protected Void doInBackground() throws Exception {
+				// Foreach url in the imagelist, creage an image.
+				for (String imageUrl : imageSlider.imageList) {
+					BufferedImage img = ImageIO.read(new URL(imageUrl));
+					img = ImageUtil.createScaledImage(img);
+					ImageIcon icon = new ImageIcon(img, imageUrl);
+					publish(icon);
 				}
+				return null;
+			}
 
-				// Declare new ImageIcon
-				imageSlider.icons = new ImageIcon[imageSlider.imageList.size()];
-				
-				new SwingWorker<Void, ImageIcon>() {
+			protected void process(java.util.List<ImageIcon> chunks) {
+				for (ImageIcon icon : chunks) {
+					imageSlider.iconListModel.addElement(icon);
+				}
+			};
 
-					@Override
-					protected Void doInBackground() throws Exception {
-						// Foreach url in the imagelist, creage an image.
-						for (String imageUrl : imageSlider.imageList) {
-							BufferedImage img = ImageIO.read(new URL(imageUrl));
-							img = ImageUtil.createScaledImage(img);
-							ImageIcon icon = new ImageIcon(img, imageUrl);
-							publish(icon);
-						}
-						return null;
-					}
+			protected void done() {
 
-					protected void process(java.util.List<ImageIcon> chunks) {
-						for (ImageIcon icon : chunks) {
-							imageSlider.iconListModel.addElement(icon);
-						}
-					};
+			};
 
-					protected void done() {
+		}.execute();
 
-					};
-
-				}.execute();
-
-				// Set the selectionmode and actionlistner
-				imageSlider.iconList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				imageSlider.iconList.addListSelectionListener(this);
+		// Set the selectionmode and actionlistner
+		imageSlider.iconList
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		imageSlider.iconList.addListSelectionListener(this);
 	}
 
 }

@@ -212,6 +212,10 @@ public class AddVehicle extends JFrame {
 		getContentPane().setLayout(groupLayout);
 	}
 	
+	/**
+	 * Get the vehicle information
+	 * @return
+	 */
 	public Vehicle getModel() {
 		Vehicle vehicle = new Vehicle();
 		vehicle.setVehicleCategory(categoryBox.getSelectedItem().toString());

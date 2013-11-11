@@ -89,6 +89,10 @@ public class User extends Database {
 		}
 	}
 
+	/**
+	 * Get a list of all the users
+	 * @return
+	 */
 	public ArrayList<User> getAll() {
 		// Make a new arraylist
 		ArrayList<User> userList = new ArrayList<>();
@@ -349,7 +353,10 @@ public class User extends Database {
 		return roleList;
 	}
 
-	// Getters and setters
+	/**
+	 * Getters and setters
+	 * @return
+	 */
 	public String getUsername() {
 		return username;
 	}

@@ -158,6 +158,10 @@ public class AddCustomer extends JFrame {
 		
 	}
 	
+	/**
+	 * Return the customer information
+	 * @return
+	 */
 	public Customer getModel()
 	{
 		Customer c = new Customer();

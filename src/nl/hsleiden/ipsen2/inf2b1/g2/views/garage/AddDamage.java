@@ -159,6 +159,10 @@ public class AddDamage extends JFrame{
 	
 	@SuppressWarnings("deprecation")
 
+	/**
+	 * Set the damage information
+	 * @return
+	 */
 	public Damage getModel() {
 		Damage dmg = new Damage();
 		dmg.setDescription(descriptionArea.getText());

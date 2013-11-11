@@ -44,7 +44,10 @@ public class VehicleController implements ActionListener, MouseListener {
 
 	}
 
-	// Create the customer table
+	/**
+	 * Returns a table with all the vehicle information.
+	 * @return
+	 */
 	public JTable VehicleTable() {
 		// Create a new table
 		table = new JTable();
@@ -109,6 +112,10 @@ public class VehicleController implements ActionListener, MouseListener {
 		return customerList;
 	}
 
+	/**
+	 * Returns the columnnames for the vehicletable
+	 * @return
+	 */
 	private Vector<String> columnNames() {
 		Vector<String> columnNames = new Vector<>();
 
@@ -127,6 +134,9 @@ public class VehicleController implements ActionListener, MouseListener {
 		return columnNames;
 	}
 
+	/** 
+	 * Updates the vehicle table data
+	 */
 	public void updateVehicleTableData() {
 		if (adminView != null) {
 			DefaultTableModel model = (DefaultTableModel) adminView.vehicleTable
@@ -155,7 +165,11 @@ public class VehicleController implements ActionListener, MouseListener {
 		editVehicleView.setVisible(true);
 	}
 
-	// Show the delete option
+	/**
+	 * Shows the delete option for the vehicle
+	 * Performs action depending on the selecte option
+	 * @param cId
+	 */
 	public void showDeleteVehicle(int cId) {
 		Vehicle v = new Vehicle();
 		v = v.getById(cId);
@@ -187,6 +201,9 @@ public class VehicleController implements ActionListener, MouseListener {
 			showDeleteVehicle(id);
 		}
 		
+		/**
+		 * Show succes message after vehicle insert
+		 */
 		else if (addVehicleView != null && e.getSource() == addVehicleView.addButton) {
 			Vehicle vehicle = addVehicleView.getModel();
 			if (vehicle.Insert(vehicle) == true)
@@ -208,6 +225,9 @@ public class VehicleController implements ActionListener, MouseListener {
 				editVehicleView.availableRadio.setSelected(false);
 		}
 		
+		/**
+		 * Updates the vehicle
+		 */
 		else if (editVehicleView != null && e.getSource() == editVehicleView.editButton){
 			Vehicle vehicle = editVehicleView.getModel();
 			vehicle.Update(vehicle, vehicle.getVehicleID());
@@ -220,6 +240,9 @@ public class VehicleController implements ActionListener, MouseListener {
 			updateVehicleTableData();
 		}
 		
+		/**
+		 * Inserts a vehicle
+		 */
 		else if (addVehicleView != null && e.getSource() == addVehicleView.addButton) {
 			Vehicle vehicle = addVehicleView.getModel();
 			vehicle.Insert(vehicle);

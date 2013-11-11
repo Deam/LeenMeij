@@ -135,6 +135,9 @@ public class ImageSlider extends JPanel{
 		add(eastPanel, BorderLayout.EAST);
 	}
 	
+	/**
+	 * If the selected vehicle is changed, change the text
+	 */
 	public void ChangeText() {
 		// Set the text for all the labels
 		brandLabel.setText("Merk: " + vehicle.getVehicleBrand());

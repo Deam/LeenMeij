@@ -12,6 +12,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
 /**
  * Creates the imagedisplay unit for showing the vehicle images.
  * 
@@ -27,6 +28,9 @@ public class ImagePanel extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Paint the image to the panel in the imageslider
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -42,14 +46,17 @@ public class ImagePanel extends JPanel {
 			}
 		}
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g2.drawImage(image, 0, 0, (getPreferredSize().width),(getPreferredSize().height), null);
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(image, 0, 0, (getPreferredSize().width),
+				(getPreferredSize().height), null);
 		repaint();
 	}
 
 	@Override
 	public Dimension getPreferredSize() {
-		GraphicsDevice gDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		GraphicsDevice gDevice = GraphicsEnvironment
+				.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		return new Dimension((gDevice.getDisplayMode().getWidth() * 3) / 6,
 				(gDevice.getDisplayMode().getHeight() * 3) / 6);
 	}

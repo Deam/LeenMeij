@@ -6,10 +6,19 @@ import java.util.ArrayList;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
 
+/**
+ * A simple class for returning all the available rental options
+ * @author Deam
+ *
+ */
 public class Options extends Database{
 	private String name;
 	private double price;
 	
+	/**
+	 * Returns a list with all the vehicleoptions that the user has
+	 * @return
+	 */
 	public ArrayList<Options> getAll(){
 		ResultSet set = null;
 		ArrayList<Options> optionsList = new ArrayList<>();
@@ -36,6 +45,10 @@ public class Options extends Database{
 		return optionsList;
 	}
 	
+	/**
+	 * Getters and setters
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}

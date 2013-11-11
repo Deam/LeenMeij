@@ -95,6 +95,10 @@ public class AddUser extends JFrame {
 
 	}
 	
+	/**
+	 * Return the user information
+	 * @return
+	 */
 	public User getModel(){
 		User u = new User();
 		u.setUsername(usernameField.getText());

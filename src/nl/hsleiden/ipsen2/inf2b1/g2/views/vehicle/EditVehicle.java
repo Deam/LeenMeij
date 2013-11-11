@@ -252,6 +252,10 @@ public class EditVehicle extends JFrame {
 		getContentPane().setLayout(groupLayout);
 	}
 	
+	/**
+	 * Get the vehicle information
+	 * @return
+	 */
 	public Vehicle getModel()
 	{
 		Vehicle vehicle = new Vehicle();

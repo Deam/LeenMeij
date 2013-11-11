@@ -22,7 +22,8 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.CustomerView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.EditCustomer;
 
 /**
- * This class handles anything that has to do with vehicles
+ * This class handles the activities that are executed in the adminscreen.
+ * And all the screen that are co-existing with the admin screen.
  * 
  * @author Deam
  * 
@@ -48,6 +49,9 @@ public class AdminController implements ActionListener, MouseListener {
 	private int cId;
 	private FinancialOverview financialOverview;
 	
+	/**
+	 * Declare all the things we need.
+	 */
 	public AdminController() {
 		adminview = new AdminView(this, this);
 		adminview.userOverview.setFont(new Font("Dialog", Font.PLAIN, 14)); 
@@ -70,14 +74,21 @@ public class AdminController implements ActionListener, MouseListener {
 		this.editCustomerView = new EditCustomer(cId, this);
 	}
 	
+	// Return the adminview
 	public static AdminView view(){
 		return adminview;
 	}
 
+	// Show the adminview
 	public void showAdminView() {
 		adminview.setVisible(true);
 	}
 
+	/**
+	 * Get the Jtable with limited information
+	 * This also adds a popup menu for editing and deleting
+	 * @return
+	 */
 	public JTable CustomerTableLimited() {
 		// Create a new table
 		table = new JTable();
@@ -103,6 +114,11 @@ public class AdminController implements ActionListener, MouseListener {
 		return table;
 	}
 	
+	/**
+	 * Get the Jtable with customer information
+	 * This also adds a popup menu for editing and deleting
+	 * @return
+	 */
 	public JTable CustomerTable() {
 		// Create a new table
 		table = new JTable();
@@ -128,6 +144,10 @@ public class AdminController implements ActionListener, MouseListener {
 		return table;
 	}
 
+	/**
+	 * Make the columnnames for the table
+	 * @return
+	 */
 	private Vector<String> columnNames()
 	{
 		Vector<String> columnNames = new Vector<>();
@@ -145,6 +165,10 @@ public class AdminController implements ActionListener, MouseListener {
 		return columnNames;
 	}
 
+	/**
+	 * Get the list of customers with limited entries
+	 * @return
+	 */
 	private Vector<Vector<String>> customerListLimited()
 	{
 		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
@@ -169,6 +193,10 @@ public class AdminController implements ActionListener, MouseListener {
 		return customerList;
 	}
 	
+	/**
+	 * Returns a list with all the customer information
+	 * @return
+	 */
 	private Vector<Vector<String>> customerListAll()
 	{
 		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
@@ -193,6 +221,7 @@ public class AdminController implements ActionListener, MouseListener {
 		return customerList;
 	}
 
+	// Update the customer
 	private void editCustomer()
 	{
 		Customer customer = editCustomerView.getModel();
@@ -209,6 +238,7 @@ public class AdminController implements ActionListener, MouseListener {
 		customerView.setVisible(true);
 	}
 
+	// Show the overview
 	public void showCustomerOverview(){
 		customerOverview = new CustomerOverview();
 		customerOverview.setVisible(true);
@@ -245,7 +275,10 @@ public class AdminController implements ActionListener, MouseListener {
 		}
 	}
 	
-	// Updates the tableData for Customers
+	/**
+	 * Update the information of the customertable
+	 * @return
+	 */
 	private void updateCustomerTableData()
 	{
 		DefaultTableModel modelLim = (DefaultTableModel)adminview.customerTable.getModel();
@@ -260,6 +293,7 @@ public class AdminController implements ActionListener, MouseListener {
 	}
 	
 	
+	// Add the customer
 	public void addCustomer()
 	{
 		Customer customer = new Customer();
@@ -272,6 +306,9 @@ public class AdminController implements ActionListener, MouseListener {
 		}
 	}
 
+	/**
+	 * All the actionperformed
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 

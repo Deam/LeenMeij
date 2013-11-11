@@ -99,6 +99,10 @@ public class EditUser extends JFrame {
 		getContentPane().setLayout(groupLayout);
 	}
 	
+	/**
+	 * Return the user information
+	 * @return
+	 */
 	public User getModel()
 	{
 		User user = new User();

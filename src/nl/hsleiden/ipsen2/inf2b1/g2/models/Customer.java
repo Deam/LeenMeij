@@ -28,7 +28,10 @@ public class Customer extends Database {
 	private ResultSet set = null;
 
 	/**
-	 * Insert a customer
+	 * Insert a customer 
+	 * 
+	 * Connect to the database, and insert the customer with
+	 * the information that is provided through the model
 	 * 
 	 * @param customer
 	 */
@@ -56,17 +59,21 @@ public class Customer extends Database {
 
 			// Close the connection
 			close();
-			JOptionPane.showMessageDialog(null, customer.getFirstName() + " " + customer.getLastName() + " is succesvol aangemaakt");
+			JOptionPane.showMessageDialog(null, customer.getFirstName() + " "
+					+ customer.getLastName() + " is succesvol aangemaakt");
 			return true;
-			
+
 		} catch (SQLException e) {
-			if (e.getMessage().contains("Duplicate entry"))
-			{
-				JOptionPane.showMessageDialog(null, "Klant " + customer.getLastName() + " met rijbewijsnummer " + customer.getLicenseNumber() + " bestaal al.");
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(null, "Er is een fout opgetreden bij het invoeren van de klant. " + e.getMessage());
+			if (e.getMessage().contains("Duplicate entry")) {
+				JOptionPane.showMessageDialog(
+						null,
+						"Klant " + customer.getLastName()
+								+ " met rijbewijsnummer "
+								+ customer.getLicenseNumber() + " bestaal al.");
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"Er is een fout opgetreden bij het invoeren van de klant. "
+								+ e.getMessage());
 			}
 			return false;
 		}
@@ -74,6 +81,7 @@ public class Customer extends Database {
 
 	/**
 	 * Update a customer depending on the id
+	 * Sets all the information gotten from the model
 	 * 
 	 * @param customer
 	 * @param id
@@ -102,11 +110,14 @@ public class Customer extends Database {
 			statement.executeUpdate();
 			// Close the connection
 			close();
-			JOptionPane.showMessageDialog(null, "CustomerID " + customer.getCustomerNumber() + " is met succes aangepast.");
+			JOptionPane.showMessageDialog(null,
+					"CustomerID " + customer.getCustomerNumber()
+							+ " is met succes aangepast.");
 			return true;
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Klant met rijbewijsnummer " + customer.getLicenseNumber() + " bestaat al");
+			JOptionPane.showMessageDialog(null, "Klant met rijbewijsnummer "
+					+ customer.getLicenseNumber() + " bestaat al");
 			return false;
 		}
 	}
@@ -135,6 +146,10 @@ public class Customer extends Database {
 		}
 	}
 
+	/**
+	 * Get a limited list of customers
+	 * @return
+	 */
 	public ArrayList<Customer> getLimited() {
 		// Make a new list for the customers
 		ArrayList<Customer> customerList = new ArrayList<Customer>();

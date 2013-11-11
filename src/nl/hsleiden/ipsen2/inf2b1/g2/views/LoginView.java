@@ -25,9 +25,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.User;
 import java.awt.SystemColor;
 
 /**
- * This class logs the user in to the system, check the password hashes and shows
- * the screens depending on the user roles. I also make use of the Database class
- * which I have programmed so it isn't venerable to SQL injection.
  * 
  * @author Deam
  */

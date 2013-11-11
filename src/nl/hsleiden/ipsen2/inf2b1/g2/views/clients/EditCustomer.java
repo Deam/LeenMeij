@@ -283,6 +283,10 @@ public class EditCustomer extends JFrame {
 		getContentPane().setLayout(groupLayout);
 	}
 
+	/**
+	 * Return the customer information
+	 * @return
+	 */
 	public Customer getModel() {
 		Customer customer = new Customer();
 		customer.setCustomerNumber(customerId);

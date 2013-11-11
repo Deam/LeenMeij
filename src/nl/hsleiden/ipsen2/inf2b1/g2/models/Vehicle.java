@@ -33,7 +33,7 @@ public class Vehicle extends Database{
 	private ResultSet set = null;
 	
 	/** 
-	 * Insert a customer
+	 * Insert a vehicle into the database
 	 * @param customer
 	 */
 	public boolean Insert(Vehicle vehicle)
@@ -78,7 +78,7 @@ public class Vehicle extends Database{
 	}
 	
 	/**
-	 * Update a customer depending on the id
+	 * Update a vehicle depending on the id
 	 * @param customer
 	 * @param id
 	 */
@@ -116,7 +116,7 @@ public class Vehicle extends Database{
 	}
 	
 	/**
-	 * Delete the selected customer
+	 * Delete the selected vehicle
 	 * @param id
 	 */
 	public void Delete(int id)
@@ -214,6 +214,11 @@ public class Vehicle extends Database{
 		return categoryList;
 	}
 	
+	/**
+	 * Get a vehicle by id from the database
+	 * @param id
+	 * @return
+	 */
 	public Vehicle getById(int id)
 	{
 		Vehicle v = new Vehicle();
@@ -260,6 +265,11 @@ public class Vehicle extends Database{
 		return v;
 	}
 	
+	/**
+	 * Set the availability of the vehicle
+	 * @param vehicleid
+	 * @param available
+	 */
 	public void setVehicleAvailable(int vehicleid, int available)
 	{
 		// Set up the connection
@@ -283,6 +293,10 @@ public class Vehicle extends Database{
 		}
 	}
 	
+	/**
+	 * Getters and setters
+	 * @return
+	 */
 	public int getVehicleID() {
 		return vehicleID;
 	}

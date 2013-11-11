@@ -97,7 +97,10 @@ public class RentalController implements ActionListener, MouseListener {
 		return columnNames;
 	}
 
-	// Fill the table with the customer information
+	/**
+	 * Fill a list with customer informations
+	 * @return
+	 */
 	public Vector<Vector<String>> customerList() {
 		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
 		Customer customer = new Customer();
@@ -165,7 +168,10 @@ public class RentalController implements ActionListener, MouseListener {
 			addCustomer();
 			updateCustomerTableData();
 		}
-
+		/**
+		 * Makes the rental agreement
+		 * Gets information from the vehicle model and financial model.
+		 */
 		else if (rentalView != null && e.getSource() == rentalView.makeRentalAgreement) {
 			Rented rented = new Rented();			
 			rented = rentalView.getModel();
@@ -194,6 +200,9 @@ public class RentalController implements ActionListener, MouseListener {
 			showEditCustomer(id);
 		}
 
+		/**
+		 * Calculate the price.
+		 */
 		else if (rentalView != null
 				&& e.getSource() == rentalView.calculateButton) {
 			double price = 0;

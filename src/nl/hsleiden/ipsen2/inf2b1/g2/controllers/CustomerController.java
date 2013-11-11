@@ -39,10 +39,12 @@ public class CustomerController implements ActionListener, MouseListener {
 	private int id = 0;
 	private int cId;
 
+	// Constructor
 	public CustomerController() {
 		this.editCustomerView = new EditCustomer(cId, this);
 	}
 
+	// Create a limited table for the customer overview.
 	public JTable CustomerTableLimited() {
 		// Create a new table
 		table = new JTable();
@@ -126,10 +128,11 @@ public class CustomerController implements ActionListener, MouseListener {
 		return table;
 	}
 
+	// Set the columnnames
 	private Vector<String> columnNames() {
 		Vector<String> columnNames = new Vector<>();
 
-		// Make all the columnname
+		// Make all the columnnames
 		columnNames.add("Klantnr");
 		columnNames.add("Voornaam");
 		columnNames.add("Achternaam");
@@ -142,6 +145,7 @@ public class CustomerController implements ActionListener, MouseListener {
 		return columnNames;
 	}
 
+	// Return all the customers to a list
 	private Vector<Vector<String>> customerList() {
 		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
 
@@ -199,13 +203,14 @@ public class CustomerController implements ActionListener, MouseListener {
 				"Weet je het zeker?", JOptionPane.WARNING_MESSAGE,
 				JOptionPane.YES_NO_OPTION);
 
-		// Get the
+		// Get the selected option
 		if (dialog == JOptionPane.YES_OPTION) {
 
 			customer.Delete(cId);
 		}
 	}
 
+	// Add the customer
 	public void addCustomer() {
 		Customer customer = new Customer();
 		{
@@ -215,6 +220,7 @@ public class CustomerController implements ActionListener, MouseListener {
 		}
 	}
 
+	// Edit the customer
 	private void editCustomer() {
 		Customer customer = editCustomerView.getModel();
 		if (customer.Update(customer, customer.getCustomerNumber()) == true) {
@@ -226,6 +232,9 @@ public class CustomerController implements ActionListener, MouseListener {
 		}
 	}
 
+	/**
+	 * All the actionperformed
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Show the editCustomer screen

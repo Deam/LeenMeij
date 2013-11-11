@@ -89,6 +89,10 @@ public class FinancialOverview extends JFrame {
 		panel.setLayout(gl_panel);
 	}
 	
+	/**
+	 * Return the financial information
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	public Financial getModel(){
 		Financial financial = new Financial();

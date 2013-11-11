@@ -13,7 +13,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
  * @author David
  */
 
-// TODO: FIX ALL THE STRING CONVERTIONS
 public class Financial extends Database
 {
 	private int financialID;

@@ -520,6 +520,10 @@ public class RentalView extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
+	/**
+	 * Get the rented model
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	public Rented getModel() {
 		Rented rented = new Rented();
@@ -534,6 +538,10 @@ public class RentalView extends JFrame {
 		return rented;
 	}
 
+	/**
+	 * Set the customerinformation
+	 * @param customer
+	 */
 	public void setModels(Customer customer) {
 		cnumberLabel.setText(Integer.toString(customer.getCustomerNumber()));
 		firstnameLabel.setText(customer.getFirstName());
@@ -545,6 +553,10 @@ public class RentalView extends JFrame {
 		licenseLabel.setText(customer.getLicenseNumber());
 	}
 
+	/**
+	 * get the financial information
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	public Financial getFinancialModel() {
 		Financial f = new Financial();

@@ -5,11 +5,9 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 /**
- * 
- * @author Deam
- * <br>
  * Resizes the images
- *
+ *  
+ * @author Deam
  */
 
 public class ImageUtil {
@@ -17,6 +15,11 @@ public class ImageUtil {
 	public static final int DEST_HEIGHT = 75;
 	public static final double ASPECT_RATIO = (double) DEST_WIDTH / DEST_HEIGHT;
 
+	/**
+	 * Create the bufferdimage depending on the window size
+	 * @param original
+	 * @return
+	 */
 	public static BufferedImage createScaledImage(BufferedImage original) {
 		double origAspectRatio = (double) original.getWidth() / original.getHeight();
 		double scale = origAspectRatio > ASPECT_RATIO ? (double) DEST_WIDTH / original.getWidth() : (double) DEST_HEIGHT / original.getHeight();

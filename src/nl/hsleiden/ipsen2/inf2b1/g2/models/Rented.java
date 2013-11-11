@@ -25,6 +25,11 @@ public class Rented extends Database{
 	
 	private ResultSet set = null;
 	
+	/**
+	 * Get a rentalagreement depending on the id
+	 * @param id
+	 * @return
+	 */
 	public Rented getById(int id)
 	{
 		Rented rented = new Rented();
