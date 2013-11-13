@@ -28,7 +28,7 @@ public class DamageController implements ActionListener {
 
 	private GarageView garageView;
 	private AddDamage addDamage;
-	private JTable table;
+	private JTable table, damageTable;
 
 	private int vehicleID = 0;
 
@@ -126,6 +126,7 @@ public class DamageController implements ActionListener {
 					"Succes", JOptionPane.QUESTION_MESSAGE);
 
 			addDamage.dispose();
+			damageTable.setModel((DefaultTableModel)viewDamagePerID(vehicleID).getModel());
 		}
 	}
 
@@ -201,7 +202,7 @@ public class DamageController implements ActionListener {
 		// Clear the panel of components
 		garageView.damageTablePanel.removeAll();
 		// Create the table
-		garageView.damageTablePanel.add(new JScrollPane(viewDamagePerID(r
+		garageView.damageTablePanel.add(new JScrollPane(damageTable = viewDamagePerID(r
 				.getVehicleId())));
 	}
 
