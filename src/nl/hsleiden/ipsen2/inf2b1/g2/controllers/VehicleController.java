@@ -38,11 +38,10 @@ public class VehicleController implements ActionListener, MouseListener, Observa
 	public JMenuItem editVehicleItem, deleteVehicleItem;
 	private JTable table;
 	private int id = 0;
-	private ArrayList<Observer> observers;
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	public VehicleController(AdminView adminview) {
 		this.adminView = adminview;
-		observers  = new ArrayList<Observer>();
 	}
 
 	public VehicleController() {
