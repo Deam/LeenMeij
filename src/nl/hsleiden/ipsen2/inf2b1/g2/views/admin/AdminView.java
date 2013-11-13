@@ -28,13 +28,16 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.AdminController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
 
 @SuppressWarnings("serial")
-public class AdminView extends JFrame  {
+public class AdminView extends JFrame implements Observer {
 
 	public JPopupMenu popupMenu;
 	public JMenuItem editCustomer, deleteCustomer;
@@ -48,10 +51,12 @@ public class AdminView extends JFrame  {
 	public JMenuItem customerItem, rentalItem, garageItem;
 	public static Date date_s;
 	public static Date date_e;
+	private AdminController controller;
+	private VehicleController vehicleController;
 	
 	public AdminView(ActionListener al, AdminController controller)  {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+		this.controller = controller;
 		GraphicsDevice gDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		setSize(gDevice.getDisplayMode().getWidth(), gDevice.getDisplayMode().getHeight());
 		
@@ -169,7 +174,7 @@ public class AdminView extends JFrame  {
 		vehicleOverviewPanel.setLayout(new BorderLayout(0, 0));
 		vehicleOverviewPanel.setBorder(BorderFactory.createTitledBorder("Alle voertuigen"));
 		
-		VehicleController vehicleController = new VehicleController(this);
+		vehicleController = new VehicleController(this);
 		vehicleOverviewPanel.add(new JScrollPane(vehicleTable = vehicleController.VehicleTable()), BorderLayout.CENTER);
 		
 		
@@ -179,6 +184,8 @@ public class AdminView extends JFrame  {
 		
 		FinancialController fController = new FinancialController();
 		financialOverviewPanel.add(new JScrollPane(financialTable = fController.FinancialTable()), BorderLayout.CENTER);
+		
+		controller.registerObserver(this);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout(0,0));
@@ -226,6 +233,14 @@ public class AdminView extends JFrame  {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+
+	@Override
+	public void update(int message) {
+		customerTable.setModel((DefaultTableModel)controller.CustomerTableLimited().getModel());
+		vehicleTable.setModel((DefaultTableModel)vehicleController.VehicleTable().getModel());
+	}
+	
+	
 	
 	
 }

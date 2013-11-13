@@ -103,7 +103,7 @@ public class VehicleController implements ActionListener, MouseListener {
 			if (v.getAvailable() == 1) {
 				data.add("Beschikbaar");
 			} else if (v.getAvailable() == 0) {
-				data.add("Onbeschikbaar");
+				data.add("Verhuurd");
 			}
 
 			// Set the customer information to the list
