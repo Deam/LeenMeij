@@ -51,8 +51,10 @@ public class AdminView extends JFrame implements Observer {
 	public JMenuItem customerItem, rentalItem, garageItem;
 	public static Date date_s;
 	public static Date date_e;
+	
 	private AdminController controller;
 	private VehicleController vehicleController;
+	private FinancialController fController;
 	
 	public AdminView(ActionListener al, AdminController controller)  {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -182,10 +184,11 @@ public class AdminView extends JFrame implements Observer {
 		financialOverviewPanel.setLayout(new BorderLayout(0, 0));
 		financialOverviewPanel.setBorder(BorderFactory.createTitledBorder("Financieel overzicht"));
 		
-		FinancialController fController = new FinancialController();
+		fController = new FinancialController();
 		financialOverviewPanel.add(new JScrollPane(financialTable = fController.FinancialTable()), BorderLayout.CENTER);
 		
 		controller.registerObserver(this);
+		vehicleController.registerObserver(this);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout(0,0));
@@ -238,6 +241,8 @@ public class AdminView extends JFrame implements Observer {
 	public void update(int message) {
 		customerTable.setModel((DefaultTableModel)controller.CustomerTableLimited().getModel());
 		vehicleTable.setModel((DefaultTableModel)vehicleController.VehicleTable().getModel());
+		financialTable.setModel((DefaultTableModel)fController.FinancialTable().getModel());
+		customerTable.repaint();
 	}
 	
 	

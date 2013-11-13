@@ -259,6 +259,7 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 	public void showEditCustomer(int cId) {
 		editCustomerView = new EditCustomer(cId, this);
 		editCustomerView.setVisible(true);
+		editCustomerView.fillData();
 	}
 
 	// Show the delete option

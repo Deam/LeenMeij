@@ -22,6 +22,8 @@ public class EditCustomer extends JFrame {
 	// private Customer customer;
 
 	private static int customerId = 0;
+	
+	private Customer c;
 
 	static Database database = new Database();
 	public JButton editButton;
@@ -52,42 +54,32 @@ public class EditCustomer extends JFrame {
 		JLabel lblRijbewijsnummer = new JLabel("Rijbewijsnummer:");
 		lblRijbewijsnummer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		Customer c = new Customer();
-		c = c.getById(cId);
-
 		voornaamText = new JTextField();
 		voornaamText.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		voornaamText.setText(c.getFirstName());
 		voornaamText.setColumns(10);
 
 		achternaamText = new JTextField();
 		achternaamText.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		achternaamText.setText(c.getLastName());
 		achternaamText.setColumns(10);
 
 		adresText = new JTextField();
 		adresText.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		adresText.setText(c.getAdress());
 		adresText.setColumns(10);
 
 		postcodeText = new JTextField();
 		postcodeText.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		postcodeText.setText(c.getZipcode());
 		postcodeText.setColumns(10);
 
 		woonplaatsText = new JTextField();
 		woonplaatsText.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		woonplaatsText.setText(c.getCity());
 		woonplaatsText.setColumns(10);
 
 		telefoonText = new JTextField();
 		telefoonText.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		telefoonText.setText(c.getPhoneNumber());
 		telefoonText.setColumns(10);
 
 		rijbewijsText = new JTextField();
 		rijbewijsText.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rijbewijsText.setText(c.getLicenseNumber());
 		rijbewijsText.setColumns(10);
 
 		editButton = new JButton("Aanpassen");
@@ -300,5 +292,18 @@ public class EditCustomer extends JFrame {
 
 		return customer;
 
+	}
+	
+	public void fillData()
+	{
+		c = new Customer();
+		c = c.getById(customerId);
+		voornaamText.setText(c.getFirstName());
+		achternaamText.setText(c.getLastName());
+		adresText.setText(c.getAdress());
+		postcodeText.setText(c.getZipcode());
+		woonplaatsText.setText(c.getCity());
+		telefoonText.setText(c.getPhoneNumber());
+		rijbewijsText.setText(c.getLicenseNumber());
 	}
 }
