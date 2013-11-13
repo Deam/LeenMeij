@@ -22,16 +22,16 @@ public class CustomerOverview extends JFrame implements Observer {
 	/**
 	 * Create the frame.
 	 */
-	public CustomerOverview() {
+	public CustomerOverview(AdminController adminController) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 950, 656);
-		
+		this.controller = adminController;
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		contentPane.setBorder(BorderFactory.createTitledBorder("Alle Klanten"));
-		controller = new AdminController();
+		//controller = new AdminController();
 		contentPane.add(new JScrollPane(customerTable = controller.CustomerTable()), BorderLayout.CENTER);
 		controller.registerObserver(this);
 		setContentPane(contentPane);

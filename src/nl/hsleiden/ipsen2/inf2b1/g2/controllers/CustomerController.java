@@ -28,7 +28,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.EditCustomer;
 
 public class CustomerController implements ActionListener, MouseListener {
 
-	private AdminView adminview;
 	private CustomerView customerView;
 	private EditCustomer editCustomerView;
 	public AddCustomer addCustomerView;
@@ -176,7 +175,7 @@ public class CustomerController implements ActionListener, MouseListener {
 	}
 
 	public void showCustomerOverview() {
-		customerOverview = new CustomerOverview();
+		//customerOverview = new CustomerOverview();
 		customerOverview.setVisible(true);
 	}
 

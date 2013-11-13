@@ -53,7 +53,7 @@ public class AdminView extends JFrame implements Observer {
 	public static Date date_e;
 	
 	private AdminController controller;
-	private VehicleController vehicleController;
+	public VehicleController vehicleController;
 	private FinancialController fController;
 	
 	public AdminView(ActionListener al, AdminController controller)  {
@@ -242,7 +242,6 @@ public class AdminView extends JFrame implements Observer {
 		customerTable.setModel((DefaultTableModel)controller.CustomerTableLimited().getModel());
 		vehicleTable.setModel((DefaultTableModel)vehicleController.VehicleTable().getModel());
 		financialTable.setModel((DefaultTableModel)fController.FinancialTable().getModel());
-		customerTable.repaint();
 	}
 	
 	

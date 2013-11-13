@@ -71,7 +71,7 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 		adminview.garageItem.setFont(new Font("Dialog", Font.PLAIN, 14));
 		adminview.financialOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		cController = new CustomerController();
-		vController = new VehicleController(adminview);
+		vController = adminview.vehicleController;
 		userController = new UserController();
 		rentalController = new RentalController();
 		damageController = new DamageController();
@@ -245,7 +245,7 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 
 	// Show the overview
 	public void showCustomerOverview(){
-		customerOverview = new CustomerOverview();
+		customerOverview = new CustomerOverview(this);
 		customerOverview.setVisible(true);
 	}
 
