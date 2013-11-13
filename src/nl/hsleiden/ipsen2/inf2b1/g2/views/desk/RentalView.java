@@ -27,6 +27,7 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.RentalController;
@@ -34,13 +35,15 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Financial;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Options;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
 
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
+
 import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class RentalView extends JFrame {
+public class RentalView extends JFrame implements Observer{
 
 	private JPanel contentPane;
 	public JTable customerTable;
@@ -57,11 +60,12 @@ public class RentalView extends JFrame {
 	public JButton calculateButton;
 	public JSpinField daysField;
 	public JLabel calcPrice;
+	private RentalController controller;
 
 	public RentalView(ActionListener al, RentalController controller) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 938, 765);
-
+		this.controller = controller;
 		GraphicsDevice gDevice = GraphicsEnvironment
 				.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		setSize(gDevice.getDisplayMode().getWidth(), gDevice.getDisplayMode()
@@ -69,7 +73,7 @@ public class RentalView extends JFrame {
 
 		// Remove decoration
 		setUndecorated(true);
-
+		controller.registerObserver(this);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -496,7 +500,7 @@ public class RentalView extends JFrame {
 
 		// TODO comment out for designer
 		sliderController = new ImageSliderController();
-
+		
 		GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
 		gl_vehiclePanel.setHorizontalGroup(gl_vehiclePanel.createParallelGroup(
 				Alignment.TRAILING).addGroup(
@@ -574,5 +578,10 @@ public class RentalView extends JFrame {
 		f.setRentalKost(paymentBox.getValue());
 
 		return f;
+	}
+
+	@Override
+	public void update(int message) {
+		customerTable.setModel((DefaultTableModel)controller.CustomerTable().getModel());
 	}
 }
