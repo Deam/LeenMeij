@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JMenuItem;
@@ -14,6 +16,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observable;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.FinancialOverview;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.AddCustomer;
@@ -29,7 +33,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.EditCustomer;
  * 
  */
 
-public class AdminController implements ActionListener, MouseListener {
+public class AdminController implements ActionListener, MouseListener, Observable {
 
 	private static AdminView adminview;
 	private CustomerController cController;
@@ -48,6 +52,7 @@ public class AdminController implements ActionListener, MouseListener {
 	private int id = 0;
 	private int cId;
 	private FinancialOverview financialOverview;
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	
 	/**
 	 * Declare all the things we need.
@@ -66,7 +71,7 @@ public class AdminController implements ActionListener, MouseListener {
 		adminview.garageItem.setFont(new Font("Dialog", Font.PLAIN, 14));
 		adminview.financialOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		cController = new CustomerController();
-		vController = new VehicleController(adminview);
+		vController = adminview.vehicleController;
 		userController = new UserController();
 		rentalController = new RentalController();
 		damageController = new DamageController();
@@ -240,7 +245,7 @@ public class AdminController implements ActionListener, MouseListener {
 
 	// Show the overview
 	public void showCustomerOverview(){
-		customerOverview = new CustomerOverview();
+		customerOverview = new CustomerOverview(this);
 		customerOverview.setVisible(true);
 	}
 
@@ -254,6 +259,7 @@ public class AdminController implements ActionListener, MouseListener {
 	public void showEditCustomer(int cId) {
 		editCustomerView = new EditCustomer(cId, this);
 		editCustomerView.setVisible(true);
+		editCustomerView.fillData();
 	}
 
 	// Show the delete option
@@ -271,7 +277,7 @@ public class AdminController implements ActionListener, MouseListener {
 		if (dialog == JOptionPane.YES_OPTION) {
 
 			customer.Delete(cId);
-			updateCustomerTableData();
+			updateTableData();
 		}
 	}
 	
@@ -279,16 +285,11 @@ public class AdminController implements ActionListener, MouseListener {
 	 * Update the information of the customertable
 	 * @return
 	 */
-	private void updateCustomerTableData()
+	private void updateTableData()
 	{
-		DefaultTableModel modelLim = (DefaultTableModel)adminview.customerTable.getModel();
-		adminview.customerTable.setModel(new DefaultTableModel(customerListLimited(), columnNames()));
-		modelLim.fireTableDataChanged();
-		if (customerOverview != null)
+		for (Observer observer : observers)
 		{
-			DefaultTableModel modelAll = (DefaultTableModel)customerOverview.customerTable.getModel();
-			customerOverview.customerTable.setModel(new DefaultTableModel(customerListAll(), columnNames()));
-			modelAll.fireTableDataChanged();
+			observer.update(0);
 		}
 	}
 	
@@ -301,7 +302,7 @@ public class AdminController implements ActionListener, MouseListener {
 			if (customer.Insert(addCustomerView.getModel()) == true)
 			{
 				addCustomerView.dispose();
-				updateCustomerTableData();
+				updateTableData();
 			}
 		}
 	}
@@ -378,7 +379,7 @@ public class AdminController implements ActionListener, MouseListener {
 		// Edit customer view:
 		else if (editCustomerView != null && e.getSource() == editCustomerView.editButton) {
 			editCustomer();
-			updateCustomerTableData();
+			updateTableData();
 		}
 	}
 
@@ -419,5 +420,10 @@ public class AdminController implements ActionListener, MouseListener {
 
 	public void mouseReleased(MouseEvent e) {
 
+	}
+
+	@Override
+	public void registerObserver(Observer observer) {
+				observers.add(observer);
 	}
 }

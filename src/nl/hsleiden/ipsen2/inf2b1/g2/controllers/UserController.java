@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -15,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.User;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.UserRole;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observable;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.LoginView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AddUser;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.EditUser;
@@ -26,7 +29,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.UserOverview;
  * 
  * @author Deam Kop
  */
-public class UserController implements ActionListener, MouseListener {
+public class UserController implements ActionListener, MouseListener, Observable {
 
 	private LoginView loginView;
 	private AddUser addUser;
@@ -38,6 +41,8 @@ public class UserController implements ActionListener, MouseListener {
 	public JMenuItem editUserItem, deleteUserItem;
 	private JTable table;
 	private int id = 0;
+	
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	public UserController() {
 		loginView = new LoginView(this);
@@ -62,6 +67,14 @@ public class UserController implements ActionListener, MouseListener {
 		editUser = new EditUser(this, uId);
 		editUser.setVisible(true);
 	}
+	
+	private void updateTable()
+	{
+		for (Observer observer : observers)
+		{
+			observer.update(0);
+		}
+	}
 
 	/**
 	 * Show the delete users dialog Perform action by the selected option
@@ -81,6 +94,7 @@ public class UserController implements ActionListener, MouseListener {
 
 			user.Delete(id);
 		}
+		updateTable();
 	}
 
 	/**
@@ -150,6 +164,7 @@ public class UserController implements ActionListener, MouseListener {
 			if (user.Insert(addUser.getModel()) == true) {
 				addUser.dispose();
 			}
+			updateTable();
 		}
 
 		// If user clicks cancel button, dispose the frame.
@@ -170,6 +185,7 @@ public class UserController implements ActionListener, MouseListener {
 					"Gebruiker is succesvol aangepast.", "Succes!",
 					JOptionPane.QUESTION_MESSAGE);
 			editUser.dispose();
+			updateTable();
 		}
 
 		// Show the edit screen
@@ -330,6 +346,12 @@ public class UserController implements ActionListener, MouseListener {
 				comboboxItemsVector);
 
 		return model;
+	}
+
+	@Override
+	public void registerObserver(Observer observer) {
+		observers.add(observer);
+		
 	}
 
 }

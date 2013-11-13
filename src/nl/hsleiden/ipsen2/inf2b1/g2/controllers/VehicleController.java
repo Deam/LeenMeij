@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -14,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observable;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.vehicle.AddVehicle;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.vehicle.EditVehicle;
@@ -25,7 +28,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.vehicle.VehicleOverview;
  * @author Deam
  */
 
-public class VehicleController implements ActionListener, MouseListener {
+public class VehicleController implements ActionListener, MouseListener, Observable {
 
 	private AdminView adminView;
 	private AddVehicle addVehicleView;
@@ -35,6 +38,7 @@ public class VehicleController implements ActionListener, MouseListener {
 	public JMenuItem editVehicleItem, deleteVehicleItem;
 	private JTable table;
 	private int id = 0;
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	public VehicleController(AdminView adminview) {
 		this.adminView = adminview;
@@ -100,10 +104,10 @@ public class VehicleController implements ActionListener, MouseListener {
 			data.add(v.getVehicleComment());
 
 			// Make a check, so we can see if the vehicle is available
-			if (v.getAvailable() == 1) {
+			if (v.getAvailable() == 0) {
 				data.add("Beschikbaar");
-			} else if (v.getAvailable() == 0) {
-				data.add("Onbeschikbaar");
+			} else if (v.getAvailable() == 1) {
+				data.add("Verhuurd");
 			}
 
 			// Set the customer information to the list
@@ -137,19 +141,16 @@ public class VehicleController implements ActionListener, MouseListener {
 	/** 
 	 * Updates the vehicle table data
 	 */
-	public void updateVehicleTableData() {
-		if (adminView != null) {
-			DefaultTableModel model = (DefaultTableModel) adminView.vehicleTable
-					.getModel();
-			adminView.vehicleTable.setModel(new DefaultTableModel(
-					vehicleList(), columnNames()));
-			model.fireTableDataChanged();
+	public void updateTableData() {
+		for (Observer observer : observers)
+		{
+			observer.update(0);
 		}
 	}
 
 	// Show the vehicle overview
 	public void showVehicleOverview() {
-		vehicleOverview = new VehicleOverview();
+		vehicleOverview = new VehicleOverview(this);
 		vehicleOverview.setVisible(true);
 	}
 
@@ -184,7 +185,7 @@ public class VehicleController implements ActionListener, MouseListener {
 		if (dialog == JOptionPane.YES_OPTION) {
 
 			v.Delete(cId);
-			updateVehicleTableData();
+			updateTableData();
 		}
 
 	}
@@ -211,7 +212,7 @@ public class VehicleController implements ActionListener, MouseListener {
 			JOptionPane.showMessageDialog(null, vehicle.getVehicleBrand() + " "
 					+ vehicle.getVehicleModel() + " is succesvol aangemaakt");
 			addVehicleView.dispose();
-			updateVehicleTableData();
+			updateTableData();
 			}
 		}
 		
@@ -237,7 +238,7 @@ public class VehicleController implements ActionListener, MouseListener {
 					vehicle.getVehicleBrand() +" " + vehicle.getVehicleModel() + " " + vehicle.getVehicleID()
 					+ " is met succes aangepast.");
 			editVehicleView.dispose();
-			updateVehicleTableData();
+			updateTableData();
 		}
 		
 		/**
@@ -316,5 +317,10 @@ public class VehicleController implements ActionListener, MouseListener {
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void registerObserver(Observer observer) {
+				observers.add(observer);
 	}
 }

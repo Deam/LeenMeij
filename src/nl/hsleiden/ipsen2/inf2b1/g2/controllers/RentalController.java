@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JMenuItem;
@@ -16,6 +17,8 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Financial;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observable;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.AddCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.EditCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.desk.RentalView;
@@ -26,7 +29,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.desk.RentalView;
  * @author Deam
  * @additions David
  */
-public class RentalController implements ActionListener, MouseListener {
+public class RentalController implements ActionListener, MouseListener, Observable {
 
 	private RentalView rentalView;
 	private AddCustomer addCustomer;
@@ -40,6 +43,8 @@ public class RentalController implements ActionListener, MouseListener {
 
 	private JPopupMenu popupMenu;
 	public JMenuItem editCustomerItem;
+	
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	// Initialize variables
 	public RentalController() {
@@ -126,15 +131,15 @@ public class RentalController implements ActionListener, MouseListener {
 	public void showEditCustomer(int uId) {
 		editCustomer = new EditCustomer(uId, this);
 		editCustomer.setVisible(true);
+		editCustomer.fillData();
 	}
 
 	// Update the table data
 	public void updateCustomerTableData() {
-		DefaultTableModel model = (DefaultTableModel) rentalView.customerTable
-				.getModel();
-		rentalView.customerTable.setModel(new DefaultTableModel(customerList(),
-				columnNames()));
-		model.fireTableDataChanged();
+		for (Observer observer : observers)
+		{
+			observer.update(0);
+		}
 	}
 
 	// Show the add customer screen
@@ -281,5 +286,10 @@ public class RentalController implements ActionListener, MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 
+	}
+
+	@Override
+	public void registerObserver(Observer observer) {
+		observers.add(observer);
 	}
 }

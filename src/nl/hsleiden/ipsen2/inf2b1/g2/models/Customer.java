@@ -182,7 +182,7 @@ public class Customer extends Database {
 			close();
 
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 
 		return customerList;
@@ -225,7 +225,7 @@ public class Customer extends Database {
 			close();
 
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 
 		return customerList;
@@ -271,7 +271,7 @@ public class Customer extends Database {
 			c.setLicenseNumber(set.getString("lisencenumber"));
 
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 
 		// Close the database connection
