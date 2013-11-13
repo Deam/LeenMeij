@@ -150,15 +150,13 @@ public class EditVehicle extends JFrame {
 		
 		availableRadio = new JRadioButton("Beschikbaar");
 		availableRadio.addActionListener(al);
-		unavailableRadio = new JRadioButton("Onbeschikbaar");
+		unavailableRadio = new JRadioButton("Verhuurd");
 		unavailableRadio.addActionListener(al);
 		
-		if(v.getAvailable() == 1){
-			unavailableRadio.setSelected(true);
-			availableRadio.setSelected(false);
-		} else if(v.getAvailable() == 0){
-			unavailableRadio.setSelected(false);
+		if(v.getAvailable() == 0){
 			availableRadio.setSelected(true);
+		}else{
+			unavailableRadio.setSelected(true);
 		}
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

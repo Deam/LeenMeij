@@ -104,9 +104,9 @@ public class VehicleController implements ActionListener, MouseListener, Observa
 			data.add(v.getVehicleComment());
 
 			// Make a check, so we can see if the vehicle is available
-			if (v.getAvailable() == 1) {
+			if (v.getAvailable() == 0) {
 				data.add("Beschikbaar");
-			} else if (v.getAvailable() == 0) {
+			} else if (v.getAvailable() == 1) {
 				data.add("Verhuurd");
 			}
 
