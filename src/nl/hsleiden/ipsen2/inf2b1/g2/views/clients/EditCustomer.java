@@ -1,18 +1,19 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.clients;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class EditCustomer extends JFrame {

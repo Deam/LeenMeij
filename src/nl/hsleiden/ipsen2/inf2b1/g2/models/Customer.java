@@ -1,7 +1,7 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.models;
 
-import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

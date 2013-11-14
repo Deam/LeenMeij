@@ -1,22 +1,22 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.garage;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Damage;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 
-import javax.swing.JTextArea;
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class AddDamage extends JFrame{

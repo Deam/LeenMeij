@@ -21,8 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
-
 import com.toedter.components.JSpinField;
 
 @SuppressWarnings("serial")

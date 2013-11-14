@@ -1,5 +1,6 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.controllers;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -18,7 +19,6 @@ import javax.swing.event.ListSelectionListener;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.ImageSlider;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.ImageUtil;
-import java.awt.Font;
 
 /**
  * This class handles the actionperformed that are involved with the imageslider and panel

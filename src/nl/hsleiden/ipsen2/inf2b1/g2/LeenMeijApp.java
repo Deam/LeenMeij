@@ -2,8 +2,10 @@ package nl.hsleiden.ipsen2.inf2b1.g2;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.UserController;
 
 /**

@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JMenuItem;
@@ -26,14 +25,15 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.CustomerView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.EditCustomer;
 
 /**
- * This class handles the activities that are executed in the adminscreen.
- * And all the screen that are co-existing with the admin screen.
+ * This class handles the activities that are executed in the adminscreen. And
+ * all the screen that are co-existing with the admin screen.
  * 
  * @author Deam
  * 
  */
 
-public class AdminController implements ActionListener, MouseListener, Observable {
+public class AdminController implements ActionListener, MouseListener,
+		Observable {
 
 	private static AdminView adminview;
 	private CustomerController cController;
@@ -53,13 +53,13 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 	private int cId;
 	private FinancialOverview financialOverview;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
-	
+
 	/**
 	 * Declare all the things we need.
 	 */
 	public AdminController() {
 		adminview = new AdminView(this, this);
-		adminview.userOverview.setFont(new Font("Dialog", Font.PLAIN, 14)); 
+		adminview.userOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		adminview.addUser.setFont(new Font("Dialog", Font.PLAIN, 14));
 		adminview.vehicleOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
 		adminview.addVehicle.setFont(new Font("Dialog", Font.PLAIN, 14));
@@ -78,9 +78,9 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 		financialController = new FinancialController();
 		this.editCustomerView = new EditCustomer(cId, this);
 	}
-	
+
 	// Return the adminview
-	public static AdminView view(){
+	public static AdminView view() {
 		return adminview;
 	}
 
@@ -90,8 +90,9 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 	}
 
 	/**
-	 * Get the Jtable with limited information
-	 * This also adds a popup menu for editing and deleting
+	 * Get the Jtable with limited information This also adds a popup menu for
+	 * editing and deleting
+	 * 
 	 * @return
 	 */
 	public JTable CustomerTableLimited() {
@@ -111,17 +112,19 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 		popupMenu.add(deleteCustomerItem);
 
 		// Set the lists to the table
-		table = new JTable(new DefaultTableModel(customerListLimited(), columnNames()));
+		table = new JTable(new DefaultTableModel(customerListLimited(),
+				columnNames()));
 		// Add a mouse listner for the popupmenu
 		table.addMouseListener(this);
 
 		// Return the table
 		return table;
 	}
-	
+
 	/**
-	 * Get the Jtable with customer information
-	 * This also adds a popup menu for editing and deleting
+	 * Get the Jtable with customer information This also adds a popup menu for
+	 * editing and deleting
+	 * 
 	 * @return
 	 */
 	public JTable CustomerTable() {
@@ -141,7 +144,8 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 		popupMenu.add(deleteCustomerItem);
 
 		// Set the lists to the table
-		table = new JTable(new DefaultTableModel(customerListAll(), columnNames()));
+		table = new JTable(new DefaultTableModel(customerListAll(),
+				columnNames()));
 		// Add a mouse listner for the popupmenu
 		table.addMouseListener(this);
 
@@ -151,10 +155,10 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 
 	/**
 	 * Make the columnnames for the table
+	 * 
 	 * @return
 	 */
-	private Vector<String> columnNames()
-	{
+	private Vector<String> columnNames() {
 		Vector<String> columnNames = new Vector<>();
 
 		// Make all the columnname
@@ -172,10 +176,10 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 
 	/**
 	 * Get the list of customers with limited entries
+	 * 
 	 * @return
 	 */
-	private Vector<Vector<String>> customerListLimited()
-	{
+	private Vector<Vector<String>> customerListLimited() {
 		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
 
 		// Fill the table with the customer information
@@ -197,13 +201,13 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 		}
 		return customerList;
 	}
-	
+
 	/**
 	 * Returns a list with all the customer information
+	 * 
 	 * @return
 	 */
-	private Vector<Vector<String>> customerListAll()
-	{
+	private Vector<Vector<String>> customerListAll() {
 		Vector<Vector<String>> customerList = new Vector<Vector<String>>();
 
 		// Fill the table with the customer information
@@ -227,10 +231,10 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 	}
 
 	// Update the customer
-	private void editCustomer()
-	{
+	private void editCustomer() {
 		Customer customer = editCustomerView.getModel();
-		if (customer.Update(customer, customer.getCustomerNumber()) == true);
+		if (customer.Update(customer, customer.getCustomerNumber()) == true)
+			;
 		{
 			// Disposes dialog when it is completed
 			editCustomerView.dispose();
@@ -238,13 +242,13 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 	}
 
 	// Show the customer view
-	public void showCustomerView(){
+	public void showCustomerView() {
 		customerView = new CustomerView(this);
 		customerView.setVisible(true);
 	}
 
 	// Show the overview
-	public void showCustomerOverview(){
+	public void showCustomerOverview() {
 		customerOverview = new CustomerOverview(this);
 		customerOverview.setVisible(true);
 	}
@@ -273,34 +277,30 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 				"Weet je het zeker?", JOptionPane.WARNING_MESSAGE,
 				JOptionPane.YES_NO_OPTION);
 
-		// Get the 
+		// Get the
 		if (dialog == JOptionPane.YES_OPTION) {
 
 			customer.Delete(cId);
 			updateTableData();
 		}
 	}
-	
+
 	/**
 	 * Update the information of the customertable
+	 * 
 	 * @return
 	 */
-	private void updateTableData()
-	{
-		for (Observer observer : observers)
-		{
+	private void updateTableData() {
+		for (Observer observer : observers) {
 			observer.update(0);
 		}
 	}
-	
-	
+
 	// Add the customer
-	public void addCustomer()
-	{
+	public void addCustomer() {
 		Customer customer = new Customer();
 		{
-			if (customer.Insert(addCustomerView.getModel()) == true)
-			{
+			if (customer.Insert(addCustomerView.getModel()) == true) {
 				addCustomerView.dispose();
 				updateTableData();
 			}
@@ -339,29 +339,30 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 			vController.showVehicleOverview();
 		}
 
-		else if(e.getSource() == adminview.userOverview){
+		else if (e.getSource() == adminview.userOverview) {
 			userController.showUserOverview();
 		}
 
-		else if(e.getSource() == adminview.customerItem){
+		else if (e.getSource() == adminview.customerItem) {
 			showCustomerView();
 		}
 
-		else if(e.getSource() == adminview.rentalItem){
+		else if (e.getSource() == adminview.rentalItem) {
 			rentalController.showRentalView();
 			rentalController.fromAdmin = true;
 		}
 
-		else if(e.getSource() == adminview.garageItem){
+		else if (e.getSource() == adminview.garageItem) {
 			damageController.showGarageView();
 			damageController.fromAdmin = true;
 		}
 
-		else if(e.getSource() == adminview.financialOverview){
+		else if (e.getSource() == adminview.financialOverview) {
 			financialController.showFinancialOverview();
 		}
 
-		else if(addCustomerView != null && e.getSource() == addCustomerView.addButton){
+		else if (addCustomerView != null
+				&& e.getSource() == addCustomerView.addButton) {
 			addCustomer();
 		}
 
@@ -370,16 +371,19 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 		}
 
 		// Show the delete option
-		else if (deleteCustomerItem != null && e.getSource() == deleteCustomerItem) {
+		else if (deleteCustomerItem != null
+				&& e.getSource() == deleteCustomerItem) {
 			showDeleteCustomer(id);
 		}
 
-		else if(customerView != null && e.getSource() == customerView.closeButton) {
+		else if (customerView != null
+				&& e.getSource() == customerView.closeButton) {
 			customerView.dispose();
 		}
 
 		// Edit customer view:
-		else if (editCustomerView != null && e.getSource() == editCustomerView.editButton) {
+		else if (editCustomerView != null
+				&& e.getSource() == editCustomerView.editButton) {
 			editCustomer();
 			updateTableData();
 		}
@@ -400,8 +404,7 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// Get the source for the popupmenu
-		if (e.getButton() == MouseEvent.BUTTON3)
-		{
+		if (e.getButton() == MouseEvent.BUTTON3) {
 			JTable source = (JTable) e.getSource();
 			int row = source.rowAtPoint(e.getPoint());
 			int column = source.columnAtPoint(e.getPoint());
@@ -426,6 +429,6 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 
 	@Override
 	public void registerObserver(Observer observer) {
-				observers.add(observer);
+		observers.add(observer);
 	}
 }

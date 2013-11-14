@@ -29,7 +29,6 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.AdminController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.FinancialController;

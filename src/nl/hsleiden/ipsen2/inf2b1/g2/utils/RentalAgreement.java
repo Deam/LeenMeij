@@ -8,7 +8,6 @@ import jxl.CellView;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.UnderlineStyle;
-import jxl.write.Formula;
 import jxl.write.Label;
 import jxl.write.Number;
 import jxl.write.WritableCellFormat;
@@ -87,7 +86,7 @@ public class RentalAgreement {
 	}
 
 	private void createContent(WritableSheet sheet) throws WriteException,
-	RowsExceededException {
+			RowsExceededException {
 		addNumber(sheet, 0, 1, klantNummer);
 		addNumber(sheet, 2, 1, rentalId);
 		addLabel(sheet, 0, 4, klantNaam);
@@ -111,9 +110,9 @@ public class RentalAgreement {
 		number = new Number(column, row, integer, times);
 		sheet.addCell(number);
 	}
-	
-	private void addNumber(WritableSheet sheet, int column, int row,
-			Double dbl) throws WriteException, RowsExceededException {
+
+	private void addNumber(WritableSheet sheet, int column, int row, Double dbl)
+			throws WriteException, RowsExceededException {
 		Number number;
 		number = new Number(column, row, dbl, times);
 		sheet.addCell(number);
@@ -157,7 +156,7 @@ public class RentalAgreement {
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	
+
 	public void setLisencePlate(String lisence) {
 		this.lisencePlate = lisence;
 	}

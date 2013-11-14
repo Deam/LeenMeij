@@ -1,5 +1,6 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.controllers;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -15,7 +16,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.garage.AddDamage;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.garage.GarageView;
-import java.awt.Font;
 
 /**
  * Handles the damage that is inflicted on a vehicle.

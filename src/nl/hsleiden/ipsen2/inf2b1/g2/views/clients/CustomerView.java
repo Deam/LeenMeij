@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Options;
+
 import com.toedter.components.JSpinField;
 
 @SuppressWarnings("serial")

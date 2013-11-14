@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -157,6 +158,7 @@ public class FinancialController implements ActionListener, MouseListener {
 
 	/**
 	 * Returns all the financials
+	 * 
 	 * @return
 	 */
 	private Vector<Vector<String>> financialListAll() {
@@ -187,6 +189,7 @@ public class FinancialController implements ActionListener, MouseListener {
 
 	/**
 	 * Returns a limited informationlist
+	 * 
 	 * @return
 	 */
 	public Vector<Vector<String>> financialListLimited2() {
@@ -223,7 +226,6 @@ public class FinancialController implements ActionListener, MouseListener {
 
 		else if (financialOverview != null
 				&& e.getSource() == financialOverview.searchButton) {
-			System.err.println("dicks");
 			updateFinancialTableData();
 		}
 
@@ -256,30 +258,36 @@ public class FinancialController implements ActionListener, MouseListener {
 
 	/**
 	 * Returns a limited information Vector
+	 * 
 	 * @return
 	 */
 	public Vector<Vector<String>> financialListLimited() {
 		Vector<Vector<String>> financialList = new Vector<Vector<String>>();
 		// Fill the table with the financial information
 		Financial financial = new Financial();
+		try {
+			for (Financial f : financial.getAll_by_Date(financialOverview
+					.getModel().getSearchDate())) {
+				// Add the financial data
+				Vector<String> data = new Vector<>();
+				data.add(Integer.toString(f.getRentalID()));
+				data.add(f.getRentedDate());
+				data.add(Integer.toString(f.getCustomerNumber()));
+				data.add(f.getCustomerFirstname());
+				data.add(f.getCustomerLastname());
+				data.add(Integer.toString(f.getVehicleID()));
+				data.add(f.getVehicleBrand());
+				data.add(f.getVehicleModel());
+				data.add(f.getLicencePlate());
+				data.add(Integer.toString(f.getRentalKost()));
 
-		for (Financial f : financial.getAll_by_Date(financialOverview
-				.getModel().getSearchDate())) {
-			// Add the financial data
-			Vector<String> data = new Vector<>();
-			data.add(Integer.toString(f.getRentalID()));
-			data.add(f.getRentedDate());
-			data.add(Integer.toString(f.getCustomerNumber()));
-			data.add(f.getCustomerFirstname());
-			data.add(f.getCustomerLastname());
-			data.add(Integer.toString(f.getVehicleID()));
-			data.add(f.getVehicleBrand());
-			data.add(f.getVehicleModel());
-			data.add(f.getLicencePlate());
-			data.add(Integer.toString(f.getRentalKost()));
-
-			// Set the financial information to the list
-			financialList.add(data);
+				// Set the financial information to the list
+				financialList.add(data);
+			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null,
+					"Er is geen datum geselecteerd!", "Waarschuwing",
+					JOptionPane.INFORMATION_MESSAGE);
 		}
 		return financialList;
 	}

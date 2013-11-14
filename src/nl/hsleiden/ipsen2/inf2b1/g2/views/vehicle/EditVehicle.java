@@ -1,5 +1,6 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.vehicle;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -10,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -19,18 +21,16 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 
 import com.toedter.components.JSpinField;
 
-import java.awt.Font;
-import javax.swing.JRadioButton;
-
 @SuppressWarnings("serial")
 public class EditVehicle extends JFrame {
 	private JComboBox<String> categoryBox;
 	private JTextPane optionsField;
-	private JTextField commentField, brandField, modelField, colorField, lisenceField;
+	private JTextField commentField, brandField, modelField, colorField,
+			lisenceField;
 	public JButton editButton;
 
 	private static int vehicleId = 0;
-	
+
 	private JLabel lblAfbeeldingUrl;
 	private JTextField urlField;
 	private JSpinField milageField;
@@ -42,7 +42,7 @@ public class EditVehicle extends JFrame {
 	 * Create the frame.
 	 */
 	public EditVehicle(int vID, ActionListener al) {
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 434, 539);
 
@@ -67,10 +67,10 @@ public class EditVehicle extends JFrame {
 
 		Vehicle v = new Vehicle();
 		v = v.getById(vID);
-		
+
 		categoryBox = new JComboBox<String>(VehicleController.categoryItems());
 		categoryBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	
+
 		categoryBox.setSelectedItem(v.getVehicleCategory());
 
 		brandField = new JTextField();
@@ -92,7 +92,7 @@ public class EditVehicle extends JFrame {
 		lisenceField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lisenceField.setText(v.getLicensePlate());
 		lisenceField.setColumns(10);
-		
+
 		milageField = new JSpinField();
 		milageField.getSpinner().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		milageField.setValue(v.getVehicleMilage());
@@ -105,7 +105,7 @@ public class EditVehicle extends JFrame {
 		commentField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		commentField.setText(v.getVehicleComment());
 		commentField.setColumns(10);
-		
+
 		urlField = new JTextField();
 		urlField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		urlField.setText(v.getImageURL());
@@ -114,148 +114,320 @@ public class EditVehicle extends JFrame {
 		editButton = new JButton("Aanpassen");
 		editButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		editButton.addActionListener(al);
-		
+
 		lblAfbeeldingUrl = new JLabel("Afbeelding url");
 		lblAfbeeldingUrl.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		lblPrijsPerDag = new JLabel("Prijs per dag");
 		lblPrijsPerDag.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		priceField = new JTextField();
 		priceField.setText(Double.toString(v.getPrice()));
 		priceField.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent arg0) {
 				char key = arg0.getKeyChar();
-				
+
 				if (!Character.isDigit(key) && Character.isLetter('.')) {
 					arg0.consume();
 				}
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		priceField.setColumns(10);
-		
+
 		availableRadio = new JRadioButton("Beschikbaar");
 		availableRadio.addActionListener(al);
 		unavailableRadio = new JRadioButton("Verhuurd");
 		unavailableRadio.addActionListener(al);
-		
-		if(v.getAvailable() == 0){
+
+		if (v.getAvailable() == 0) {
 			availableRadio.setSelected(true);
-		}else{
+		} else {
 			unavailableRadio.setSelected(true);
 		}
-		
+
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(editButton, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(categoryLabel)
-								.addComponent(brandLabel)
-								.addComponent(modelLabel)
-								.addComponent(colorLabel)
-								.addComponent(milageLabel)
-								.addComponent(licenseLabel)
-								.addComponent(lblSchade)
-								.addComponent(commentLabel)
-								.addComponent(lblAfbeeldingUrl)
-								.addComponent(lblPrijsPerDag))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(optionsField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-								.addComponent(brandField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-								.addComponent(categoryBox, 0, 270, Short.MAX_VALUE)
-								.addComponent(modelField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-								.addComponent(colorField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-								.addComponent(lisenceField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-								.addComponent(commentField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-								.addComponent(urlField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-								.addComponent(milageField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-								.addComponent(priceField, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(availableRadio)
-									.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-									.addComponent(unavailableRadio)))))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(categoryLabel)
-						.addComponent(categoryBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(brandLabel)
-						.addComponent(brandField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(modelLabel)
-						.addComponent(modelField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(colorLabel)
-						.addComponent(colorField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(milageLabel)
-						.addComponent(milageField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(licenseLabel)
-						.addComponent(lisenceField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSchade)
-						.addComponent(optionsField, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
-					.addGap(16)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(commentLabel)
-						.addComponent(commentField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAfbeeldingUrl)
-						.addComponent(urlField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPrijsPerDag)
-						.addComponent(priceField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(availableRadio)
-						.addComponent(unavailableRadio))
-					.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-					.addComponent(editButton)
-					.addContainerGap())
-		);
+		groupLayout
+				.setHorizontalGroup(groupLayout
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								groupLayout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(
+																editButton,
+																Alignment.TRAILING,
+																GroupLayout.PREFERRED_SIZE,
+																118,
+																GroupLayout.PREFERRED_SIZE)
+														.addGroup(
+																groupLayout
+																		.createSequentialGroup()
+																		.addGroup(
+																				groupLayout
+																						.createParallelGroup(
+																								Alignment.LEADING)
+																						.addComponent(
+																								categoryLabel)
+																						.addComponent(
+																								brandLabel)
+																						.addComponent(
+																								modelLabel)
+																						.addComponent(
+																								colorLabel)
+																						.addComponent(
+																								milageLabel)
+																						.addComponent(
+																								licenseLabel)
+																						.addComponent(
+																								lblSchade)
+																						.addComponent(
+																								commentLabel)
+																						.addComponent(
+																								lblAfbeeldingUrl)
+																						.addComponent(
+																								lblPrijsPerDag))
+																		.addGap(18)
+																		.addGroup(
+																				groupLayout
+																						.createParallelGroup(
+																								Alignment.LEADING)
+																						.addComponent(
+																								optionsField,
+																								GroupLayout.DEFAULT_SIZE,
+																								270,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								brandField,
+																								GroupLayout.DEFAULT_SIZE,
+																								270,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								categoryBox,
+																								0,
+																								270,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								modelField,
+																								GroupLayout.DEFAULT_SIZE,
+																								270,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								colorField,
+																								GroupLayout.DEFAULT_SIZE,
+																								270,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								lisenceField,
+																								GroupLayout.DEFAULT_SIZE,
+																								270,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								commentField,
+																								GroupLayout.DEFAULT_SIZE,
+																								270,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								urlField,
+																								GroupLayout.DEFAULT_SIZE,
+																								270,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								milageField,
+																								GroupLayout.DEFAULT_SIZE,
+																								270,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								priceField,
+																								GroupLayout.DEFAULT_SIZE,
+																								270,
+																								Short.MAX_VALUE)
+																						.addGroup(
+																								groupLayout
+																										.createSequentialGroup()
+																										.addComponent(
+																												availableRadio)
+																										.addPreferredGap(
+																												ComponentPlacement.RELATED,
+																												90,
+																												Short.MAX_VALUE)
+																										.addComponent(
+																												unavailableRadio)))))
+										.addContainerGap()));
+		groupLayout
+				.setVerticalGroup(groupLayout
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								groupLayout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																categoryLabel)
+														.addComponent(
+																categoryBox,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.UNRELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																brandLabel)
+														.addComponent(
+																brandField,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.UNRELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																modelLabel)
+														.addComponent(
+																modelField,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.UNRELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																colorLabel)
+														.addComponent(
+																colorField,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.TRAILING)
+														.addComponent(
+																milageLabel)
+														.addComponent(
+																milageField,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.UNRELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																licenseLabel)
+														.addComponent(
+																lisenceField,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.UNRELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(lblSchade)
+														.addComponent(
+																optionsField,
+																GroupLayout.PREFERRED_SIZE,
+																112,
+																GroupLayout.PREFERRED_SIZE))
+										.addGap(16)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																commentLabel)
+														.addComponent(
+																commentField,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																lblAfbeeldingUrl)
+														.addComponent(
+																urlField,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																lblPrijsPerDag)
+														.addComponent(
+																priceField,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.UNRELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																availableRadio)
+														.addComponent(
+																unavailableRadio))
+										.addPreferredGap(
+												ComponentPlacement.RELATED, 21,
+												Short.MAX_VALUE)
+										.addComponent(editButton)
+										.addContainerGap()));
 		getContentPane().setLayout(groupLayout);
 	}
-	
+
 	/**
 	 * Get the vehicle information
+	 * 
 	 * @return
 	 */
-	public Vehicle getModel()
-	{
+	public Vehicle getModel() {
 		Vehicle vehicle = new Vehicle();
 		vehicle.setVehicleID(vehicleId);
 		vehicle.setVehicleCategory(categoryBox.getSelectedItem().toString());
@@ -268,13 +440,13 @@ public class EditVehicle extends JFrame {
 		vehicle.setVehicleComment(commentField.getText());
 		vehicle.setImageURL(urlField.getText());
 		vehicle.setPrice(Double.parseDouble(priceField.getText()));
-		
-		if(availableRadio.isSelected()){
+
+		if (availableRadio.isSelected()) {
 			vehicle.setAvailable(0);
-		} else if(unavailableRadio.isSelected()){
+		} else if (unavailableRadio.isSelected()) {
 			vehicle.setAvailable(1);
 		}
-		
+
 		return vehicle;
 	}
 }

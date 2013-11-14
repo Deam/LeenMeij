@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +34,8 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.desk.RentalView;
  * @author Deam
  * @additions David
  */
-public class RentalController implements ActionListener, MouseListener, Observable {
+public class RentalController implements ActionListener, MouseListener,
+		Observable {
 
 	private RentalView rentalView;
 	private AddCustomer addCustomer;
@@ -49,17 +49,17 @@ public class RentalController implements ActionListener, MouseListener, Observab
 
 	private JPopupMenu popupMenu;
 	public JMenuItem editCustomerItem;
-	
+
 	public boolean fromAdmin;
-	
+
 	private String agreementDir = System.getProperty("user.dir");
-	
+
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	// Initialize variables
 	public RentalController() {
 		cController = new CustomerController();
-		
+
 	}
 
 	// Return the rentalview
@@ -70,6 +70,7 @@ public class RentalController implements ActionListener, MouseListener, Observab
 
 	/**
 	 * Returns the table
+	 * 
 	 * @return
 	 */
 	public JTable CustomerTable() {
@@ -95,6 +96,7 @@ public class RentalController implements ActionListener, MouseListener, Observab
 
 	/**
 	 * Returns the information for the table.
+	 * 
 	 * @return
 	 */
 	public Vector<String> columnNames() {
@@ -115,6 +117,7 @@ public class RentalController implements ActionListener, MouseListener, Observab
 
 	/**
 	 * Fill a list with customer informations
+	 * 
 	 * @return
 	 */
 	public Vector<Vector<String>> customerList() {
@@ -147,8 +150,7 @@ public class RentalController implements ActionListener, MouseListener, Observab
 
 	// Update the table data
 	public void updateCustomerTableData() {
-		for (Observer observer : observers)
-		{
+		for (Observer observer : observers) {
 			observer.update(0);
 		}
 	}
@@ -168,10 +170,9 @@ public class RentalController implements ActionListener, MouseListener, Observab
 			}
 		}
 	}
-	
-	private void createRentalAgreement()
-	{
-		Rented rented = new Rented();			
+
+	private void createRentalAgreement() {
+		Rented rented = new Rented();
 		rented = rentalView.getModel();
 
 		rented.Insert(rented);
@@ -182,13 +183,15 @@ public class RentalController implements ActionListener, MouseListener, Observab
 		Financial financial = new Financial();
 		financial = rentalView.getFinancialModel();
 		financial.Insert(financial);
-		
+
 		Customer c = new Customer();
 		c = c.getById(rented.getCustomerId());
-		int rentalId = rented.getRentalIdFrom(rented.getRentalDate(), rented.getCustomerId());
+		int rentalId = rented.getRentalIdFrom(rented.getRentalDate(),
+				rented.getCustomerId());
 		RentalAgreement rentalAgreement = new RentalAgreement();
 		rentalAgreement.setKlantNummer(rented.getCustomerId());
-		rentalAgreement.setNaamVoertuig(vehicle.getVehicleBrand() + " " + vehicle.getVehicleModel());
+		rentalAgreement.setNaamVoertuig(vehicle.getVehicleBrand() + " "
+				+ vehicle.getVehicleModel());
 		rentalAgreement.setLisencePlate(vehicle.getLicensePlate());
 		rentalAgreement.setKlantNaam(c.getFirstName() + " " + c.getLastName());
 		rentalAgreement.setRentalId(rentalId);
@@ -196,7 +199,12 @@ public class RentalController implements ActionListener, MouseListener, Observab
 		rentalAgreement.setExpectedReceiveDate(rented.getExpectedReceiveDate());
 		rentalAgreement.setPayment(rented.getPayment());
 		rentalAgreement.setTotal(rented.getTotal());
-		rentalAgreement.setOutputFile(agreementDir + "\\Huurovereenkomsten\\" + rentalId + ".xls");			
+		File f = new File(agreementDir + "\\Huurovereenkomsten\\");
+		if (!f.exists()) {
+			f.mkdir();
+		}
+		rentalAgreement.setOutputFile(agreementDir + "\\Huurovereenkomsten\\"
+				+ rentalId + ".xls");
 		try {
 			rentalAgreement.write();
 		} catch (WriteException e1) {
@@ -209,7 +217,9 @@ public class RentalController implements ActionListener, MouseListener, Observab
 		JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
 				"Succes", JOptionPane.QUESTION_MESSAGE);
 		try {
-			Desktop.getDesktop().open(new File(agreementDir + "\\Huurovereenkomsten\\" + rentalId + ".xls"));
+			Desktop.getDesktop().open(
+					new File(agreementDir + "\\Huurovereenkomsten\\" + rentalId
+							+ ".xls"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -231,28 +241,29 @@ public class RentalController implements ActionListener, MouseListener, Observab
 			updateCustomerTableData();
 		}
 		/**
-		 * Makes the rental agreement
-		 * Gets information from the vehicle model and financial model.
+		 * Makes the rental agreement Gets information from the vehicle model
+		 * and financial model.
 		 */
-		else if (rentalView != null && e.getSource() == rentalView.makeRentalAgreement) {
-			try
-			{
+		else if (rentalView != null
+				&& e.getSource() == rentalView.makeRentalAgreement) {
+			try {
 				createRentalAgreement();
-			}
-			catch(NullPointerException e1)
-			{
-				JOptionPane.showMessageDialog(null, "Er is iets fout gegaan bij het aanmaken van de overeenkomst. Zijn alle velden goed ingevuld?", "Fout bij aanmaken", JOptionPane.INFORMATION_MESSAGE);
-			}
-			catch(NumberFormatException e2)
-			{
-				JOptionPane.showMessageDialog(null, "Selecteer een klant.", "Waarschuwing", JOptionPane.ERROR_MESSAGE);
+			} catch (NullPointerException e1) {
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Er is iets fout gegaan bij het aanmaken van de overeenkomst. Zijn alle velden goed ingevuld?",
+								"Fout bij aanmaken",
+								JOptionPane.INFORMATION_MESSAGE);
+			} catch (NumberFormatException e2) {
+				JOptionPane.showMessageDialog(null, "Selecteer een klant.",
+						"Waarschuwing", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
 		else if (rentalView != null && e.getSource() == rentalView.closeButton) {
 			rentalView.dispose();
-			if (!fromAdmin)
-			{
+			if (!fromAdmin) {
 				UserController controller = new UserController();
 				controller.showLoginView();
 			}
