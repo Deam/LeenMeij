@@ -219,13 +219,15 @@ public class VehicleController implements ActionListener, MouseListener,
 		}
 
 		else if (e.getSource() == editVehicleView.availableRadio) {
-			if (editVehicleView.availableRadio.isSelected())
+			if (editVehicleView.availableRadio.isSelected()) {
 				editVehicleView.unavailableRadio.setSelected(false);
+			}
 		}
 
 		else if (e.getSource() == editVehicleView.unavailableRadio) {
-			if (editVehicleView.unavailableRadio.isSelected())
+			if (editVehicleView.unavailableRadio.isSelected()) {
 				editVehicleView.availableRadio.setSelected(false);
+			}
 		}
 
 		/**

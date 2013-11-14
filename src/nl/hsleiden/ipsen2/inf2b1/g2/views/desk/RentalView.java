@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.Date;
 
@@ -50,7 +51,7 @@ public class RentalView extends JFrame implements Observer {
 			zipcodeLabel, cityLabel, telephoneLabel, licenseLabel;
 	public ImageSliderController sliderController;
 	public JButton makeRentalAgreement;
-	private JDateChooser rentalDate, expectedReceiveDate;
+	public JDateChooser rentalDate, expectedReceiveDate;
 	private JSpinField paymentBox;
 	public JButton addCustomerButton;
 	public JButton closeButton;
@@ -61,7 +62,7 @@ public class RentalView extends JFrame implements Observer {
 	public JLabel calcPrice;
 	private RentalController controller;
 
-	public RentalView(ActionListener al, RentalController controller) {
+	public RentalView(ActionListener al, RentalController controller, PropertyChangeListener pcl) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 938, 765);
 		this.controller = controller;
@@ -373,13 +374,15 @@ public class RentalView extends JFrame implements Observer {
 		rentalDate = new JDateChooser();
 		rentalDate.getCalendarButton().setFont(
 				new Font("Tahoma", Font.PLAIN, 14));
-
+		rentalDate.getDateEditor().addPropertyChangeListener(pcl);
+		
 		JLabel lblVerwachteInnameDatum = new JLabel("Verwachte inname datum");
 		lblVerwachteInnameDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		expectedReceiveDate = new JDateChooser();
 		expectedReceiveDate.getCalendarButton().setFont(
 				new Font("Tahoma", Font.PLAIN, 14));
+		expectedReceiveDate.getDateEditor().addPropertyChangeListener(pcl);
 
 		JLabel lblAanbetaling = new JLabel("Aanbetaling \u20AC");
 		lblAanbetaling.setFont(new Font("Tahoma", Font.PLAIN, 14));

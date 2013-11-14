@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 import jxl.write.WriteException;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
@@ -35,7 +40,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.desk.RentalView;
  * @additions David
  */
 public class RentalController implements ActionListener, MouseListener,
-		Observable {
+		Observable, PropertyChangeListener {
 
 	private RentalView rentalView;
 	private CustomerController cController;
@@ -63,7 +68,7 @@ public class RentalController implements ActionListener, MouseListener,
 
 	// Return the rentalview
 	public void showRentalView() {
-		rentalView = new RentalView(this, this);
+		rentalView = new RentalView(this, this, this);
 		rentalView.setVisible(true);
 	}
 
@@ -302,8 +307,8 @@ public class RentalController implements ActionListener, MouseListener,
 		else if (editCustomer != null
 				&& e.getSource() == editCustomer.editButton) {
 			Customer customer = editCustomer.getModel();
-			if (customer.Update(customer, customer.getCustomerNumber()) == true)
-				;
+			if (customer.Update(customer, customer.getCustomerNumber()) == true) {
+			}
 			{
 				editCustomer.dispose();
 				updateCustomerTableData();
@@ -358,5 +363,18 @@ public class RentalController implements ActionListener, MouseListener,
 	@Override
 	public void registerObserver(Observer observer) {
 		observers.add(observer);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent p) {
+		try
+		{
+			int days = Days.daysBetween(new LocalDate(rentalView.rentalDate.getDate()), new LocalDate(rentalView.expectedReceiveDate.getDate())).getDays();
+			rentalView.daysField.setValue(days);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 }

@@ -231,8 +231,9 @@ public class AdminController implements ActionListener, MouseListener,
 	// Update the customer
 	private void editCustomer() {
 		Customer customer = editCustomerView.getModel();
-		if (customer.Update(customer, customer.getCustomerNumber()) == true)
+		if (customer.Update(customer, customer.getCustomerNumber()) == true) {
 			;
+		}
 		{
 			// Disposes dialog when it is completed
 			editCustomerView.dispose();
