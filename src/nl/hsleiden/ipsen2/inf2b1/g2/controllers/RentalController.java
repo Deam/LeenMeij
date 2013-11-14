@@ -44,6 +44,8 @@ public class RentalController implements ActionListener, MouseListener, Observab
 	private JPopupMenu popupMenu;
 	public JMenuItem editCustomerItem;
 	
+	public boolean fromAdmin;
+	
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	// Initialize variables
@@ -197,8 +199,11 @@ public class RentalController implements ActionListener, MouseListener, Observab
 
 		else if (rentalView != null && e.getSource() == rentalView.closeButton) {
 			rentalView.dispose();
-			UserController controller = new UserController();
-			controller.showLoginView();
+			if (!fromAdmin)
+			{
+				UserController controller = new UserController();
+				controller.showLoginView();
+			}
 		}
 
 		else if (editCustomerItem != null && e.getSource() == editCustomerItem) {

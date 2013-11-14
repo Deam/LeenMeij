@@ -30,6 +30,8 @@ public class DamageController implements ActionListener {
 	private AddDamage addDamage;
 	private JTable table, damageTable;
 
+	public boolean fromAdmin;
+	
 	private int vehicleID = 0;
 
 	// Set the font as the customer wanted
@@ -90,8 +92,11 @@ public class DamageController implements ActionListener {
 
 		else if (e.getSource() == garageView.closeButton) {
 			garageView.dispose();
-			UserController controller = new UserController();
-			controller.showLoginView();
+			if (!fromAdmin)
+			{
+				UserController controller = new UserController();
+				controller.showLoginView();
+			}
 		}
 
 		else if (e.getSource() == garageView.approveButton) {

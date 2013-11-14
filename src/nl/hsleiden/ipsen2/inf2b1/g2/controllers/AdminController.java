@@ -349,10 +349,12 @@ public class AdminController implements ActionListener, MouseListener, Observabl
 
 		else if(e.getSource() == adminview.rentalItem){
 			rentalController.showRentalView();
+			rentalController.fromAdmin = true;
 		}
 
 		else if(e.getSource() == adminview.garageItem){
 			damageController.showGarageView();
+			damageController.fromAdmin = true;
 		}
 
 		else if(e.getSource() == adminview.financialOverview){

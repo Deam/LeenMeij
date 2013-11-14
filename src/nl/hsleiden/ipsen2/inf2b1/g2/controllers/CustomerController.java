@@ -37,6 +37,7 @@ public class CustomerController implements ActionListener, MouseListener {
 	private JTable table;
 	private int id = 0;
 	private int cId;
+	public boolean fromAdmin;
 
 	// Constructor
 	public CustomerController() {

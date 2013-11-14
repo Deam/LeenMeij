@@ -29,7 +29,7 @@ public class Database {
 		// If we could load the PostgreSQL JDBC Driver successfully we can try
 		// and store it in a connection object.
 		try {
-			String url = "jdbc:mysql://77.172.20.28/leenmeij";
+			String url = "jdbc:mysql://192.168.1.83/leenmeij";
 			
 			// Set the properties, set username and password.
 			Properties p = new Properties();
