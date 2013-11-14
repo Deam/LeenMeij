@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -13,12 +14,14 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import jxl.write.WriteException;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Financial;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observable;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.RentalAgreement;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.AddCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.EditCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.desk.RentalView;
@@ -187,11 +190,34 @@ public class RentalController implements ActionListener, MouseListener, Observab
 
 			Vehicle vehicle = new Vehicle();
 			vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
-
+			vehicle = vehicle.getById(rented.getVehicleId());
 			Financial financial = new Financial();
 			financial = rentalView.getFinancialModel();
 			financial.Insert(financial);
-
+			
+			Customer c = new Customer();
+			c = c.getById(rented.getCustomerId());
+			
+			RentalAgreement rentalAgreement = new RentalAgreement();
+			rentalAgreement.setKlantNummer(rented.getCustomerId());
+			rentalAgreement.setNaamVoertuig(vehicle.getVehicleBrand() + " " + vehicle.getVehicleModel());
+			rentalAgreement.setKlantNaam(c.getFirstName() + " " + c.getLastName());
+			rentalAgreement.setRentalId(rented.getRentalIdFrom(rented.getRentalDate(), rented.getCustomerId()));
+			rentalAgreement.setReceiveDate(rented.getRentalDate());
+			rentalAgreement.setExpectedReceiveDate(rented.getExpectedReceiveDate());
+			rentalAgreement.setPayment(rented.getPayment());
+			rentalAgreement.setTotal(rented.getTotal());
+			rentalAgreement.setOutputFile("C:\\Users\\michi_000\\Desktop\\test.xls");
+			
+			try {
+				rentalAgreement.write();
+			} catch (WriteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
 					"Succes", JOptionPane.QUESTION_MESSAGE);
 

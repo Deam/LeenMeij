@@ -2,6 +2,8 @@ package nl.hsleiden.ipsen2.inf2b1.g2.models;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
 
 
@@ -63,6 +65,29 @@ public class Rented extends Database{
 		
 		// Return the info
 		return rented;
+	}
+	
+	public int getRentalIdFrom(String rentalDate, int customerID)
+	{
+		// Make the statement
+		connect();
+		int id;
+		try {
+			PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM rented WHERE customerid = ? AND rentaldate = ?");
+			statement.setInt(1, customerID);
+			statement.setString(2, rentalDate);
+			
+			set = statement.executeQuery();
+			set.next();
+						
+			id = set.getInt("rentalid");
+			close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			close();
+			return 0;
+		}
+		return id;
 	}
 
 	/**
