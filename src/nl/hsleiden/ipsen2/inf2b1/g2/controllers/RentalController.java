@@ -1,9 +1,12 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.controllers;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.print.PrinterJob;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -162,6 +165,43 @@ public class RentalController implements ActionListener, MouseListener, Observab
 			}
 		}
 	}
+	
+	private void createRentalAgreement()
+	{
+		Rented rented = new Rented();			
+		rented = rentalView.getModel();
+
+		rented.Insert(rented);
+
+		Vehicle vehicle = new Vehicle();
+		vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
+		vehicle = vehicle.getById(rented.getVehicleId());
+		Financial financial = new Financial();
+		financial = rentalView.getFinancialModel();
+		financial.Insert(financial);
+		
+		Customer c = new Customer();
+		c = c.getById(rented.getCustomerId());
+		RentalAgreement rentalAgreement = new RentalAgreement();
+		rentalAgreement.setKlantNummer(rented.getCustomerId());
+		rentalAgreement.setNaamVoertuig(vehicle.getVehicleBrand() + " " + vehicle.getVehicleModel());
+		rentalAgreement.setKlantNaam(c.getFirstName() + " " + c.getLastName());
+		rentalAgreement.setRentalId(rented.getRentalIdFrom(rented.getRentalDate(), rented.getCustomerId()));
+		rentalAgreement.setReceiveDate(rented.getRentalDate());
+		rentalAgreement.setExpectedReceiveDate(rented.getExpectedReceiveDate());
+		rentalAgreement.setPayment(rented.getPayment());
+		rentalAgreement.setTotal(rented.getTotal());
+		rentalAgreement.setOutputFile("C:\\Users\\michi_000\\Desktop\\test.xls");			
+		try {
+			rentalAgreement.write();
+		} catch (WriteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
 	/**
 	 * Here we catch all the actions that are linked to the buttons.
@@ -183,44 +223,17 @@ public class RentalController implements ActionListener, MouseListener, Observab
 		 * Gets information from the vehicle model and financial model.
 		 */
 		else if (rentalView != null && e.getSource() == rentalView.makeRentalAgreement) {
-			Rented rented = new Rented();			
-			rented = rentalView.getModel();
-
-			rented.Insert(rented);
-
-			Vehicle vehicle = new Vehicle();
-			vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
-			vehicle = vehicle.getById(rented.getVehicleId());
-			Financial financial = new Financial();
-			financial = rentalView.getFinancialModel();
-			financial.Insert(financial);
 			
-			Customer c = new Customer();
-			c = c.getById(rented.getCustomerId());
+			createRentalAgreement();
 			
-			RentalAgreement rentalAgreement = new RentalAgreement();
-			rentalAgreement.setKlantNummer(rented.getCustomerId());
-			rentalAgreement.setNaamVoertuig(vehicle.getVehicleBrand() + " " + vehicle.getVehicleModel());
-			rentalAgreement.setKlantNaam(c.getFirstName() + " " + c.getLastName());
-			rentalAgreement.setRentalId(rented.getRentalIdFrom(rented.getRentalDate(), rented.getCustomerId()));
-			rentalAgreement.setReceiveDate(rented.getRentalDate());
-			rentalAgreement.setExpectedReceiveDate(rented.getExpectedReceiveDate());
-			rentalAgreement.setPayment(rented.getPayment());
-			rentalAgreement.setTotal(rented.getTotal());
-			rentalAgreement.setOutputFile("C:\\Users\\michi_000\\Desktop\\test.xls");
-			
+			JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
+					"Succes", JOptionPane.QUESTION_MESSAGE);
 			try {
-				rentalAgreement.write();
-			} catch (WriteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				Desktop.getDesktop().open(new File("C:\\Users\\michi_000\\Desktop\\test.xls"));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
-					"Succes", JOptionPane.QUESTION_MESSAGE);
-
 		}
 
 		else if (rentalView != null && e.getSource() == rentalView.closeButton) {
