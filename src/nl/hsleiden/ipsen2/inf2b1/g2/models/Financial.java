@@ -24,6 +24,7 @@ public class Financial extends Database {
 	private String vehicleModel;
 	private String licencePlate;
 	private int rentalKost;
+	private int rentalID;
 
 	private String searchDate;
 
@@ -337,10 +338,11 @@ public class Financial extends Database {
 	}
 
 	public int getRentalID() {
-		return customerNumber;
+		return rentalID;
 	}
 
 	public void setRentalID(int rentalID) {
+		this.rentalID = rentalID;
 	}
 
 	public String getRentedDate() {

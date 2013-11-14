@@ -859,6 +859,7 @@ public class RentalView extends JFrame implements Observer {
 		f.setLicencePlate(sliderController.showImageSlider().lisenceLabel
 				.getText());
 		f.setRentalKost(paymentBox.getValue());
+		f.setRentalID(controller.getRentalID());
 
 		return f;
 	}

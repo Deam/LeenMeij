@@ -60,6 +60,8 @@ public class RentalController implements ActionListener, MouseListener,
 
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
+	private int rentalId;
+
 	// Initialize variables
 	public RentalController() {
 		cController = new CustomerController();
@@ -184,13 +186,10 @@ public class RentalController implements ActionListener, MouseListener,
 		Vehicle vehicle = new Vehicle();
 		vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
 		vehicle = vehicle.getById(rented.getVehicleId());
-		Financial financial = new Financial();
-		financial = rentalView.getFinancialModel();
-		financial.Insert(financial);
 
 		Customer c = new Customer();
 		c = c.getById(rented.getCustomerId());
-		int rentalId = rented.getRentalIdFrom(rented.getRentalDate(),
+		rentalId = rented.getRentalIdFrom(rented.getRentalDate(),
 				rented.getCustomerId());
 		RentalAgreement rentalAgreement = new RentalAgreement();
 		rentalAgreement.setKlantNummer(rented.getCustomerId());
@@ -220,6 +219,9 @@ public class RentalController implements ActionListener, MouseListener,
 		}
 		JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
 				"Succes", JOptionPane.QUESTION_MESSAGE);
+		Financial financial = new Financial();
+		financial = rentalView.getFinancialModel();
+		financial.Insert(financial);
 		try {
 			Desktop.getDesktop().open(
 					new File(agreementDir + "\\Huurovereenkomsten\\" + rentalId
@@ -345,6 +347,11 @@ public class RentalController implements ActionListener, MouseListener,
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			popupMenu.show(e.getComponent(), e.getX(), e.getY());
 		}
+	}
+	
+	public int getRentalID()
+	{
+		return rentalId;
 	}
 
 	@Override
