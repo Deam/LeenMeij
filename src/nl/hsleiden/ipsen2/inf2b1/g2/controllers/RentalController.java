@@ -18,9 +18,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
-
 import jxl.write.WriteException;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Financial;
@@ -32,6 +29,9 @@ import nl.hsleiden.ipsen2.inf2b1.g2.utils.RentalAgreement;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.AddCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.EditCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.desk.RentalView;
+
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 /**
  * Handles the rental agreement
@@ -66,7 +66,7 @@ public class RentalController implements ActionListener, MouseListener,
 
 	}
 
-	// Return the rentalview
+	// Returns the rentalview
 	public void showRentalView() {
 		rentalView = new RentalView(this, this, this);
 		rentalView.setVisible(true);
@@ -367,13 +367,13 @@ public class RentalController implements ActionListener, MouseListener,
 
 	@Override
 	public void propertyChange(PropertyChangeEvent p) {
-		try
-		{
-			int days = Days.daysBetween(new LocalDate(rentalView.rentalDate.getDate()), new LocalDate(rentalView.expectedReceiveDate.getDate())).getDays();
+		try {
+			int days = Days.daysBetween(
+					new LocalDate(rentalView.rentalDate.getDate()),
+					new LocalDate(rentalView.expectedReceiveDate.getDate()))
+					.getDays();
 			rentalView.daysField.setValue(days);
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}

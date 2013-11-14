@@ -62,7 +62,8 @@ public class RentalView extends JFrame implements Observer {
 	public JLabel calcPrice;
 	private RentalController controller;
 
-	public RentalView(ActionListener al, RentalController controller, PropertyChangeListener pcl) {
+	public RentalView(ActionListener al, RentalController controller,
+			PropertyChangeListener pcl) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 938, 765);
 		this.controller = controller;
@@ -375,7 +376,7 @@ public class RentalView extends JFrame implements Observer {
 		rentalDate.getCalendarButton().setFont(
 				new Font("Tahoma", Font.PLAIN, 14));
 		rentalDate.getDateEditor().addPropertyChangeListener(pcl);
-		
+
 		JLabel lblVerwachteInnameDatum = new JLabel("Verwachte inname datum");
 		lblVerwachteInnameDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
