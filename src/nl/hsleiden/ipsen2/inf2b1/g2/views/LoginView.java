@@ -175,6 +175,7 @@ public class LoginView extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
+	@SuppressWarnings("deprecation")
 	public User getModel() {
 		User user = new User();
 		user.setUsername(usernameField.getText());

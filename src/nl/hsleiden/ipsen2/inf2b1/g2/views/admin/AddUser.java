@@ -159,6 +159,7 @@ public class AddUser extends JFrame {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public User getModel() {
 		User u = new User();
 		u.setUsername(usernameField.getText());

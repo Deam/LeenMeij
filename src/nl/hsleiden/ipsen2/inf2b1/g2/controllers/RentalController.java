@@ -43,7 +43,6 @@ public class RentalController implements ActionListener, MouseListener,
 		Observable, PropertyChangeListener {
 
 	private RentalView rentalView;
-	private CustomerController cController;
 	public AddCustomer addCustomerView;
 
 	private int id = 0;
@@ -64,7 +63,6 @@ public class RentalController implements ActionListener, MouseListener,
 
 	// Initialize variables
 	public RentalController() {
-		cController = new CustomerController();
 
 	}
 
@@ -211,10 +209,8 @@ public class RentalController implements ActionListener, MouseListener,
 		try {
 			rentalAgreement.write();
 		} catch (WriteException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
@@ -348,9 +344,8 @@ public class RentalController implements ActionListener, MouseListener,
 			popupMenu.show(e.getComponent(), e.getX(), e.getY());
 		}
 	}
-	
-	public int getRentalID()
-	{
+
+	public int getRentalID() {
 		return rentalId;
 	}
 
