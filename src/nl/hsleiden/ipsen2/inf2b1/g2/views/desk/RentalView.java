@@ -27,8 +27,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.RentalController;
@@ -85,8 +85,8 @@ public class RentalView extends JFrame implements Observer {
 		customerTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane scrollPane = new JScrollPane(customerTable,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setViewportView(customerTable);
 
 		JPanel customerTablePanel = new JPanel();
@@ -861,7 +861,6 @@ public class RentalView extends JFrame implements Observer {
 
 	@Override
 	public void update(int message) {
-		customerTable.setModel((DefaultTableModel) controller.CustomerTable()
-				.getModel());
+		customerTable.setModel(controller.CustomerTable().getModel());
 	}
 }

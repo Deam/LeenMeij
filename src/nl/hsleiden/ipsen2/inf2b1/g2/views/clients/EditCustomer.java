@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.WindowConstants;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
@@ -23,7 +24,7 @@ public class EditCustomer extends JFrame {
 	// private Customer customer;
 
 	private static int customerId = 0;
-	
+
 	private Customer c;
 
 	static Database database = new Database();
@@ -35,7 +36,7 @@ public class EditCustomer extends JFrame {
 	 * @throws SQLException
 	 */
 	public EditCustomer(int cId, ActionListener al) {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 472, 349);
 
 		customerId = cId;
@@ -278,6 +279,7 @@ public class EditCustomer extends JFrame {
 
 	/**
 	 * Return the customer information
+	 * 
 	 * @return
 	 */
 	public Customer getModel() {
@@ -294,9 +296,8 @@ public class EditCustomer extends JFrame {
 		return customer;
 
 	}
-	
-	public void fillData()
-	{
+
+	public void fillData() {
 		c = new Customer();
 		c = c.getById(customerId);
 		voornaamText.setText(c.getFirstName());

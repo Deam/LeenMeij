@@ -31,7 +31,7 @@ public class DamageController implements ActionListener {
 	private JTable table, damageTable;
 
 	public boolean fromAdmin;
-	
+
 	private int vehicleID = 0;
 
 	// Set the font as the customer wanted
@@ -92,8 +92,7 @@ public class DamageController implements ActionListener {
 
 		else if (e.getSource() == garageView.closeButton) {
 			garageView.dispose();
-			if (!fromAdmin)
-			{
+			if (!fromAdmin) {
 				UserController controller = new UserController();
 				controller.showLoginView();
 			}
@@ -131,12 +130,13 @@ public class DamageController implements ActionListener {
 					"Succes", JOptionPane.QUESTION_MESSAGE);
 
 			addDamage.dispose();
-			damageTable.setModel((DefaultTableModel)viewDamagePerID(vehicleID).getModel());
+			damageTable.setModel(viewDamagePerID(vehicleID).getModel());
 		}
 	}
 
 	/**
 	 * Returns a table with the information per vehicle
+	 * 
 	 * @return
 	 */
 	public JTable viewDamagePerID(int id) {
@@ -207,8 +207,8 @@ public class DamageController implements ActionListener {
 		// Clear the panel of components
 		garageView.damageTablePanel.removeAll();
 		// Create the table
-		garageView.damageTablePanel.add(new JScrollPane(damageTable = viewDamagePerID(r
-				.getVehicleId())));
+		garageView.damageTablePanel.add(new JScrollPane(
+				damageTable = viewDamagePerID(r.getVehicleId())));
 	}
 
 	/**

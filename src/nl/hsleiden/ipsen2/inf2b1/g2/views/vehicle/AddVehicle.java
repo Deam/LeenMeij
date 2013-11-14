@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.WindowConstants;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.VehicleController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
@@ -42,7 +43,7 @@ public class AddVehicle extends JFrame {
 	 */
 	public AddVehicle(ActionListener al) {
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 486, 540);
 
 		JLabel categoryLabel = new JLabel("Voertuig category");

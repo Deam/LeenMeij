@@ -47,10 +47,13 @@ public class User extends Database {
 
 			// Close the connection
 			close();
-			JOptionPane.showMessageDialog(null, user.getUsername() + " is succesvol aangemaakt");
+			JOptionPane.showMessageDialog(null, user.getUsername()
+					+ " is succesvol aangemaakt");
 			return true;
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Kan gebruiker " + user.getUsername() + " niet aanmaken. Mogelijk bestaat deze al.");
+			JOptionPane.showMessageDialog(null,
+					"Kan gebruiker " + user.getUsername()
+							+ " niet aanmaken. Mogelijk bestaat deze al.");
 			return false;
 		}
 	}
@@ -91,6 +94,7 @@ public class User extends Database {
 
 	/**
 	 * Get a list of all the users
+	 * 
 	 * @return
 	 */
 	public ArrayList<User> getAll() {
@@ -127,46 +131,48 @@ public class User extends Database {
 
 		return userList;
 	}
-	
+
 	/**
 	 * Get user by id
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public User getById(int id)
-	{
+	public User getById(int id) {
 		User u = new User();
 		// If the selection had no id, return a dummy account
-		if(id == 0){
+		if (id == 0) {
 			id = 1;
 		}
-		
-		// Try to make a connection  to the database, and fetch a customer.
+
+		// Try to make a connection to the database, and fetch a customer.
 		try {
 			// Make the connection, and execute the query.
 			connect();
-			PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM users WHERE userid = ?");
+			PreparedStatement statement = getConnection().prepareStatement(
+					"SELECT * FROM users WHERE userid = ?");
 			statement.setInt(1, id);
-			
+
 			// Insert statement into resultset
 			set = statement.executeQuery();
-			
+
 			// Fill out the customer information
 			set.next();
-			// User id is the selected id, so no need to get it from the database
+			// User id is the selected id, so no need to get it from the
+			// database
 			u.setUserId(id);
 			// Get all the additional information
 			u.setUsername(set.getString("username"));
 			u.setPassword(set.getString("password"));
 			u.setRole(set.getString("role"));
-			
+
 			// Close the database connection
 			close();
-			
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		return u;
 	}
 
@@ -323,38 +329,41 @@ public class User extends Database {
 
 		return IsCorrect;
 	}
-	
+
 	/**
 	 * Get all the available categories
+	 * 
 	 * @return
 	 */
-	public ArrayList<String> getUserRoles(){
+	public ArrayList<String> getUserRoles() {
 		ArrayList<String> roleList = new ArrayList<String>();
-		
+
 		try {
 			// Make the database connection
 			connect();
-			
+
 			// Make the select statement
-			PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM roles");
-			
+			PreparedStatement statement = getConnection().prepareStatement(
+					"SELECT * FROM roles");
+
 			set = statement.executeQuery();
-			
+
 			while (set.next()) {
 				roleList.add(set.getString("name"));
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		// Close the connection
 		close();
-		
+
 		return roleList;
 	}
 
 	/**
 	 * Getters and setters
+	 * 
 	 * @return
 	 */
 	public String getUsername() {

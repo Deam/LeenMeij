@@ -38,7 +38,6 @@ public class RentalController implements ActionListener, MouseListener,
 		Observable {
 
 	private RentalView rentalView;
-	private AddCustomer addCustomer;
 	private CustomerController cController;
 	public AddCustomer addCustomerView;
 

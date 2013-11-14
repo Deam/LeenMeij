@@ -18,7 +18,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observable;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
-import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.FinancialOverview;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.AddCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.CustomerOverview;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.CustomerView;
@@ -51,7 +50,6 @@ public class AdminController implements ActionListener, MouseListener,
 	private JTable table;
 	private int id = 0;
 	private int cId;
-	private FinancialOverview financialOverview;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	/**
@@ -423,6 +421,7 @@ public class AdminController implements ActionListener, MouseListener,
 
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent e) {
 
 	}

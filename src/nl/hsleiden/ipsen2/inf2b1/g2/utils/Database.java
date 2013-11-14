@@ -30,7 +30,7 @@ public class Database {
 		// and store it in a connection object.
 		try {
 			String url = "jdbc:mysql://192.168.1.83/leenmeij";
-			
+
 			// Set the properties, set username and password.
 			Properties p = new Properties();
 			p.setProperty("user", "LeenMeij");

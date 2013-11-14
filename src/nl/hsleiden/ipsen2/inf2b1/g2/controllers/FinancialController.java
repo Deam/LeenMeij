@@ -157,37 +157,6 @@ public class FinancialController implements ActionListener, MouseListener {
 	}
 
 	/**
-	 * Returns all the financials
-	 * 
-	 * @return
-	 */
-	private Vector<Vector<String>> financialListAll() {
-
-		Vector<Vector<String>> financialList = new Vector<Vector<String>>();
-		// Fill the table with the financial information
-		Financial financial = new Financial();
-		for (Financial f : financial.getAll()) {
-			// Add the financial data
-			Vector<String> data = new Vector<>();
-			data.add(Integer.toString(f.getRentalID()));
-			data.add(f.getRentedDate());
-			data.add(Integer.toString(f.getCustomerNumber()));
-			data.add(f.getCustomerFirstname());
-			data.add(f.getCustomerLastname());
-			data.add(Integer.toString(f.getVehicleID()));
-			data.add(f.getVehicleBrand());
-			data.add(f.getVehicleModel());
-			data.add(f.getLicencePlate());
-			data.add(Integer.toString(f.getRentalKost()));
-
-			// Set the financial information to the list
-			financialList.add(data);
-		}
-		return financialList;
-
-	}
-
-	/**
 	 * Returns a limited informationlist
 	 * 
 	 * @return

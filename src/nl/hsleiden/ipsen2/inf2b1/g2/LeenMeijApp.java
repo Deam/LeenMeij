@@ -10,6 +10,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.controllers.UserController;
 
 /**
  * Main startup class.
+ * 
  * @author Deam
  */
 public class LeenMeijApp {
@@ -28,4 +29,3 @@ public class LeenMeijApp {
 		controller.showLoginView();
 	}
 }
- 
