@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -39,7 +40,7 @@ public class LoginView extends JFrame {
 	private JTextField usernameField;
 	private JPanel panel;
 
-	public LoginView(ActionListener al) {
+	public LoginView(ActionListener al, KeyListener kl) {
 		// Set frame properties
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 374, 373);
@@ -55,11 +56,13 @@ public class LoginView extends JFrame {
 		// Create user controls.
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		passwordField.addKeyListener(kl);
 		JLabel passwordLabel = new JLabel("Wachtwoord:");
 		passwordLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		usernameField = new JTextField();
 		usernameField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		usernameField.addKeyListener(kl);
 		JLabel usernameLabel = new JLabel("Gebruikersnaam:");
 		usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 

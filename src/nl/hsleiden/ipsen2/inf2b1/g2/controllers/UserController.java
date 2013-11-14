@@ -2,6 +2,8 @@ package nl.hsleiden.ipsen2.inf2b1.g2.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.UserOverview;
  * @author Deam Kop
  */
 public class UserController implements ActionListener, MouseListener,
-		Observable {
+		Observable, KeyListener {
 
 	private LoginView loginView;
 	private AddUser addUser;
@@ -46,7 +48,7 @@ public class UserController implements ActionListener, MouseListener,
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	public UserController() {
-		loginView = new LoginView(this);
+		loginView = new LoginView(this, this);
 		addUser = new AddUser(this);
 		editUser = new EditUser(this, id);
 	}
@@ -350,6 +352,25 @@ public class UserController implements ActionListener, MouseListener,
 	public void registerObserver(Observer observer) {
 		observers.add(observer);
 
+	}
+
+	@Override
+	public void keyPressed(KeyEvent ke) {
+		if (ke.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			handleLogin();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		
 	}
 
 }

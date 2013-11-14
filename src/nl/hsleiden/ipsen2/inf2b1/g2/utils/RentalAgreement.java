@@ -1,8 +1,12 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.utils;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
+
+import javax.imageio.ImageIO;
 
 import jxl.CellView;
 import jxl.Workbook;
@@ -12,6 +16,7 @@ import jxl.write.Label;
 import jxl.write.Number;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
+import jxl.write.WritableImage;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -20,16 +25,23 @@ import jxl.write.biff.RowsExceededException;
 public class RentalAgreement {
 	private WritableCellFormat timesBoldUnderline;
 	private WritableCellFormat times;
+	private WritableCellFormat timesHeader;
 	private String inputFile;
-	private int klantNummer;
+	private int customerId;
 	private int rentalId;
-	private String klantNaam;
-	private String naamVoertuig;
+	private String customerName;
+	private String vehicleName;
 	private String expectedReceiveDate;
 	private String receiveDate;
 	private double payment;
 	private double total;
 	private String lisencePlate;
+	private String adres;
+	private String city;
+	private String phone;
+	private String vehicleType;
+	private String color;
+	private String zipcode;
 
 	public void setOutputFile(String inputFile) {
 		this.inputFile = inputFile;
@@ -51,56 +63,90 @@ public class RentalAgreement {
 		workbook.close();
 	}
 
-	private void createLabel(WritableSheet sheet) throws WriteException {
+	private void createLabel(WritableSheet sheet) throws WriteException, IOException {
 		// Lets create a times font
-		WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
+		WritableFont times10pt = new WritableFont(WritableFont.TIMES, 11);
 		// Define the cell format
 		times = new WritableCellFormat(times10pt);
 		// Lets automatically wrap the cells
-		times.setWrap(true);
+		times.setWrap(false);
 
 		// create create a bold font with unterlines
 		WritableFont times10ptBoldUnderline = new WritableFont(
-				WritableFont.TIMES, 10, WritableFont.BOLD, false,
+				WritableFont.TIMES, 11, WritableFont.BOLD, false,
 				UnderlineStyle.SINGLE);
 		timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
 		// Lets automatically wrap the cells
-		timesBoldUnderline.setWrap(true);
+		timesBoldUnderline.setWrap(false);
+		
+		// create create a bold font with unterlines
+				WritableFont timesHeader16pt = new WritableFont(
+						WritableFont.TIMES, 16, WritableFont.BOLD, false);
+				timesHeader = new WritableCellFormat(timesHeader16pt);
+				// Lets automatically wrap the cells
+				timesHeader.setWrap(false);
 
 		CellView cv = new CellView();
 		cv.setFormat(times);
 		cv.setFormat(timesBoldUnderline);
+		cv.setFormat(timesHeader);
 		cv.setAutosize(true);
 		sheet.setColumnView(0, 25);
-		sheet.setColumnView(2, 25);
+		sheet.setColumnView(2, 16);
+		sheet.setColumnView(3, 11);
 
+		addImage(sheet);
 		// Write a few headers
-		addCaption(sheet, 0, 0, "Klantnummer");
-		addCaption(sheet, 2, 0, "Verhuurnummer");
-		addCaption(sheet, 0, 3, "Naam klant");
-		addCaption(sheet, 2, 3, "Voertuig + Kenteken");
-		addCaption(sheet, 0, 5, "Ontvangst datum");
-		addCaption(sheet, 2, 5, "Retour datum");
-		addCaption(sheet, 0, 7, "Aanbetaling");
-		addCaption(sheet, 2, 7, "Totaal");
+		addHeader(sheet, 0, 3, "Huurovereenkomst");
+		addCaption(sheet, 0, 5, "Gegevens voertuig");
+		addCaption(sheet, 2, 5, "Verhuurnummer");
+		addCaption(sheet, 4, 5, "Klantgegevens");
+		addCaption(sheet, 0, 11, "Geselecteerde opties");
+		addCaption(sheet, 0, 17, "Datum afgifte");
+		addCaption(sheet, 2, 17, "Datum verwachtte inname");
+		addCaption(sheet, 0, 21, "Aanbetaling");
+		addCaption(sheet, 2, 21, "Totaal");
+		addCaption(sheet, 0, 25, "Handtekening klant:");
 	}
 
 	private void createContent(WritableSheet sheet) throws WriteException,
 			RowsExceededException {
-		addNumber(sheet, 0, 1, klantNummer);
-		addNumber(sheet, 2, 1, rentalId);
-		addLabel(sheet, 0, 4, klantNaam);
-		addLabel(sheet, 2, 4, naamVoertuig + " (" + lisencePlate + ")");
-		addLabel(sheet, 0, 6, receiveDate);
-		addLabel(sheet, 2, 6, expectedReceiveDate);
-		addNumber(sheet, 0, 8, payment);
-		addNumber(sheet, 2, 8, total);
+		
+		// Klant gegevens
+		addLabel(sheet, 4, 6, customerName);
+		addLabel(sheet, 4, 7, adres);
+		addLabel(sheet, 4, 8, zipcode);
+		addLabel(sheet, 4, 9, city);
+		addLabel(sheet, 4, 10, phone);
+		addLabel(sheet, 4, 11, "Klantnummer: " + customerId);
+		
+		// Verhuurnummer
+		addNumber(sheet, 2, 6, rentalId);
+
+		// Voertuig gegevens
+		addLabel(sheet, 0, 6, vehicleName);
+		addLabel(sheet, 0, 7, vehicleType);
+		addLabel(sheet, 0, 8, lisencePlate);
+		addLabel(sheet, 0, 9, color);
+		
+		addLabel(sheet, 0, 18, receiveDate);
+		addLabel(sheet, 2, 18, expectedReceiveDate);
+		
+		addLabel(sheet, 0, 22, "€" + payment);
+		addLabel(sheet, 2, 22, "€" + total);
 	}
 
 	private void addCaption(WritableSheet sheet, int column, int row, String s)
 			throws RowsExceededException, WriteException {
 		Label label;
 		label = new Label(column, row, s, timesBoldUnderline);
+		sheet.addCell(label);
+	}
+	
+	private void addHeader(WritableSheet sheet, int column, int row, String s)
+			throws RowsExceededException, WriteException {
+		Label label;
+		label = new Label(column, row, s, timesHeader);
 		sheet.addCell(label);
 	}
 
@@ -111,34 +157,35 @@ public class RentalAgreement {
 		sheet.addCell(number);
 	}
 
-	private void addNumber(WritableSheet sheet, int column, int row, Double dbl)
-			throws WriteException, RowsExceededException {
-		Number number;
-		number = new Number(column, row, dbl, times);
-		sheet.addCell(number);
-	}
-
 	private void addLabel(WritableSheet sheet, int column, int row, String s)
 			throws WriteException, RowsExceededException {
 		Label label;
 		label = new Label(column, row, s, times);
 		sheet.addCell(label);
 	}
+	
+	private void addImage(WritableSheet sheet) throws IOException
+	{
+		BufferedImage img = ImageIO.read(getClass().getResource("/image/logo.png"));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(img, "PNG", baos);
+		sheet.addImage(new WritableImage(3, 0, 3, 4, baos.toByteArray()));
+	}
 
-	public void setKlantNummer(int klantNummer) {
-		this.klantNummer = klantNummer;
+	public void setKlantNummer(int id) {
+		this.customerId = id;
 	}
 
 	public void setRentalId(int rentalId) {
 		this.rentalId = rentalId;
 	}
 
-	public void setKlantNaam(String klantNaam) {
-		this.klantNaam = klantNaam;
+	public void setKlantNaam(String name) {
+		this.customerName = name;
 	}
 
-	public void setNaamVoertuig(String naamVoertuig) {
-		this.naamVoertuig = naamVoertuig;
+	public void setNaamVoertuig(String name) {
+		this.vehicleName = name;
 	}
 
 	public void setExpectedReceiveDate(String expectedReceiveDate) {
@@ -159,5 +206,29 @@ public class RentalAgreement {
 
 	public void setLisencePlate(String lisence) {
 		this.lisencePlate = lisence;
+	}
+
+	public void setAdres(String adres) {
+		this.adres = adres;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setVehicleType(String vehicleType) {
+		this.vehicleType = vehicleType;
+	}
+	
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

@@ -189,10 +189,10 @@ public class RentalController implements ActionListener, MouseListener,
 		c = c.getById(rented.getCustomerId());
 		rentalId = rented.getRentalIdFrom(rented.getRentalDate(),
 				rented.getCustomerId());
+		
 		RentalAgreement rentalAgreement = new RentalAgreement();
 		rentalAgreement.setKlantNummer(rented.getCustomerId());
-		rentalAgreement.setNaamVoertuig(vehicle.getVehicleBrand() + " "
-				+ vehicle.getVehicleModel());
+		rentalAgreement.setNaamVoertuig(vehicle.getVehicleBrand());
 		rentalAgreement.setLisencePlate(vehicle.getLicensePlate());
 		rentalAgreement.setKlantNaam(c.getFirstName() + " " + c.getLastName());
 		rentalAgreement.setRentalId(rentalId);
@@ -200,6 +200,12 @@ public class RentalController implements ActionListener, MouseListener,
 		rentalAgreement.setExpectedReceiveDate(rented.getExpectedReceiveDate());
 		rentalAgreement.setPayment(rented.getPayment());
 		rentalAgreement.setTotal(rented.getTotal());
+		rentalAgreement.setAdres(c.getAdress());
+		rentalAgreement.setCity(c.getCity());
+		rentalAgreement.setPhone(c.getPhoneNumber());
+		rentalAgreement.setZipcode(c.getZipcode());
+		rentalAgreement.setVehicleType(vehicle.getVehicleModel());
+		rentalAgreement.setColor(vehicle.getVehicleColor());
 		File f = new File(agreementDir + "\\Huurovereenkomsten\\");
 		if (!f.exists()) {
 			f.mkdir();
