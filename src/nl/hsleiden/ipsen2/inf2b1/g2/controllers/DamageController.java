@@ -1,5 +1,6 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.controllers;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -15,7 +16,6 @@ import nl.hsleiden.ipsen2.inf2b1.g2.models.Rented;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.garage.AddDamage;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.garage.GarageView;
-import java.awt.Font;
 
 /**
  * Handles the damage that is inflicted on a vehicle.
@@ -29,6 +29,8 @@ public class DamageController implements ActionListener {
 	private GarageView garageView;
 	private AddDamage addDamage;
 	private JTable table, damageTable;
+
+	public boolean fromAdmin;
 
 	private int vehicleID = 0;
 
@@ -90,8 +92,10 @@ public class DamageController implements ActionListener {
 
 		else if (e.getSource() == garageView.closeButton) {
 			garageView.dispose();
-			UserController controller = new UserController();
-			controller.showLoginView();
+			if (!fromAdmin) {
+				UserController controller = new UserController();
+				controller.showLoginView();
+			}
 		}
 
 		else if (e.getSource() == garageView.approveButton) {
@@ -126,12 +130,13 @@ public class DamageController implements ActionListener {
 					"Succes", JOptionPane.QUESTION_MESSAGE);
 
 			addDamage.dispose();
-			damageTable.setModel((DefaultTableModel)viewDamagePerID(vehicleID).getModel());
+			damageTable.setModel(viewDamagePerID(vehicleID).getModel());
 		}
 	}
 
 	/**
 	 * Returns a table with the information per vehicle
+	 * 
 	 * @return
 	 */
 	public JTable viewDamagePerID(int id) {
@@ -202,8 +207,8 @@ public class DamageController implements ActionListener {
 		// Clear the panel of components
 		garageView.damageTablePanel.removeAll();
 		// Create the table
-		garageView.damageTablePanel.add(new JScrollPane(damageTable = viewDamagePerID(r
-				.getVehicleId())));
+		garageView.damageTablePanel.add(new JScrollPane(
+				damageTable = viewDamagePerID(r.getVehicleId())));
 	}
 
 	/**

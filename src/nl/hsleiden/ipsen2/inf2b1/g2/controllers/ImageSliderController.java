@@ -1,5 +1,6 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.controllers;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -18,10 +19,10 @@ import javax.swing.event.ListSelectionListener;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Vehicle;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.ImageSlider;
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.ImageUtil;
-import java.awt.Font;
 
 /**
- * This class handles the actionperformed that are involved with the imageslider and panel
+ * This class handles the actionperformed that are involved with the imageslider
+ * and panel
  * 
  * @author Deam
  * @additions Nick
@@ -57,12 +58,12 @@ public class ImageSliderController implements ActionListener,
 	}
 
 	/**
-	 * If the value is changed, change all depending values.
-	 * Also loads the images
+	 * If the value is changed, change all depending values. Also loads the
+	 * images
 	 */
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		imageSlider.icon = (ImageIcon) imageSlider.iconList.getSelectedValue();
+		imageSlider.icon = imageSlider.iconList.getSelectedValue();
 		try {
 			imageSlider.imgUrl = imageSlider.icon.getDescription();
 		} catch (Exception e2) {
@@ -84,6 +85,7 @@ public class ImageSliderController implements ActionListener,
 
 		// Set the images to the panel.
 		new SwingWorker<BufferedImage, Void>() {
+			@Override
 			protected BufferedImage doInBackground() throws Exception {
 				// Read the URL of the images
 				return ImageIO.read(new URL(imageSlider.imgUrl));
@@ -104,7 +106,8 @@ public class ImageSliderController implements ActionListener,
 	}
 
 	/**
-	 * If another image is selected, clear the list and refill with selected categories
+	 * If another image is selected, clear the list and refill with selected
+	 * categories
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -143,12 +146,14 @@ public class ImageSliderController implements ActionListener,
 				return null;
 			}
 
+			@Override
 			protected void process(java.util.List<ImageIcon> chunks) {
 				for (ImageIcon icon : chunks) {
 					imageSlider.iconListModel.addElement(icon);
 				}
 			};
 
+			@Override
 			protected void done() {
 
 			};

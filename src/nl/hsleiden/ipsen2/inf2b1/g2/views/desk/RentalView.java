@@ -1,6 +1,7 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.views.desk;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.Date;
 
@@ -26,8 +28,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.RentalController;
@@ -40,10 +42,8 @@ import nl.hsleiden.ipsen2.inf2b1.g2.utils.Observer;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
 
-import java.awt.Color;
-
 @SuppressWarnings("serial")
-public class RentalView extends JFrame implements Observer{
+public class RentalView extends JFrame implements Observer {
 
 	private JPanel contentPane;
 	public JTable customerTable;
@@ -51,7 +51,7 @@ public class RentalView extends JFrame implements Observer{
 			zipcodeLabel, cityLabel, telephoneLabel, licenseLabel;
 	public ImageSliderController sliderController;
 	public JButton makeRentalAgreement;
-	private JDateChooser rentalDate, expectedReceiveDate;
+	public JDateChooser rentalDate, expectedReceiveDate;
 	private JSpinField paymentBox;
 	public JButton addCustomerButton;
 	public JButton closeButton;
@@ -62,7 +62,8 @@ public class RentalView extends JFrame implements Observer{
 	public JLabel calcPrice;
 	private RentalController controller;
 
-	public RentalView(ActionListener al, RentalController controller) {
+	public RentalView(ActionListener al, RentalController controller,
+			PropertyChangeListener pcl) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 938, 765);
 		this.controller = controller;
@@ -86,8 +87,8 @@ public class RentalView extends JFrame implements Observer{
 		customerTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane scrollPane = new JScrollPane(customerTable,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setViewportView(customerTable);
 
 		JPanel customerTablePanel = new JPanel();
@@ -104,7 +105,7 @@ public class RentalView extends JFrame implements Observer{
 		JPanel optionsPanel = new JPanel();
 		optionsPanel.setBorder(BorderFactory
 				.createTitledBorder("Overige opties"));
-		
+
 		ImageIcon icon = null;
 
 		try {
@@ -120,27 +121,51 @@ public class RentalView extends JFrame implements Observer{
 		}
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(vehiclePanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE)
-						.addComponent(customerPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE)
-						.addComponent(optionsPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(customerPanel, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(vehiclePanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
+		gl_contentPane
+				.setHorizontalGroup(gl_contentPane
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								gl_contentPane
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												gl_contentPane
+														.createParallelGroup(
+																Alignment.TRAILING)
+														.addComponent(
+																vehiclePanel,
+																Alignment.LEADING,
+																GroupLayout.DEFAULT_SIZE,
+																1890,
+																Short.MAX_VALUE)
+														.addComponent(
+																customerPanel,
+																Alignment.LEADING,
+																GroupLayout.DEFAULT_SIZE,
+																1890,
+																Short.MAX_VALUE)
+														.addComponent(
+																optionsPanel,
+																Alignment.LEADING,
+																GroupLayout.DEFAULT_SIZE,
+																1890,
+																Short.MAX_VALUE))
+										.addContainerGap()));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
+				Alignment.LEADING).addGroup(
+				gl_contentPane
+						.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(customerPanel,
+								GroupLayout.PREFERRED_SIZE, 256,
+								GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(vehiclePanel, GroupLayout.DEFAULT_SIZE,
+								574, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
+								206, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap()));
 
 		JPanel extrasPanel = new JPanel();
 
@@ -186,77 +211,161 @@ public class RentalView extends JFrame implements Observer{
 		calculateButton = new JButton("Bereken prijs");
 		calculateButton.addActionListener(al);
 		calculateButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		closeButton = new JButton("Sluiten");
 		closeButton.setBackground(Color.RED);
 		closeButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		closeButton.addActionListener(al);
-		
+
 		makeRentalAgreement = new JButton("Cree\u00EBr overeenkomst");
 		makeRentalAgreement.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		makeRentalAgreement.addActionListener(al);
-		
-				JPanel panel = new JPanel();
-				panel.setLayout(new BorderLayout(0, 0));
-		
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout(0, 0));
+
 		calcPrice = new JLabel("0");
 		calcPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		GroupLayout gl_optionsPanel = new GroupLayout(optionsPanel);
-		gl_optionsPanel.setHorizontalGroup(
-			gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_optionsPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSelecteerDeVerhuur)
-						.addComponent(essentialPanel, GroupLayout.PREFERRED_SIZE, 326, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_optionsPanel.createSequentialGroup()
-							.addComponent(extrasPanel, GroupLayout.PREFERRED_SIZE, 493, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_optionsPanel.createSequentialGroup()
-									.addComponent(calculateButton)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_optionsPanel.createSequentialGroup()
-									.addComponent(priceLabel)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(calcPrice)
-									.addGap(548)
-									.addComponent(closeButton)
-									.addGap(18)
-									.addComponent(makeRentalAgreement))))
-						.addComponent(lblSelecteerDeGewenste))
-					.addContainerGap())
-		);
-		gl_optionsPanel.setVerticalGroup(
-			gl_optionsPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_optionsPanel.createSequentialGroup()
-					.addGap(18)
-					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblSelecteerDeVerhuur)
-						.addComponent(lblSelecteerDeGewenste))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_optionsPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(essentialPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(gl_optionsPanel.createSequentialGroup()
-							.addGroup(gl_optionsPanel.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_optionsPanel.createSequentialGroup()
-									.addComponent(calculateButton)
-									.addPreferredGap(ComponentPlacement.RELATED, 83, Short.MAX_VALUE))
-								.addGroup(gl_optionsPanel.createSequentialGroup()
-									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)))
-							.addGroup(gl_optionsPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(priceLabel)
-								.addComponent(makeRentalAgreement)
-								.addComponent(closeButton)
-								.addComponent(calcPrice)))
-						.addComponent(extrasPanel, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
-					.addContainerGap())
-		);
+		gl_optionsPanel
+				.setHorizontalGroup(gl_optionsPanel
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								gl_optionsPanel
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												gl_optionsPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(
+																lblSelecteerDeVerhuur)
+														.addComponent(
+																essentialPanel,
+																GroupLayout.PREFERRED_SIZE,
+																326,
+																GroupLayout.PREFERRED_SIZE))
+										.addGap(18)
+										.addGroup(
+												gl_optionsPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addGroup(
+																gl_optionsPanel
+																		.createSequentialGroup()
+																		.addComponent(
+																				extrasPanel,
+																				GroupLayout.PREFERRED_SIZE,
+																				493,
+																				GroupLayout.PREFERRED_SIZE)
+																		.addGap(18)
+																		.addGroup(
+																				gl_optionsPanel
+																						.createParallelGroup(
+																								Alignment.LEADING,
+																								false)
+																						.addGroup(
+																								gl_optionsPanel
+																										.createSequentialGroup()
+																										.addComponent(
+																												calculateButton)
+																										.addPreferredGap(
+																												ComponentPlacement.RELATED,
+																												GroupLayout.DEFAULT_SIZE,
+																												Short.MAX_VALUE)
+																										.addComponent(
+																												panel,
+																												GroupLayout.PREFERRED_SIZE,
+																												279,
+																												GroupLayout.PREFERRED_SIZE))
+																						.addGroup(
+																								gl_optionsPanel
+																										.createSequentialGroup()
+																										.addComponent(
+																												priceLabel)
+																										.addPreferredGap(
+																												ComponentPlacement.RELATED)
+																										.addComponent(
+																												calcPrice)
+																										.addGap(548)
+																										.addComponent(
+																												closeButton)
+																										.addGap(18)
+																										.addComponent(
+																												makeRentalAgreement))))
+														.addComponent(
+																lblSelecteerDeGewenste))
+										.addContainerGap()));
+		gl_optionsPanel
+				.setVerticalGroup(gl_optionsPanel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								gl_optionsPanel
+										.createSequentialGroup()
+										.addGap(18)
+										.addGroup(
+												gl_optionsPanel
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																lblSelecteerDeVerhuur)
+														.addComponent(
+																lblSelecteerDeGewenste))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												gl_optionsPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(
+																essentialPanel,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addGroup(
+																gl_optionsPanel
+																		.createSequentialGroup()
+																		.addGroup(
+																				gl_optionsPanel
+																						.createParallelGroup(
+																								Alignment.TRAILING)
+																						.addGroup(
+																								gl_optionsPanel
+																										.createSequentialGroup()
+																										.addComponent(
+																												calculateButton)
+																										.addPreferredGap(
+																												ComponentPlacement.RELATED,
+																												83,
+																												Short.MAX_VALUE))
+																						.addGroup(
+																								gl_optionsPanel
+																										.createSequentialGroup()
+																										.addComponent(
+																												panel,
+																												GroupLayout.PREFERRED_SIZE,
+																												90,
+																												GroupLayout.PREFERRED_SIZE)
+																										.addGap(18)))
+																		.addGroup(
+																				gl_optionsPanel
+																						.createParallelGroup(
+																								Alignment.BASELINE)
+																						.addComponent(
+																								priceLabel)
+																						.addComponent(
+																								makeRentalAgreement)
+																						.addComponent(
+																								closeButton)
+																						.addComponent(
+																								calcPrice)))
+														.addComponent(
+																extrasPanel,
+																GroupLayout.DEFAULT_SIZE,
+																133,
+																Short.MAX_VALUE))
+										.addContainerGap()));
 		JLabel label = new JLabel(icon);
 		panel.add(label, BorderLayout.CENTER);
 
@@ -266,6 +375,7 @@ public class RentalView extends JFrame implements Observer{
 		rentalDate = new JDateChooser();
 		rentalDate.getCalendarButton().setFont(
 				new Font("Tahoma", Font.PLAIN, 14));
+		rentalDate.getDateEditor().addPropertyChangeListener(pcl);
 
 		JLabel lblVerwachteInnameDatum = new JLabel("Verwachte inname datum");
 		lblVerwachteInnameDatum.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -273,56 +383,122 @@ public class RentalView extends JFrame implements Observer{
 		expectedReceiveDate = new JDateChooser();
 		expectedReceiveDate.getCalendarButton().setFont(
 				new Font("Tahoma", Font.PLAIN, 14));
+		expectedReceiveDate.getDateEditor().addPropertyChangeListener(pcl);
 
 		JLabel lblAanbetaling = new JLabel("Aanbetaling \u20AC");
 		lblAanbetaling.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		paymentBox = new JSpinField();
 		paymentBox.getSpinner().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		daysField = new JSpinField();
-		
+
 		JLabel lblAantalDagenVerhuurt = new JLabel("Aantal dagen verhuurt");
 		lblAantalDagenVerhuurt.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout gl_essentialPanel = new GroupLayout(essentialPanel);
-		gl_essentialPanel.setHorizontalGroup(
-			gl_essentialPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_essentialPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblAanbetaling)
-						.addComponent(lblVerwachteInnameDatum)
-						.addComponent(lblUitgifteDatum)
-						.addComponent(lblAantalDagenVerhuurt))
-					.addGap(30)
-					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(paymentBox, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-						.addComponent(expectedReceiveDate, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-						.addComponent(rentalDate, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-						.addComponent(daysField, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		gl_essentialPanel.setVerticalGroup(
-			gl_essentialPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_essentialPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(rentalDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblUitgifteDatum))
-					.addGap(12)
-					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblVerwachteInnameDatum)
-						.addComponent(expectedReceiveDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(daysField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblAantalDagenVerhuurt))
-					.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-					.addGroup(gl_essentialPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(paymentBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblAanbetaling))
-					.addContainerGap())
-		);
+		gl_essentialPanel
+				.setHorizontalGroup(gl_essentialPanel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								gl_essentialPanel
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												gl_essentialPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(
+																lblAanbetaling)
+														.addComponent(
+																lblVerwachteInnameDatum)
+														.addComponent(
+																lblUitgifteDatum)
+														.addComponent(
+																lblAantalDagenVerhuurt))
+										.addGap(30)
+										.addGroup(
+												gl_essentialPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(
+																paymentBox,
+																GroupLayout.DEFAULT_SIZE,
+																120,
+																Short.MAX_VALUE)
+														.addComponent(
+																expectedReceiveDate,
+																GroupLayout.DEFAULT_SIZE,
+																120,
+																Short.MAX_VALUE)
+														.addComponent(
+																rentalDate,
+																GroupLayout.DEFAULT_SIZE,
+																120,
+																Short.MAX_VALUE)
+														.addComponent(
+																daysField,
+																GroupLayout.DEFAULT_SIZE,
+																120,
+																Short.MAX_VALUE))
+										.addContainerGap()));
+		gl_essentialPanel
+				.setVerticalGroup(gl_essentialPanel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								gl_essentialPanel
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												gl_essentialPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(
+																rentalDate,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																lblUitgifteDatum))
+										.addGap(12)
+										.addGroup(
+												gl_essentialPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(
+																lblVerwachteInnameDatum)
+														.addComponent(
+																expectedReceiveDate,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.UNRELATED)
+										.addGroup(
+												gl_essentialPanel
+														.createParallelGroup(
+																Alignment.TRAILING)
+														.addComponent(
+																daysField,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																lblAantalDagenVerhuurt))
+										.addPreferredGap(
+												ComponentPlacement.RELATED, 8,
+												Short.MAX_VALUE)
+										.addGroup(
+												gl_essentialPanel
+														.createParallelGroup(
+																Alignment.TRAILING)
+														.addComponent(
+																paymentBox,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																lblAanbetaling))
+										.addContainerGap()));
 		essentialPanel.setLayout(gl_essentialPanel);
 		JPanel insurancePanel = new JPanel();
 		GroupLayout gl_insurancePanel = new GroupLayout(insurancePanel);
@@ -418,89 +594,193 @@ public class RentalView extends JFrame implements Observer{
 		addCustomerButton.addActionListener(al);
 
 		GroupLayout gl_customerInfoPanel = new GroupLayout(customerInfoPanel);
-		gl_customerInfoPanel.setHorizontalGroup(
-			gl_customerInfoPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_customerInfoPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_customerInfoPanel.createSequentialGroup()
-								.addComponent(lcLabel)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(licenseLabel))
-							.addGroup(gl_customerInfoPanel.createSequentialGroup()
-								.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(custnrlbl, Alignment.LEADING)
-									.addComponent(fnLabel, Alignment.LEADING)
-									.addComponent(lnLabel, Alignment.LEADING)
-									.addComponent(adLabel, Alignment.LEADING)
-									.addComponent(pcLabel, Alignment.LEADING)
-									.addComponent(wpLabel, Alignment.LEADING)
-									.addComponent(telLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.LEADING)
-									.addComponent(telephoneLabel)
-									.addGroup(gl_customerInfoPanel.createSequentialGroup()
-										.addGap(1)
-										.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.LEADING)
-											.addComponent(firstnameLabel)
-											.addComponent(cnumberLabel)))
-									.addComponent(adresLabel)
-									.addComponent(lastnameLabel)
-									.addComponent(zipcodeLabel)
-									.addComponent(cityLabel))
-								.addContainerGap(536, Short.MAX_VALUE)))
-						.addGroup(Alignment.TRAILING, gl_customerInfoPanel.createSequentialGroup()
-							.addComponent(addCustomerButton)
-							.addGap(120))))
-		);
-		gl_customerInfoPanel.setVerticalGroup(
-			gl_customerInfoPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_customerInfoPanel.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_customerInfoPanel.createSequentialGroup()
-							.addComponent(cnumberLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(firstnameLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lastnameLabel))
-						.addGroup(gl_customerInfoPanel.createSequentialGroup()
-							.addComponent(custnrlbl)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(fnLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lnLabel)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(adresLabel)
-						.addComponent(adLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(zipcodeLabel)
-						.addComponent(pcLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(cityLabel)
-						.addComponent(wpLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(telephoneLabel)
-						.addComponent(telLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_customerInfoPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lcLabel)
-						.addComponent(licenseLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(addCustomerButton)
-					.addGap(19))
-		);
+		gl_customerInfoPanel
+				.setHorizontalGroup(gl_customerInfoPanel
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								gl_customerInfoPanel
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												gl_customerInfoPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addGroup(
+																gl_customerInfoPanel
+																		.createParallelGroup(
+																				Alignment.LEADING)
+																		.addGroup(
+																				gl_customerInfoPanel
+																						.createSequentialGroup()
+																						.addComponent(
+																								lcLabel)
+																						.addPreferredGap(
+																								ComponentPlacement.RELATED)
+																						.addComponent(
+																								licenseLabel))
+																		.addGroup(
+																				gl_customerInfoPanel
+																						.createSequentialGroup()
+																						.addGroup(
+																								gl_customerInfoPanel
+																										.createParallelGroup(
+																												Alignment.TRAILING,
+																												false)
+																										.addComponent(
+																												custnrlbl,
+																												Alignment.LEADING)
+																										.addComponent(
+																												fnLabel,
+																												Alignment.LEADING)
+																										.addComponent(
+																												lnLabel,
+																												Alignment.LEADING)
+																										.addComponent(
+																												adLabel,
+																												Alignment.LEADING)
+																										.addComponent(
+																												pcLabel,
+																												Alignment.LEADING)
+																										.addComponent(
+																												wpLabel,
+																												Alignment.LEADING)
+																										.addComponent(
+																												telLabel,
+																												Alignment.LEADING,
+																												GroupLayout.DEFAULT_SIZE,
+																												GroupLayout.DEFAULT_SIZE,
+																												Short.MAX_VALUE))
+																						.addPreferredGap(
+																								ComponentPlacement.RELATED)
+																						.addGroup(
+																								gl_customerInfoPanel
+																										.createParallelGroup(
+																												Alignment.LEADING)
+																										.addComponent(
+																												telephoneLabel)
+																										.addGroup(
+																												gl_customerInfoPanel
+																														.createSequentialGroup()
+																														.addGap(1)
+																														.addGroup(
+																																gl_customerInfoPanel
+																																		.createParallelGroup(
+																																				Alignment.LEADING)
+																																		.addComponent(
+																																				firstnameLabel)
+																																		.addComponent(
+																																				cnumberLabel)))
+																										.addComponent(
+																												adresLabel)
+																										.addComponent(
+																												lastnameLabel)
+																										.addComponent(
+																												zipcodeLabel)
+																										.addComponent(
+																												cityLabel))
+																						.addContainerGap(
+																								536,
+																								Short.MAX_VALUE)))
+														.addGroup(
+																Alignment.TRAILING,
+																gl_customerInfoPanel
+																		.createSequentialGroup()
+																		.addComponent(
+																				addCustomerButton)
+																		.addGap(120)))));
+		gl_customerInfoPanel
+				.setVerticalGroup(gl_customerInfoPanel
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								gl_customerInfoPanel
+										.createSequentialGroup()
+										.addContainerGap(
+												GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)
+										.addGroup(
+												gl_customerInfoPanel
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addGroup(
+																gl_customerInfoPanel
+																		.createSequentialGroup()
+																		.addComponent(
+																				cnumberLabel)
+																		.addPreferredGap(
+																				ComponentPlacement.RELATED)
+																		.addComponent(
+																				firstnameLabel)
+																		.addPreferredGap(
+																				ComponentPlacement.RELATED)
+																		.addComponent(
+																				lastnameLabel))
+														.addGroup(
+																gl_customerInfoPanel
+																		.createSequentialGroup()
+																		.addComponent(
+																				custnrlbl)
+																		.addPreferredGap(
+																				ComponentPlacement.RELATED)
+																		.addComponent(
+																				fnLabel)
+																		.addPreferredGap(
+																				ComponentPlacement.RELATED)
+																		.addComponent(
+																				lnLabel)))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												gl_customerInfoPanel
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																adresLabel)
+														.addComponent(adLabel))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												gl_customerInfoPanel
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																zipcodeLabel)
+														.addComponent(pcLabel))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												gl_customerInfoPanel
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(cityLabel)
+														.addComponent(wpLabel))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												gl_customerInfoPanel
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																telephoneLabel)
+														.addComponent(telLabel))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												gl_customerInfoPanel
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(lcLabel)
+														.addComponent(
+																licenseLabel))
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addComponent(addCustomerButton)
+										.addGap(19)));
 		customerInfoPanel.setLayout(gl_customerInfoPanel);
 		customerPanel.setLayout(gl_customerPanel);
 
 		// TODO comment out for designer
 		sliderController = new ImageSliderController();
-		
+
 		GroupLayout gl_vehiclePanel = new GroupLayout(vehiclePanel);
 		gl_vehiclePanel.setHorizontalGroup(gl_vehiclePanel.createParallelGroup(
 				Alignment.TRAILING).addGroup(
@@ -526,6 +806,7 @@ public class RentalView extends JFrame implements Observer{
 
 	/**
 	 * Get the rented model
+	 * 
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
@@ -544,6 +825,7 @@ public class RentalView extends JFrame implements Observer{
 
 	/**
 	 * Set the customerinformation
+	 * 
 	 * @param customer
 	 */
 	public void setModels(Customer customer) {
@@ -559,6 +841,7 @@ public class RentalView extends JFrame implements Observer{
 
 	/**
 	 * get the financial information
+	 * 
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
@@ -576,12 +859,13 @@ public class RentalView extends JFrame implements Observer{
 		f.setLicencePlate(sliderController.showImageSlider().lisenceLabel
 				.getText());
 		f.setRentalKost(paymentBox.getValue());
+		f.setRentalID(controller.getRentalID());
 
 		return f;
 	}
 
 	@Override
 	public void update(int message) {
-		customerTable.setModel((DefaultTableModel)controller.CustomerTable().getModel());
+		customerTable.setModel(controller.CustomerTable().getModel());
 	}
 }

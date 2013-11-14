@@ -2,16 +2,18 @@ package nl.hsleiden.ipsen2.inf2b1.g2.models;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
+import java.sql.SQLException;
 
+import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
 
 /**
  * This class handles the insertion and returning of the rental agreements
+ * 
  * @author Deam
- *
+ * 
  */
-public class Rented extends Database{
-	
+public class Rented extends Database {
+
 	private int rentalId;
 	private int vehicleId;
 	private int customerId;
@@ -22,28 +24,29 @@ public class Rented extends Database{
 	private String insurance;
 	private String options;
 	private double total;
-	
+
 	private ResultSet set = null;
-	
+
 	/**
 	 * Get a rentalagreement depending on the id
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public Rented getById(int id)
-	{
+	public Rented getById(int id) {
 		Rented rented = new Rented();
 		connect();
-		
+
 		try {
 			// Make the statement
-			PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM rented WHERE rentalid = ?");
+			PreparedStatement statement = getConnection().prepareStatement(
+					"SELECT * FROM rented WHERE rentalid = ?");
 			statement.setInt(1, id);
-			
+
 			set = statement.executeQuery();
-			
+
 			set.next();
-			
+
 			rented.setVehicleId(set.getInt("vehicleid"));
 			rented.setCustomerId(set.getInt("customerid"));
 			rented.setRentalDate(set.getString("rentaldate"));
@@ -52,30 +55,55 @@ public class Rented extends Database{
 			rented.setInsurance(set.getString("insurance"));
 			rented.setOptions(set.getString("options"));
 			rented.setTotal(set.getDouble("total"));
-			
-			
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		// Close the connection
 		close();
-		
+
 		// Return the info
 		return rented;
+	}
+
+	public int getRentalIdFrom(String rentalDate, int customerID) {
+		// Make the statement
+		connect();
+		int id;
+		try {
+			PreparedStatement statement = getConnection()
+					.prepareStatement(
+							"SELECT * FROM rented WHERE customerid = ? AND rentaldate = ?");
+			statement.setInt(1, customerID);
+			statement.setString(2, rentalDate);
+
+			set = statement.executeQuery();
+			set.next();
+
+			id = set.getInt("rentalid");
+			close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			close();
+			return 0;
+		}
+		return id;
 	}
 
 	/**
 	 * Insert a rental agreement
 	 */
-	public void Insert(Rented rented){
+	public void Insert(Rented rented) {
 		try {
 			// Open the connection
 			connect();
-			
+
 			// Prepare the insert statement
-			PreparedStatement statement = getConnection().prepareStatement("INSERT INTO rented(vehicleid, customerid, rentaldate, expectedreceivedate, payment, total) VALUES(?, ?, ?, ?, ?, ?)");
-			
+			PreparedStatement statement = getConnection()
+					.prepareStatement(
+							"INSERT INTO rented(vehicleid, customerid, rentaldate, expectedreceivedate, payment, total) VALUES(?, ?, ?, ?, ?, ?)");
+
 			// Set all the customer information
 			statement.setInt(1, rented.getVehicleId());
 			statement.setInt(2, rented.getCustomerId());
@@ -83,18 +111,18 @@ public class Rented extends Database{
 			statement.setString(4, rented.getExpectedReceiveDate());
 			statement.setDouble(5, rented.getPayment());
 			statement.setDouble(6, rented.getTotal());
-			
+
 			// Execute the query
 			statement.executeUpdate();
-			
+
 			// Close the connection
 			close();
-			
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
-	
+
 	/**
 	 * @return the rentalId
 	 */
@@ -103,7 +131,8 @@ public class Rented extends Database{
 	}
 
 	/**
-	 * @param rentalId the rentalId to set
+	 * @param rentalId
+	 *            the rentalId to set
 	 */
 	public void setRentalId(int rentalId) {
 		this.rentalId = rentalId;
@@ -117,7 +146,8 @@ public class Rented extends Database{
 	}
 
 	/**
-	 * @param vehicleId the vehicleId to set
+	 * @param vehicleId
+	 *            the vehicleId to set
 	 */
 	public void setVehicleId(int vehicleId) {
 		this.vehicleId = vehicleId;
@@ -131,7 +161,8 @@ public class Rented extends Database{
 	}
 
 	/**
-	 * @param customerId the customerId to set
+	 * @param customerId
+	 *            the customerId to set
 	 */
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
@@ -145,7 +176,8 @@ public class Rented extends Database{
 	}
 
 	/**
-	 * @param rentalDate the rentalDate to set
+	 * @param rentalDate
+	 *            the rentalDate to set
 	 */
 	public void setRentalDate(String rentalDate) {
 		this.rentalDate = rentalDate;
@@ -159,7 +191,8 @@ public class Rented extends Database{
 	}
 
 	/**
-	 * @param expectedReceiveDate the expectedReceiveDate to set
+	 * @param expectedReceiveDate
+	 *            the expectedReceiveDate to set
 	 */
 	public void setExpectedReceiveDate(String expectedReceiveDate) {
 		this.expectedReceiveDate = expectedReceiveDate;
@@ -173,7 +206,8 @@ public class Rented extends Database{
 	}
 
 	/**
-	 * @param receiveDate the receiveDate to set
+	 * @param receiveDate
+	 *            the receiveDate to set
 	 */
 	public void setReceiveDate(String receiveDate) {
 		this.receiveDate = receiveDate;
@@ -187,7 +221,8 @@ public class Rented extends Database{
 	}
 
 	/**
-	 * @param payment the payment to set
+	 * @param payment
+	 *            the payment to set
 	 */
 	public void setPayment(double payment) {
 		this.payment = payment;
@@ -201,7 +236,8 @@ public class Rented extends Database{
 	}
 
 	/**
-	 * @param insurance the insurance to set
+	 * @param insurance
+	 *            the insurance to set
 	 */
 	public void setInsurance(String insurance) {
 		this.insurance = insurance;
@@ -215,7 +251,8 @@ public class Rented extends Database{
 	}
 
 	/**
-	 * @param options the options to set
+	 * @param options
+	 *            the options to set
 	 */
 	public void setOptions(String options) {
 		this.options = options;

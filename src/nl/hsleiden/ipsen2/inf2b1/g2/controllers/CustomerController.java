@@ -13,7 +13,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
-import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.AdminView;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.AddCustomer;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.CustomerOverview;
 import nl.hsleiden.ipsen2.inf2b1.g2.views.clients.CustomerView;
@@ -37,6 +36,7 @@ public class CustomerController implements ActionListener, MouseListener {
 	private JTable table;
 	private int id = 0;
 	private int cId;
+	public boolean fromAdmin;
 
 	// Constructor
 	public CustomerController() {
@@ -175,7 +175,7 @@ public class CustomerController implements ActionListener, MouseListener {
 	}
 
 	public void showCustomerOverview() {
-		//customerOverview = new CustomerOverview();
+		// customerOverview = new CustomerOverview();
 		customerOverview.setVisible(true);
 	}
 
@@ -260,15 +260,17 @@ public class CustomerController implements ActionListener, MouseListener {
 				&& e.getSource() == customerView.calculateButton) {
 			double price = 0;
 
-			if(customerView.dayFIeld.getValue() == 0){
-				JOptionPane.showMessageDialog(null,
-						"Selecteer het aantal dagen dat je het voertuig wilt verhuren.");
+			if (customerView.dayFIeld.getValue() == 0) {
+				JOptionPane
+						.showMessageDialog(null,
+								"Selecteer het aantal dagen dat je het voertuig wilt verhuren.");
 				editCustomerView.dispose();
 			}
-			
+
 			price = (customerView.totalPrice + Double
 					.parseDouble(customerView.controller.showImageSlider().priceLabel
-							.getText())) * customerView.dayFIeld.getValue();
+							.getText()))
+					* customerView.dayFIeld.getValue();
 
 			customerView.priceLabel.setText("€ " + price);
 		}
@@ -320,6 +322,7 @@ public class CustomerController implements ActionListener, MouseListener {
 
 	}
 
+	@Override
 	public void mouseReleased(MouseEvent e) {
 
 	}

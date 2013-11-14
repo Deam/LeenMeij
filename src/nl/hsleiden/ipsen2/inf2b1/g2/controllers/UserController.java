@@ -29,7 +29,8 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.admin.UserOverview;
  * 
  * @author Deam Kop
  */
-public class UserController implements ActionListener, MouseListener, Observable {
+public class UserController implements ActionListener, MouseListener,
+		Observable {
 
 	private LoginView loginView;
 	private AddUser addUser;
@@ -41,7 +42,7 @@ public class UserController implements ActionListener, MouseListener, Observable
 	public JMenuItem editUserItem, deleteUserItem;
 	private JTable table;
 	private int id = 0;
-	
+
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	public UserController() {
@@ -67,11 +68,9 @@ public class UserController implements ActionListener, MouseListener, Observable
 		editUser = new EditUser(this, uId);
 		editUser.setVisible(true);
 	}
-	
-	private void updateTable()
-	{
-		for (Observer observer : observers)
-		{
+
+	private void updateTable() {
+		for (Observer observer : observers) {
 			observer.update(0);
 		}
 	}
@@ -99,6 +98,7 @@ public class UserController implements ActionListener, MouseListener, Observable
 
 	/**
 	 * Create the Usertable and fill the table with all the information.
+	 * 
 	 * @return
 	 */
 	public JTable UserTable() {
@@ -173,8 +173,7 @@ public class UserController implements ActionListener, MouseListener, Observable
 		}
 
 		/**
-		 * Updates the user information
-		 * Show message dialog
+		 * Updates the user information Show message dialog
 		 */
 		else if (editUser != null && e.getSource() == editUser.editButton) {
 			User user = new User();
@@ -200,9 +199,8 @@ public class UserController implements ActionListener, MouseListener, Observable
 	}
 
 	/**
-	 * This method handles the logging in of the user.
-	 * Check username, role and password
-	 * Shows screens depending on information that is provided
+	 * This method handles the logging in of the user. Check username, role and
+	 * password Shows screens depending on information that is provided
 	 */
 	public void handleLogin() {
 		User u = loginView.getModel();
@@ -351,7 +349,7 @@ public class UserController implements ActionListener, MouseListener, Observable
 	@Override
 	public void registerObserver(Observer observer) {
 		observers.add(observer);
-		
+
 	}
 
 }

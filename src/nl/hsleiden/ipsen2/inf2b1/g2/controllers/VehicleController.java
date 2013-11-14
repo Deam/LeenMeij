@@ -28,9 +28,9 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.vehicle.VehicleOverview;
  * @author Deam
  */
 
-public class VehicleController implements ActionListener, MouseListener, Observable {
+public class VehicleController implements ActionListener, MouseListener,
+		Observable {
 
-	private AdminView adminView;
 	private AddVehicle addVehicleView;
 	private EditVehicle editVehicleView;
 	private VehicleOverview vehicleOverview;
@@ -41,7 +41,6 @@ public class VehicleController implements ActionListener, MouseListener, Observa
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	public VehicleController(AdminView adminview) {
-		this.adminView = adminview;
 	}
 
 	public VehicleController() {
@@ -50,6 +49,7 @@ public class VehicleController implements ActionListener, MouseListener, Observa
 
 	/**
 	 * Returns a table with all the vehicle information.
+	 * 
 	 * @return
 	 */
 	public JTable VehicleTable() {
@@ -118,6 +118,7 @@ public class VehicleController implements ActionListener, MouseListener, Observa
 
 	/**
 	 * Returns the columnnames for the vehicletable
+	 * 
 	 * @return
 	 */
 	private Vector<String> columnNames() {
@@ -138,12 +139,11 @@ public class VehicleController implements ActionListener, MouseListener, Observa
 		return columnNames;
 	}
 
-	/** 
+	/**
 	 * Updates the vehicle table data
 	 */
 	public void updateTableData() {
-		for (Observer observer : observers)
-		{
+		for (Observer observer : observers) {
 			observer.update(0);
 		}
 	}
@@ -167,8 +167,9 @@ public class VehicleController implements ActionListener, MouseListener, Observa
 	}
 
 	/**
-	 * Shows the delete option for the vehicle
-	 * Performs action depending on the selecte option
+	 * Shows the delete option for the vehicle Performs action depending on the
+	 * selecte option
+	 * 
 	 * @param cId
 	 */
 	public void showDeleteVehicle(int cId) {
@@ -201,57 +202,62 @@ public class VehicleController implements ActionListener, MouseListener, Observa
 		else if (e.getSource() == deleteVehicleItem) {
 			showDeleteVehicle(id);
 		}
-		
+
 		/**
 		 * Show succes message after vehicle insert
 		 */
-		else if (addVehicleView != null && e.getSource() == addVehicleView.addButton) {
+		else if (addVehicleView != null
+				&& e.getSource() == addVehicleView.addButton) {
 			Vehicle vehicle = addVehicleView.getModel();
-			if (vehicle.Insert(vehicle) == true)
-			{			
-			JOptionPane.showMessageDialog(null, vehicle.getVehicleBrand() + " "
-					+ vehicle.getVehicleModel() + " is succesvol aangemaakt");
-			addVehicleView.dispose();
-			updateTableData();
+			if (vehicle.Insert(vehicle) == true) {
+				JOptionPane.showMessageDialog(null, vehicle.getVehicleBrand()
+						+ " " + vehicle.getVehicleModel()
+						+ " is succesvol aangemaakt");
+				addVehicleView.dispose();
+				updateTableData();
 			}
 		}
-		
-		else if(e.getSource() == editVehicleView.availableRadio){
-			if(editVehicleView.availableRadio.isSelected())
+
+		else if (e.getSource() == editVehicleView.availableRadio) {
+			if (editVehicleView.availableRadio.isSelected()) {
 				editVehicleView.unavailableRadio.setSelected(false);
+			}
 		}
-			
+
 		else if (e.getSource() == editVehicleView.unavailableRadio) {
-			if(editVehicleView.unavailableRadio.isSelected())
+			if (editVehicleView.unavailableRadio.isSelected()) {
 				editVehicleView.availableRadio.setSelected(false);
+			}
 		}
-		
+
 		/**
 		 * Updates the vehicle
 		 */
-		else if (editVehicleView != null && e.getSource() == editVehicleView.editButton){
+		else if (editVehicleView != null
+				&& e.getSource() == editVehicleView.editButton) {
 			Vehicle vehicle = editVehicleView.getModel();
 			vehicle.Update(vehicle, vehicle.getVehicleID());
-			
+
 			// Show message dialog when it is completed
-			JOptionPane.showMessageDialog(null,
-					vehicle.getVehicleBrand() +" " + vehicle.getVehicleModel() + " " + vehicle.getVehicleID()
+			JOptionPane.showMessageDialog(null, vehicle.getVehicleBrand() + " "
+					+ vehicle.getVehicleModel() + " " + vehicle.getVehicleID()
 					+ " is met succes aangepast.");
 			editVehicleView.dispose();
 			updateTableData();
 		}
-		
+
 		/**
 		 * Inserts a vehicle
 		 */
-		else if (addVehicleView != null && e.getSource() == addVehicleView.addButton) {
+		else if (addVehicleView != null
+				&& e.getSource() == addVehicleView.addButton) {
 			Vehicle vehicle = addVehicleView.getModel();
 			vehicle.Insert(vehicle);
-			
+
 			JOptionPane.showMessageDialog(null, vehicle.getVehicleBrand() + " "
 					+ vehicle.getVehicleModel() + " is succesvol aangemaakt");
 			addVehicleView.dispose();
-		}	
+		}
 	}
 
 	/**
@@ -321,6 +327,6 @@ public class VehicleController implements ActionListener, MouseListener, Observa
 
 	@Override
 	public void registerObserver(Observer observer) {
-				observers.add(observer);
+		observers.add(observer);
 	}
 }

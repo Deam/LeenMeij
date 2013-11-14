@@ -1,7 +1,7 @@
 package nl.hsleiden.ipsen2.inf2b1.g2.models;
 
-import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -28,10 +28,10 @@ public class Customer extends Database {
 	private ResultSet set = null;
 
 	/**
-	 * Insert a customer 
+	 * Insert a customer
 	 * 
-	 * Connect to the database, and insert the customer with
-	 * the information that is provided through the model
+	 * Connect to the database, and insert the customer with the information
+	 * that is provided through the model
 	 * 
 	 * @param customer
 	 */
@@ -80,8 +80,8 @@ public class Customer extends Database {
 	}
 
 	/**
-	 * Update a customer depending on the id
-	 * Sets all the information gotten from the model
+	 * Update a customer depending on the id Sets all the information gotten
+	 * from the model
 	 * 
 	 * @param customer
 	 * @param id
@@ -148,6 +148,7 @@ public class Customer extends Database {
 
 	/**
 	 * Get a limited list of customers
+	 * 
 	 * @return
 	 */
 	public ArrayList<Customer> getLimited() {

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.ImageSliderController;
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Options;
+
 import com.toedter.components.JSpinField;
 
 @SuppressWarnings("serial")
@@ -61,29 +62,28 @@ public class CustomerView extends JFrame {
 			extrasPanel.add(box, BorderLayout.CENTER);
 			extrasPanel.revalidate();
 		}
-		
+
 		closeButton = new JButton("Sluiten");
 		closeButton.addActionListener(al);
-		
 
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.SOUTH);
-	
+
 		panel.add(extrasPanel);
-		
+
 		JPanel calculatePanel = new JPanel();
 		panel.add(calculatePanel);
-		
+
 		calculateButton = new JButton("Bereken de prijs");
 		calculateButton.addActionListener(al);
-		
+
 		lblAantalDagen = new JLabel("Aantal dagen:");
 		calculatePanel.add(lblAantalDagen);
-		
+
 		dayFIeld = new JSpinField();
 		calculatePanel.add(dayFIeld);
 		calculatePanel.add(calculateButton);
-		
+
 		priceLabel = new JLabel("");
 		calculatePanel.add(priceLabel);
 
