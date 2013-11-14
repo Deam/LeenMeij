@@ -30,6 +30,7 @@ public class RentalAgreement {
 	private String receiveDate;
 	private double payment;
 	private double total;
+	private String lisencePlate;
 
 	public void setOutputFile(String inputFile) {
 		this.inputFile = inputFile;
@@ -39,10 +40,10 @@ public class RentalAgreement {
 		File file = new File(inputFile);
 		WorkbookSettings wbSettings = new WorkbookSettings();
 
-		wbSettings.setLocale(new Locale("en", "EN"));
+		wbSettings.setLocale(new Locale("nl", "NL"));
 
 		WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
-		workbook.createSheet("Report", 0);
+		workbook.createSheet("Huurovereenkomst " + rentalId, 0);
 		WritableSheet excelSheet = workbook.getSheet(0);
 		createLabel(excelSheet);
 		createContent(excelSheet);
@@ -71,12 +72,14 @@ public class RentalAgreement {
 		cv.setFormat(times);
 		cv.setFormat(timesBoldUnderline);
 		cv.setAutosize(true);
+		sheet.setColumnView(0, 25);
+		sheet.setColumnView(2, 25);
 
 		// Write a few headers
 		addCaption(sheet, 0, 0, "Klantnummer");
 		addCaption(sheet, 2, 0, "Verhuurnummer");
 		addCaption(sheet, 0, 3, "Naam klant");
-		addCaption(sheet, 2, 3, "Voertuig");
+		addCaption(sheet, 2, 3, "Voertuig + Kenteken");
 		addCaption(sheet, 0, 5, "Ontvangst datum");
 		addCaption(sheet, 2, 5, "Retour datum");
 		addCaption(sheet, 0, 7, "Aanbetaling");
@@ -85,32 +88,14 @@ public class RentalAgreement {
 
 	private void createContent(WritableSheet sheet) throws WriteException,
 	RowsExceededException {
-		// Write a few number
 		addNumber(sheet, 0, 1, klantNummer);
 		addNumber(sheet, 2, 1, rentalId);
 		addLabel(sheet, 0, 4, klantNaam);
-		addLabel(sheet, 2, 4, naamVoertuig);
+		addLabel(sheet, 2, 4, naamVoertuig + " (" + lisencePlate + ")");
 		addLabel(sheet, 0, 6, receiveDate);
 		addLabel(sheet, 2, 6, expectedReceiveDate);
 		addNumber(sheet, 0, 8, payment);
 		addNumber(sheet, 2, 8, total);
-		/*// Lets calculate the sum of it
-		StringBuffer buf = new StringBuffer();
-		buf.append("SUM(A2:A10)");
-		Formula f = new Formula(0, 10, buf.toString());
-		sheet.addCell(f);
-		buf = new StringBuffer();
-		buf.append("SUM(B2:B10)");
-		f = new Formula(1, 10, buf.toString());
-		sheet.addCell(f);
-
-		// now a bit of text
-		for (int i = 12; i < 20; i++) {
-			// First column
-			addLabel(sheet, 0, i, "SomuchTest " + i);
-			// Second column
-			addLabel(sheet, 1, i, "M");
-		}*/
 	}
 
 	private void addCaption(WritableSheet sheet, int column, int row, String s)
@@ -171,5 +156,9 @@ public class RentalAgreement {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+	
+	public void setLisencePlate(String lisence) {
+		this.lisencePlate = lisence;
 	}
 }

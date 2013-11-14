@@ -52,11 +52,14 @@ public class RentalController implements ActionListener, MouseListener, Observab
 	
 	public boolean fromAdmin;
 	
+	private String agreementDir = System.getProperty("user.dir");
+	
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	// Initialize variables
 	public RentalController() {
 		cController = new CustomerController();
+		
 	}
 
 	// Return the rentalview
@@ -182,16 +185,18 @@ public class RentalController implements ActionListener, MouseListener, Observab
 		
 		Customer c = new Customer();
 		c = c.getById(rented.getCustomerId());
+		int rentalId = rented.getRentalIdFrom(rented.getRentalDate(), rented.getCustomerId());
 		RentalAgreement rentalAgreement = new RentalAgreement();
 		rentalAgreement.setKlantNummer(rented.getCustomerId());
 		rentalAgreement.setNaamVoertuig(vehicle.getVehicleBrand() + " " + vehicle.getVehicleModel());
+		rentalAgreement.setLisencePlate(vehicle.getLicensePlate());
 		rentalAgreement.setKlantNaam(c.getFirstName() + " " + c.getLastName());
-		rentalAgreement.setRentalId(rented.getRentalIdFrom(rented.getRentalDate(), rented.getCustomerId()));
+		rentalAgreement.setRentalId(rentalId);
 		rentalAgreement.setReceiveDate(rented.getRentalDate());
 		rentalAgreement.setExpectedReceiveDate(rented.getExpectedReceiveDate());
 		rentalAgreement.setPayment(rented.getPayment());
 		rentalAgreement.setTotal(rented.getTotal());
-		rentalAgreement.setOutputFile("C:\\Users\\michi_000\\Desktop\\test.xls");			
+		rentalAgreement.setOutputFile(agreementDir + "\\Huurovereenkomsten\\" + rentalId + ".xls");			
 		try {
 			rentalAgreement.write();
 		} catch (WriteException e1) {
@@ -199,6 +204,13 @@ public class RentalController implements ActionListener, MouseListener, Observab
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
+				"Succes", JOptionPane.QUESTION_MESSAGE);
+		try {
+			Desktop.getDesktop().open(new File(agreementDir + "\\Huurovereenkomsten\\" + rentalId + ".xls"));
+		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
@@ -223,16 +235,17 @@ public class RentalController implements ActionListener, MouseListener, Observab
 		 * Gets information from the vehicle model and financial model.
 		 */
 		else if (rentalView != null && e.getSource() == rentalView.makeRentalAgreement) {
-			
-			createRentalAgreement();
-			
-			JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
-					"Succes", JOptionPane.QUESTION_MESSAGE);
-			try {
-				Desktop.getDesktop().open(new File("C:\\Users\\michi_000\\Desktop\\test.xls"));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			try
+			{
+				createRentalAgreement();
+			}
+			catch(NullPointerException e1)
+			{
+				JOptionPane.showMessageDialog(null, "Er is iets fout gegaan bij het aanmaken van de overeenkomst. Zijn alle velden goed ingevuld?", "Fout bij aanmaken", JOptionPane.INFORMATION_MESSAGE);
+			}
+			catch(NumberFormatException e2)
+			{
+				JOptionPane.showMessageDialog(null, "Selecteer een klant.", "Waarschuwing", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
