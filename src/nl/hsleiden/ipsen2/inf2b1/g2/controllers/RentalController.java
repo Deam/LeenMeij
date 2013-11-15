@@ -206,6 +206,7 @@ public class RentalController implements ActionListener, MouseListener,
 		rentalAgreement.setZipcode(c.getZipcode());
 		rentalAgreement.setVehicleType(vehicle.getVehicleModel());
 		rentalAgreement.setColor(vehicle.getVehicleColor());
+		rentalAgreement.setOptions(rented.getOptions());
 		File f = new File(agreementDir + "\\Huurovereenkomsten\\");
 		if (!f.exists()) {
 			f.mkdir();

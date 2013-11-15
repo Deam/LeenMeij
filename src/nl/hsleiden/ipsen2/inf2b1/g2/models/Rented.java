@@ -3,6 +3,7 @@ package nl.hsleiden.ipsen2.inf2b1.g2.models;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.utils.Database;
 
@@ -22,7 +23,7 @@ public class Rented extends Database {
 	private String receiveDate;
 	private double payment;
 	private String insurance;
-	private String options;
+	private ArrayList<String> options = new ArrayList<String>();
 	private double total;
 
 	private ResultSet set = null;
@@ -53,7 +54,7 @@ public class Rented extends Database {
 			rented.setExpectedReceiveDate(set.getString("expectedreceivedate"));
 			rented.setPayment(set.getDouble("payment"));
 			rented.setInsurance(set.getString("insurance"));
-			rented.setOptions(set.getString("options"));
+			//rented.setOptions(set.getString("options"));
 			rented.setTotal(set.getDouble("total"));
 
 		} catch (Exception e) {
@@ -110,6 +111,7 @@ public class Rented extends Database {
 			statement.setString(3, rented.getRentalDate());
 			statement.setString(4, rented.getExpectedReceiveDate());
 			statement.setDouble(5, rented.getPayment());
+			//statement.setString(6, options);
 			statement.setDouble(6, rented.getTotal());
 
 			// Execute the query
@@ -246,7 +248,7 @@ public class Rented extends Database {
 	/**
 	 * @return the options
 	 */
-	public String getOptions() {
+	public ArrayList<String> getOptions() {
 		return options;
 	}
 
@@ -254,7 +256,7 @@ public class Rented extends Database {
 	 * @param options
 	 *            the options to set
 	 */
-	public void setOptions(String options) {
+	public void setOptions(ArrayList<String> options) {
 		this.options = options;
 	}
 
