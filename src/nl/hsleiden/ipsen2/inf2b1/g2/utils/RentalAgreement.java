@@ -56,26 +56,22 @@ public class RentalAgreement {
 
 	private void createLabel(WritableSheet sheet) throws WriteException,
 			IOException {
-		// Lets create a times font
+		// Een font aanmaken
 		WritableFont times10pt = new WritableFont(WritableFont.TIMES, 11);
-		// Define the cell format
+		// Text format in cell
 		times = new WritableCellFormat(times10pt);
-		// Lets automatically wrap the cells
+		// WordWrap uit in cell
 		times.setWrap(false);
 
-		// create create a bold font with unterlines
 		WritableFont times10ptBoldUnderline = new WritableFont(
 				WritableFont.TIMES, 11, WritableFont.BOLD, false,
 				UnderlineStyle.SINGLE);
 		timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-		// Lets automatically wrap the cells
 		timesBoldUnderline.setWrap(false);
 
-		// create create a bold font with unterlines
 		WritableFont timesHeader16pt = new WritableFont(WritableFont.TIMES, 16,
 				WritableFont.BOLD, false);
 		timesHeader = new WritableCellFormat(timesHeader16pt);
-		// Lets automatically wrap the cells
 		timesHeader.setWrap(false);
 
 		CellView cv = new CellView();
@@ -86,9 +82,11 @@ public class RentalAgreement {
 		sheet.setColumnView(0, 25);
 		sheet.setColumnView(2, 16);
 		sheet.setColumnView(3, 11);
-
+		
+		// Afbeelding toevoegen aan sheet
 		addImage(sheet);
-		// Write a few headers
+		
+		// Koppen toevoegen
 		addHeader(sheet, 0, 3, "Huurovereenkomst");
 		addCaption(sheet, 0, 5, "Gegevens voertuig");
 		addCaption(sheet, 2, 5, "Verhuurnummer");
