@@ -189,12 +189,14 @@ public class RentalController implements ActionListener, MouseListener,
 		c = c.getById(rented.getCustomerId());
 		rentalId = rented.getRentalIdFrom(rented.getRentalDate(),
 				rented.getCustomerId());
-		
+
+		// Een nieuw formulier aanmaken met alle gegevens
 		RentalAgreement rentalAgreement = new RentalAgreement();
-		rentalAgreement.setKlantNummer(rented.getCustomerId());
-		rentalAgreement.setNaamVoertuig(vehicle.getVehicleBrand());
+		rentalAgreement.setCustomerId(rented.getCustomerId());
+		rentalAgreement.setVehicleName(vehicle.getVehicleBrand());
 		rentalAgreement.setLisencePlate(vehicle.getLicensePlate());
-		rentalAgreement.setKlantNaam(c.getFirstName() + " " + c.getLastName());
+		rentalAgreement.setCustomerName(c.getFirstName() + " "
+				+ c.getLastName());
 		rentalAgreement.setRentalId(rentalId);
 		rentalAgreement.setReceiveDate(rented.getRentalDate());
 		rentalAgreement.setExpectedReceiveDate(rented.getExpectedReceiveDate());
@@ -207,19 +209,27 @@ public class RentalController implements ActionListener, MouseListener,
 		rentalAgreement.setVehicleType(vehicle.getVehicleModel());
 		rentalAgreement.setColor(vehicle.getVehicleColor());
 		rentalAgreement.setOptions(rented.getOptions());
+
 		File f = new File(agreementDir + "\\Huurovereenkomsten\\");
 		if (!f.exists()) {
 			f.mkdir();
 		}
+
 		rentalAgreement.setOutputFile(agreementDir + "\\Huurovereenkomsten\\"
 				+ rentalId + ".xls");
+
 		try {
 			rentalAgreement.write();
 		} catch (WriteException e1) {
-			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Er is iets fout gegaan bij het maken van het bastand.",
+					"Waarschuwing", JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Er is iets fout gegaan bij het maken van het bastand.",
+					"Waarschuwing", JOptionPane.ERROR_MESSAGE);
 		}
+
 		JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
 				"Succes", JOptionPane.QUESTION_MESSAGE);
 		Financial financial = new Financial();
@@ -230,7 +240,11 @@ public class RentalController implements ActionListener, MouseListener,
 					new File(agreementDir + "\\Huurovereenkomsten\\" + rentalId
 							+ ".xls"));
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Er is iets fout gegaan bij het openen van de huurovereenkomst.",
+							"Waarschuwing", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

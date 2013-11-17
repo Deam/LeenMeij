@@ -351,26 +351,21 @@ public class UserController implements ActionListener, MouseListener,
 	@Override
 	public void registerObserver(Observer observer) {
 		observers.add(observer);
-
 	}
 
 	@Override
 	public void keyPressed(KeyEvent ke) {
-		if (ke.getKeyCode() == KeyEvent.VK_ENTER)
-		{
+		if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
 			handleLogin();
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-
-		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		
 	}
 
 }

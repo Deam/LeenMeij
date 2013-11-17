@@ -54,7 +54,7 @@ public class Rented extends Database {
 			rented.setExpectedReceiveDate(set.getString("expectedreceivedate"));
 			rented.setPayment(set.getDouble("payment"));
 			rented.setInsurance(set.getString("insurance"));
-			//rented.setOptions(set.getString("options"));
+			// rented.setOptions(set.getString("options"));
 			rented.setTotal(set.getDouble("total"));
 
 		} catch (Exception e) {
@@ -111,7 +111,7 @@ public class Rented extends Database {
 			statement.setString(3, rented.getRentalDate());
 			statement.setString(4, rented.getExpectedReceiveDate());
 			statement.setDouble(5, rented.getPayment());
-			//statement.setString(6, options);
+			// statement.setString(6, options);
 			statement.setDouble(6, rented.getTotal());
 
 			// Execute the query

@@ -82,10 +82,10 @@ public class RentalAgreement {
 		sheet.setColumnView(0, 25);
 		sheet.setColumnView(2, 16);
 		sheet.setColumnView(3, 11);
-		
+
 		// Afbeelding toevoegen aan sheet
 		addImage(sheet);
-		
+
 		// Koppen toevoegen
 		addHeader(sheet, 0, 3, "Huurovereenkomst");
 		addCaption(sheet, 0, 5, "Gegevens voertuig");
@@ -121,8 +121,7 @@ public class RentalAgreement {
 
 		// Voertuig opties
 		int i = 12;
-		for (String option : options)
-		{
+		for (String option : options) {
 			addLabel(sheet, 0, i, option);
 			i++;
 		}
@@ -172,7 +171,7 @@ public class RentalAgreement {
 		sheet.addImage(new WritableImage(3, 0, 3, 4, baos.toByteArray()));
 	}
 
-	public void setKlantNummer(int id) {
+	public void setCustomerId(int id) {
 		this.customerId = id;
 	}
 
@@ -180,11 +179,11 @@ public class RentalAgreement {
 		this.rentalId = rentalId;
 	}
 
-	public void setKlantNaam(String name) {
+	public void setCustomerName(String name) {
 		this.customerName = name;
 	}
 
-	public void setNaamVoertuig(String name) {
+	public void setVehicleName(String name) {
 		this.vehicleName = name;
 	}
 
