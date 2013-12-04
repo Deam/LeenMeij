@@ -62,7 +62,7 @@ public class ImageSlider extends JPanel {
 	 * 
 	 * @throws SQLException
 	 */
-	@SuppressWarnings("static-access")
+
 	public ImageSlider(ActionListener actionListener) throws SQLException {
 		setLayout(new BorderLayout());
 		add(new JScrollPane(iconList), BorderLayout.LINE_START);

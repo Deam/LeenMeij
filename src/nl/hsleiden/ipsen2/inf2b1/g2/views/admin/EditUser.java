@@ -163,6 +163,7 @@ public class EditUser extends JFrame {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public User getModel() {
 		User user = new User();
 		user.setUsername(usernameField.getText());

@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 import nl.hsleiden.ipsen2.inf2b1.g2.models.Customer;
@@ -35,7 +36,6 @@ public class AdminController implements ActionListener, MouseListener,
 		Observable {
 
 	private static AdminView adminview;
-	private CustomerController cController;
 	private VehicleController vController;
 	private UserController userController;
 	private RentalController rentalController;
@@ -51,6 +51,7 @@ public class AdminController implements ActionListener, MouseListener,
 	private int id = 0;
 	private int cId;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
+	Timer timer;
 
 	/**
 	 * Declare all the things we need.
@@ -68,13 +69,14 @@ public class AdminController implements ActionListener, MouseListener,
 		adminview.rentalItem.setFont(new Font("Dialog", Font.PLAIN, 14));
 		adminview.garageItem.setFont(new Font("Dialog", Font.PLAIN, 14));
 		adminview.financialOverview.setFont(new Font("Dialog", Font.PLAIN, 14));
-		cController = new CustomerController();
 		vController = adminview.vehicleController;
 		userController = new UserController();
 		rentalController = new RentalController();
 		damageController = new DamageController();
 		financialController = new FinancialController();
 		this.editCustomerView = new EditCustomer(cId, this);
+		timer = new Timer(30000, this);
+		timer.start();
 	}
 
 	// Return the adminview
@@ -313,6 +315,7 @@ public class AdminController implements ActionListener, MouseListener,
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == adminview.closeAdmin) {
+			timer.stop();
 			adminview.dispose();
 			UserController controller = new UserController();
 			controller.showLoginView();
@@ -384,6 +387,8 @@ public class AdminController implements ActionListener, MouseListener,
 		else if (editCustomerView != null
 				&& e.getSource() == editCustomerView.editButton) {
 			editCustomer();
+			updateTableData();
+		} else if (e.getSource() == timer) {
 			updateTableData();
 		}
 	}

@@ -12,6 +12,7 @@ import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -61,6 +62,7 @@ public class RentalView extends JFrame implements Observer {
 	public JSpinField daysField;
 	public JLabel calcPrice;
 	private RentalController controller;
+	public ArrayList<String> options = new ArrayList<String>();
 
 	public RentalView(ActionListener al, RentalController controller,
 			PropertyChangeListener pcl) {
@@ -173,24 +175,23 @@ public class RentalView extends JFrame implements Observer {
 
 		priceLabel = new JLabel("Totaal bedrag \u20AC ");
 		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		for (Options options : o.getAll()) {
+		for (final Options opt : o.getAll()) {
 			final JCheckBox box = new JCheckBox();
-			box.setText(options.getName());
+			box.setText(opt.getName());
 			box.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			final double price = options.getPrice();
+			final double price = opt.getPrice();
 			box.addItemListener(new ItemListener() {
-
 				@Override
 				public void itemStateChanged(ItemEvent arg0) {
 					if (box.isSelected()) {
 						totalPrice += price;
+						options.add(opt.getName());
 					} else {
 						totalPrice -= price;
+						options.remove(opt.getName());
 					}
 				}
 			});
-
 			extrasPanel.add(box, BorderLayout.CENTER);
 			extrasPanel.revalidate();
 		}
@@ -819,6 +820,7 @@ public class RentalView extends JFrame implements Observer {
 				.toGMTString());
 		rented.setPayment(paymentBox.getValue());
 		rented.setTotal(Double.parseDouble(calcPrice.getText()));
+		rented.setOptions(options);
 
 		return rented;
 	}
