@@ -9,7 +9,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JMenuItem;
@@ -33,11 +36,13 @@ import nl.hsleiden.ipsen2.inf2b1.g2.views.desk.RentalView;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
+import sun.java2d.pipe.SpanShapeRenderer.Simple;
+
 /**
  * Handles the rental agreement
  * 
  * @author Deam
- * @additions David
+ * @additions David, Michiel
  */
 public class RentalController implements ActionListener, MouseListener,
 		Observable, PropertyChangeListener {
@@ -178,74 +183,70 @@ public class RentalController implements ActionListener, MouseListener,
 	private void createRentalAgreement() {
 		Rented rented = new Rented();
 		rented = rentalView.getModel();
-
-		rented.Insert(rented);
-
-		Vehicle vehicle = new Vehicle();
-		vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
-		vehicle = vehicle.getById(rented.getVehicleId());
-
-		Customer c = new Customer();
-		c = c.getById(rented.getCustomerId());
-		rentalId = rented.getRentalIdFrom(rented.getRentalDate(),
-				rented.getCustomerId());
-
-		// Een nieuw formulier aanmaken met alle gegevens
-		RentalAgreement rentalAgreement = new RentalAgreement();
-		rentalAgreement.setCustomerId(rented.getCustomerId());
-		rentalAgreement.setVehicleName(vehicle.getVehicleBrand());
-		rentalAgreement.setLisencePlate(vehicle.getLicensePlate());
-		rentalAgreement.setCustomerName(c.getFirstName() + " "
-				+ c.getLastName());
-		rentalAgreement.setRentalId(rentalId);
-		rentalAgreement.setReceiveDate(rented.getRentalDate());
-		rentalAgreement.setExpectedReceiveDate(rented.getExpectedReceiveDate());
-		rentalAgreement.setPayment(rented.getPayment());
-		rentalAgreement.setTotal(rented.getTotal());
-		rentalAgreement.setAdres(c.getAdress());
-		rentalAgreement.setCity(c.getCity());
-		rentalAgreement.setPhone(c.getPhoneNumber());
-		rentalAgreement.setZipcode(c.getZipcode());
-		rentalAgreement.setVehicleType(vehicle.getVehicleModel());
-		rentalAgreement.setColor(vehicle.getVehicleColor());
-		rentalAgreement.setOptions(rented.getOptions());
-
-		File f = new File(agreementDir + "\\Huurovereenkomsten\\");
-		if (!f.exists()) {
-			f.mkdir();
-		}
-
-		rentalAgreement.setOutputFile(agreementDir + "\\Huurovereenkomsten\\"
-				+ rentalId + ".xls");
-
+		
 		try {
-			rentalAgreement.write();
-		} catch (WriteException e1) {
-			JOptionPane.showMessageDialog(null,
-					"Er is iets fout gegaan bij het maken van het bastand.",
-					"Waarschuwing", JOptionPane.ERROR_MESSAGE);
-		} catch (IOException e1) {
-			JOptionPane.showMessageDialog(null,
-					"Er is iets fout gegaan bij het maken van het bastand.",
-					"Waarschuwing", JOptionPane.ERROR_MESSAGE);
+			if(!checkDates(rented)){
+				JOptionPane.showMessageDialog(null, "Het voertuig wordt al binnen deze periode verhuurt.", "Error", JOptionPane.ERROR_MESSAGE);
+			}else {
+				rented.Insert(rented);
+				JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt in de database.",
+						"Succes", JOptionPane.QUESTION_MESSAGE);
+				
+				Vehicle vehicle = new Vehicle();
+				// Not nessary anymore
+				//vehicle.setVehicleAvailable(rented.getVehicleId(), 1);
+				vehicle = vehicle.getById(rented.getVehicleId());
+
+				Customer c = new Customer();
+				c = c.getById(rented.getCustomerId());
+				rentalId = rented.getRentalIdFrom(rented.getRentalDate(), rented.getCustomerId());
+
+				// Een nieuw formulier aanmaken met alle gegevens
+				RentalAgreement rentalAgreement = new RentalAgreement();
+				rentalAgreement.setCustomerId(rented.getCustomerId());
+				rentalAgreement.setVehicleName(vehicle.getVehicleBrand());
+				rentalAgreement.setLisencePlate(vehicle.getLicensePlate());
+				rentalAgreement.setCustomerName(c.getFirstName() + " "
+						+ c.getLastName());
+				rentalAgreement.setRentalId(rentalId);
+				rentalAgreement.setReceiveDate(rented.getRentalDate());
+				rentalAgreement.setExpectedReceiveDate(rented.getExpectedReceiveDate());
+				rentalAgreement.setPayment(rented.getPayment());
+				rentalAgreement.setTotal(rented.getTotal());
+				rentalAgreement.setAdres(c.getAdress());
+				rentalAgreement.setCity(c.getCity());
+				rentalAgreement.setPhone(c.getPhoneNumber());
+				rentalAgreement.setZipcode(c.getZipcode());
+				rentalAgreement.setVehicleType(vehicle.getVehicleModel());
+				rentalAgreement.setColor(vehicle.getVehicleColor());
+				rentalAgreement.setOptions(rented.getOptions());
+
+				File f = new File(agreementDir + "\\Huurovereenkomsten\\");
+				if (!f.exists())
+					f.mkdir();
+
+				rentalAgreement.setOutputFile(agreementDir + "\\Huurovereenkomsten\\" + rentalId + ".xls");
+
+				try {
+					rentalAgreement.write();
+				} catch (WriteException | IOException e1) {
+					JOptionPane.showMessageDialog(null, "Er is iets fout gegaan bij het maken van het bastand.", "Waarschuwing", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				Financial financial = new Financial();
+				financial = rentalView.getFinancialModel();
+				financial.Insert(financial);
+				try {Desktop.getDesktop().open(new File(agreementDir + "\\Huurovereenkomsten\\" + rentalId + ".xls"));
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null,"Er is iets fout gegaan bij het openen van de huurovereenkomst.","Waarschuwing", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-		JOptionPane.showMessageDialog(null, "Overeenkomst is aangemaakt.",
-				"Succes", JOptionPane.QUESTION_MESSAGE);
-		Financial financial = new Financial();
-		financial = rentalView.getFinancialModel();
-		financial.Insert(financial);
-		try {
-			Desktop.getDesktop().open(
-					new File(agreementDir + "\\Huurovereenkomsten\\" + rentalId
-							+ ".xls"));
-		} catch (IOException e1) {
-			JOptionPane
-					.showMessageDialog(
-							null,
-							"Er is iets fout gegaan bij het openen van de huurovereenkomst.",
-							"Waarschuwing", JOptionPane.ERROR_MESSAGE);
-		}
+		
 	}
 
 	/**
@@ -323,12 +324,9 @@ public class RentalController implements ActionListener, MouseListener,
 			rentalView.calcPrice.setText("" + price);
 		}
 
-		else if (editCustomer != null
-				&& e.getSource() == editCustomer.editButton) {
+		else if (editCustomer != null && e.getSource() == editCustomer.editButton) {
 			Customer customer = editCustomer.getModel();
 			if (customer.Update(customer, customer.getCustomerNumber()) == true) {
-			}
-			{
 				editCustomer.dispose();
 				updateCustomerTableData();
 			}
@@ -399,5 +397,34 @@ public class RentalController implements ActionListener, MouseListener,
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Check the dates, and return true if the vehicle is not yet rented between the chosen periods
+	 * @param rented
+	 * @return
+	 * @throws ParseException
+	 */
+	private boolean checkDates(Rented rented) throws ParseException{		
+		boolean checkDate = false;
+		for (Rented r : rented.getAll()) {
+			SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy hh:mm:ss");
+			// The set dates to check
+			Date rentalDateToCheck = format.parse(r.getRentalDate());
+			Date receiveDateToCheck = format.parse(r.getExpectedReceiveDate());
+			
+			Date rentalDate = format.parse(rented.getRentalDate());
+			Date receiveDate = format.parse(rented.getExpectedReceiveDate());
+			
+			if ((rentalDateToCheck.compareTo(rentalDate) * rentalDate.compareTo(receiveDateToCheck) >= 0) || (rentalDateToCheck.compareTo(receiveDate) * rentalDate.compareTo(receiveDateToCheck) >= 0)){
+				checkDate = false;
+			}
+			else{
+				checkDate = true;
+			}
+			
+		}
+		
+		return checkDate;
 	}
 }

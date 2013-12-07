@@ -29,6 +29,45 @@ public class Rented extends Database {
 	private ResultSet set = null;
 
 	/**
+	 * Returns a list with all the rented information
+	 * 
+	 * @return
+	 */
+	public ArrayList<Rented> getAll() {
+		ResultSet set = null;
+		ArrayList<Rented> rentedList = new ArrayList<>();
+		try {
+			connect();
+
+			PreparedStatement statement = getConnection().prepareStatement(
+					"SELECT * FROM rented");
+
+			set = statement.executeQuery();
+
+			while (set.next()) {
+				Rented rented = new Rented();
+				
+				rented.setRentalId(set.getInt("rentalid"));
+				rented.setVehicleId(set.getInt("vehicleid"));
+				rented.setCustomerId(set.getInt("customerid"));
+				rented.setRentalDate(set.getString("rentaldate"));
+				rented.setExpectedReceiveDate(set.getString("expectedreceivedate"));
+				rented.setReceiveDate(set.getString("receivedate"));
+				rented.setPayment(set.getDouble("payment"));
+				rented.setInsurance(set.getString("insurance"));
+				rented.setTotal(set.getDouble("total"));
+
+				rentedList.add(rented);
+			}
+			close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return rentedList;
+	}
+	
+	/**
 	 * Get a rentalagreement depending on the id
 	 * 
 	 * @param id
