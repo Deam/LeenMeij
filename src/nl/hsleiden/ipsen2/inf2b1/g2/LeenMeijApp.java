@@ -24,8 +24,8 @@ public class LeenMeijApp {
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		// Begin with the loginview
-
+		
+		// Create the loginscreen
 		UserController controller = new UserController();
 		controller.showLoginView();
 	}

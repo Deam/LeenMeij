@@ -29,7 +29,11 @@ public class Database {
 		// If we could load the PostgreSQL JDBC Driver successfully we can try
 		// and store it in a connection object.
 		try {
-			String url = "jdbc:mysql://192.168.1.83/leenmeij";
+			// String for vpn connection @school
+			// String url = "jdbc:mysql://192.168.1.83/leenmeij";
+			
+			// String for databse @michiel
+			String url = "jdbc:mysql://77.172.20.28/leenmeij";
 
 			// Set the properties, set username and password.
 			Properties p = new Properties();
@@ -45,7 +49,8 @@ public class Database {
 	}
 
 	/**
-	 * Close the database connection.
+	 * Close the database connection, so we don't get too many connections to
+	 * the database
 	 */
 	public void close() {
 		try {

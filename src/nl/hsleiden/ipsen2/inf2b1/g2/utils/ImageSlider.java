@@ -56,7 +56,7 @@ public class ImageSlider extends JPanel {
 	private int vID = 0;
 
 	/**
-	 * Get the vehicleicons from the database, where the vehicles are available.
+	 * Get the vehicleimages from the database, where the vehicles are available.
 	 * I import the images through the background worker, so the application
 	 * won't freeze while loading the images.
 	 * 
@@ -83,7 +83,6 @@ public class ImageSlider extends JPanel {
 		colorLabel = new JLabel("Kleur: ");
 		milageLabel = new JLabel("Kilometerstand: ");
 		lisenceLabel = new JLabel("Kenteken: ");
-		JLabel euroLabel = new JLabel("€");
 		priceLabel = new JLabel("Prijs per dag: ");
 		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textArea = new JTextArea();
@@ -105,7 +104,6 @@ public class ImageSlider extends JPanel {
 										.addComponent(colorLabel)
 										.addComponent(milageLabel)
 										.addComponent(lisenceLabel)
-										.addComponent(euroLabel)
 										.addComponent(priceLabel)
 										.addComponent(textArea,
 												GroupLayout.DEFAULT_SIZE, 371,
@@ -129,8 +127,6 @@ public class ImageSlider extends JPanel {
 						.addComponent(milageLabel)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(lisenceLabel)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(euroLabel)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(priceLabel)
 						.addPreferredGap(ComponentPlacement.RELATED)
@@ -159,7 +155,7 @@ public class ImageSlider extends JPanel {
 		milageLabel.setText("Kilometerstand: "
 				+ Integer.toString(vehicle.getVehicleMilage()) + " kilometer");
 		lisenceLabel.setText("Kenteken: " + vehicle.getLicensePlate());
-		priceLabel.setText(Double.toString(vehicle.getPrice()));
+		priceLabel.setText(priceLabel.getText() + "€" + " " + Double.toString(vehicle.getPrice()));
 
 		optionsArea.setText(vehicle.getVehicleOptions());
 		optionsArea.setEnabled(false);
