@@ -9,7 +9,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import nl.hsleiden.ipsen2.inf2b1.g2.controllers.UserController;
 
 /**
- * Main startup class.
+ * Main startup class, here we open the loginscreen.
+ * We also set the look and feel for the application
  * 
  * @author Deam
  */
