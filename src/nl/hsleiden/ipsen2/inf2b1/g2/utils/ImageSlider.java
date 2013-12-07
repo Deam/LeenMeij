@@ -83,7 +83,7 @@ public class ImageSlider extends JPanel {
 		colorLabel = new JLabel("Kleur: ");
 		milageLabel = new JLabel("Kilometerstand: ");
 		lisenceLabel = new JLabel("Kenteken: ");
-		priceLabel = new JLabel("Prijs per dag: ");
+		priceLabel = new JLabel("€ ");
 		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textArea = new JTextArea();
 		optionsArea = new JTextArea();
@@ -145,7 +145,8 @@ public class ImageSlider extends JPanel {
 	}
 
 	/**
-	 * If the selected vehicle is changed, change the text
+	 * If the selected vehicle is changed, change the text.
+	 * We do this so the text will be up-to-date with the selected vehicle
 	 */
 	public void ChangeText() {
 		// Set the text for all the labels
@@ -155,7 +156,7 @@ public class ImageSlider extends JPanel {
 		milageLabel.setText("Kilometerstand: "
 				+ Integer.toString(vehicle.getVehicleMilage()) + " kilometer");
 		lisenceLabel.setText("Kenteken: " + vehicle.getLicensePlate());
-		priceLabel.setText(priceLabel.getText() + "€" + " " + Double.toString(vehicle.getPrice()));
+		priceLabel.setText("€" + " " + Double.toString(vehicle.getPrice()));
 
 		optionsArea.setText(vehicle.getVehicleOptions());
 		optionsArea.setEnabled(false);
