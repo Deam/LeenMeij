@@ -75,7 +75,7 @@ public class RentalView extends JFrame implements Observer {
 				.getHeight());
 
 		// Remove decoration
-		setUndecorated(true);
+		//setUndecorated(true);
 		controller.registerObserver(this);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

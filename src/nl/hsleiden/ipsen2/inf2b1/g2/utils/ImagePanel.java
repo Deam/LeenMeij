@@ -7,10 +7,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -34,17 +31,6 @@ public class ImagePanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		if (image == null) {
-			try {
-				image = ImageIO
-						.read(new URL(
-								"http://jimpunk.net/Loading/wp-content/uploads/loading1.gif"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -53,6 +39,9 @@ public class ImagePanel extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Set the size of the panel image relative to the screen resolution
+	 */
 	@Override
 	public Dimension getPreferredSize() {
 		GraphicsDevice gDevice = GraphicsEnvironment

@@ -63,7 +63,7 @@ public class ImageSlider extends JPanel {
 	 * @throws SQLException
 	 */
 
-	public ImageSlider(ActionListener actionListener) throws SQLException {
+	public ImageSlider(ActionListener actionListener) {
 		setLayout(new BorderLayout());
 		add(new JScrollPane(iconList), BorderLayout.LINE_START);
 
@@ -156,7 +156,7 @@ public class ImageSlider extends JPanel {
 		milageLabel.setText("Kilometerstand: "
 				+ Integer.toString(vehicle.getVehicleMilage()) + " kilometer");
 		lisenceLabel.setText("Kenteken: " + vehicle.getLicensePlate());
-		priceLabel.setText("€" + " " + Double.toString(vehicle.getPrice()));
+		priceLabel.setText(Double.toString(vehicle.getPrice()));
 
 		optionsArea.setText(vehicle.getVehicleOptions());
 		optionsArea.setEnabled(false);

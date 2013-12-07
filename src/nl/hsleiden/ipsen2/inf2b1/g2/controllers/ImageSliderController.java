@@ -5,12 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
@@ -31,25 +31,21 @@ public class ImageSliderController implements ActionListener,
 		ListSelectionListener {
 
 	private ImageSlider imageSlider;
+	private boolean locked = false;
+	private int tempVID;
 
-	// Delcare the fonts
+	// Declare the fonts
 	public ImageSliderController() {
-		try {
-			imageSlider = new ImageSlider(this);
-			imageSlider.optionsArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			imageSlider.textArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			imageSlider.lisenceLabel
-					.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			imageSlider.milageLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			imageSlider.colorLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			imageSlider.modelLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			imageSlider.brandLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			imageSlider.categoryBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			imageSlider.iconList.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		imageSlider = new ImageSlider(this);
+		imageSlider.optionsArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		imageSlider.textArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		imageSlider.lisenceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		imageSlider.milageLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		imageSlider.colorLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		imageSlider.modelLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		imageSlider.brandLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		imageSlider.categoryBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		imageSlider.iconList.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	}
 
 	public ImageSlider showImageSlider() {
@@ -63,12 +59,15 @@ public class ImageSliderController implements ActionListener,
 	 */
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
+		locked = false;
+		unlockVehicle(tempVID);
+		
 		imageSlider.icon = imageSlider.iconList.getSelectedValue();
 		try {
 			imageSlider.imgUrl = imageSlider.icon.getDescription();
 		} catch (Exception e2) {
 			// Maybe set the logo of the company here
-			imageSlider.imgUrl = "http://jimpunk.net/Loading/wp-content/uploads/loading1.gif";
+			e2.printStackTrace();
 		}
 
 		// Get the image url from the database
@@ -79,6 +78,10 @@ public class ImageSliderController implements ActionListener,
 				// Change the text
 				imageSlider.setvID(vh.getVehicleID());
 				imageSlider.ChangeText();
+				locked = true;
+				
+				lockVehicle(vh);
+				tempVID = vh.getVehicleID();
 			}
 
 		}
@@ -104,6 +107,25 @@ public class ImageSliderController implements ActionListener,
 			}
 		}.execute();
 	}
+	
+	/**
+	 * Lock the vehicle, so there cannot be a double reservation at the same time
+	 * @param vehicle
+	 */
+	private void lockVehicle(Vehicle vehicle){
+		if(locked && vehicle.getAvailable() == 0){
+			vehicle.setVehicleAvailable(imageSlider.getvID(), 1);
+			JOptionPane.showMessageDialog(null, "Voertuig locked", "Locked", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	private void unlockVehicle(int vId){
+		if(!locked){
+			Vehicle vehicle = new Vehicle();
+			vehicle.setVehicleAvailable(imageSlider.getvID(), 0);
+			JOptionPane.showMessageDialog(null, "Voertuig unlocked met id " + vId, "unlocked", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
 
 	/**
 	 * If another image is selected, clear the list and refill with selected
@@ -121,10 +143,7 @@ public class ImageSliderController implements ActionListener,
 		// Get the results depending on the selected item in the combobox
 		// Only return the available vehicles, 0 = available, 1 = not.
 		for (Vehicle vehicle : imageSlider.v.getAll()) {
-			if (vehicle.getAvailable() == 0
-					&& vehicle.getVehicleCategory().equals(
-							imageSlider.categoryBox.getSelectedItem()
-									.toString())) {
+			if (vehicle.getAvailable() == 0 && vehicle.getVehicleCategory().equals(imageSlider.categoryBox.getSelectedItem().toString())) {
 				imageSlider.imageList.add(vehicle.getImageURL());
 			}
 		}
